@@ -70,10 +70,19 @@ If you want to contribute please read the [Contributing](/CONTRIBUTING.md) guide
 It's very easy to get started with these 3 steps:
 - Clone this project to your local machine.
 - Open terminal and cd into the cloned folder, usually `cd zapier-integration`.
-- Run `npm install` to install dependencies.
+- Run to install dependencies.
+```shell
+npm install
+```
 - `cp .env.example .env` and put your Innovint OAuth credentials and Personal API Token for tests.
-- run `zapier test` to run local tests and see if you are ready to proceed with development.
-- run `zapier push` to push your local changes to your own Zapier account.
+- run to run local tests and see if you are ready to proceed with development.
+```shell
+zapier test
+```
+- run to push your local changes to your own Zapier account.
+```shell
+zapier push
+```
 - make sure to increase `package.json` version when delivering your improvements.
 
 You might want to check a `z` object to see it's methods. `z.console.log` stands for `console.log` for example.
