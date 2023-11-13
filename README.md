@@ -1,8 +1,8 @@
-<p align="center">
+<p style="text-align: center;">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://www.innovint.us/wp-content/uploads/2021/02/cropped-innovint-icon-150x150.png">
     <source media="(prefers-color-scheme: light)" srcset="https://www.innovint.us/wp-content/uploads/2021/02/cropped-innovint-icon-150x150.png">
-    <img width="150" height="150" width=""src="[https://www.innovint.us/wp-content/uploads/2021/02/cropped-innovint-icon-150x150.png](https://innovint.us)">
+    <img width="150" height="150" alt="" src="[https://www.innovint.us/wp-content/uploads/2021/02/cropped-innovint-icon-150x150.png](https://innovint.us)">
   </picture>
 </p>
 
@@ -13,7 +13,7 @@ Connect Innovint to hundreds of other apps with Zapier
 Zapier lets you connect Innovint to 4,000+ other web services. Automated connections called Zaps, set up in minutes with no coding, can automate your day-to-day tasks and build workflows between apps that otherwise wouldn't be possible.
 Each Zap has one app as the Trigger, where your information comes from and which causes one or more Actions in other apps, where your data gets sent automatically.
 
-<div align="center">
+<div style="text-align: center;">
 
 [**`Home`**](https://zapier.com/apps/Innovint/integrations) &nbsp;|&nbsp;
 [**`Docs`**](https://support.innovint.us/zapier) &nbsp;|&nbsp;
@@ -21,12 +21,12 @@ Each Zap has one app as the Trigger, where your information comes from and which
 
 </div>
 
-<div align="center">
+<div style="text-align: center;">
 
 <a href="https://zapier.com/apps/Innovint/integrations"><img src="https://img.shields.io/badge/dynamic/json?label=Zapier&amp;query=%24.version&amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Fdanshome%2Fzapier-integration%2Fmain%2Fpackage.json&amp;logo=zapier" alt="Zapier"></a>
-<a href="https://github.com/Innovint/zapier-integration/actions/workflows/tests.yml"><img src="https://github.com/danshome/zapier-integration/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
-<a href="https://github.com/Innovint/zapier-integration/graphs/contributors"><img src="https://img.shields.io/github/contributors/danshome/zapier-integration?cacheSeconds=10001" alt="GitHub contributors"></a>
-<a href="https://github.com/Innovint/zapier-integration/blob/master/LICENSE"><img src="https://img.shields.io/github/license/Innovint/zapier-integration?cacheSeconds=3600" alt="License"></a>
+<a href="https://github.com/danshome/zapier-integration/actions/workflows/tests.yml"><img src="https://github.com/danshome/zapier-integration/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
+<a href="https://github.com/danshome/zapier-integration/graphs/contributors"><img src="https://img.shields.io/github/contributors/danshome/zapier-integration?cacheSeconds=10001" alt="GitHub contributors"></a>
+<a href="https://github.com/danshome/zapier-integration/blob/master/LICENSE"><img src="https://img.shields.io/github/license/Innovint/zapier-integration?cacheSeconds=3600" alt="License"></a>
 
 </div>
 
