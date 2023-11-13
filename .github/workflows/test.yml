@@ -25,8 +25,6 @@ jobs:
         run: |
           touch .env
           echo TEST_TOKEN=${{ secrets.TEST_TOKEN }} >> .env
-          echo TEST_PROJECT_ID=${{ secrets.TEST_PROJECT_ID }} >> .env
-          echo TEST_DOMAIN=${{ secrets.TEST_DOMAIN }} >> .env
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
