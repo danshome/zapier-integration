@@ -6,6 +6,14 @@
   </picture>
 </p>
 
+## Legal Disclaimer
+
+This integration for Innovint Inc.'s API is independent and not affiliated with Innovint Inc. Provided "as is" and at your own risk. **Caution: Use of internal APIs, even with Innovint Inc.'s approval, could cause irreversible data damage.** [Read the full disclaimer here](./DISCLAIMERS.md).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 # Innovint Zapier Integration
 
 Connect Innovint to hundreds of other apps with Zapier
@@ -41,7 +49,7 @@ This integration contains the following triggers, actions, and searches:
   - List Appellations
   - List Dry Good Types
   - List Varietals
-  - List Wineries
+  - [x] List Wineries
   - List Winery Actions
   - List Blocks (Wineries)
   - List Bonds (Wineries)
