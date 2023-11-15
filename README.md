@@ -37,7 +37,7 @@ Actions in other apps, where your data gets sent automatically.
 <div style="text-align: center;">
 
 <a href="https://zapier.com/apps/Innovint/integrations"><img src="https://img.shields.io/badge/dynamic/json?label=Zapier&amp;query=%24.version&amp;url=https%3A%2F%2Fraw.githubusercontent.com%2Fdanshome%2Fzapier-integration%2Fmain%2Fpackage.json&amp;logo=zapier" alt="Zapier"></a>
-<a href="https://github.com/danshome/zapier-integration/actions/workflows/tests.yml"><img src="https://github.com/danshome/zapier-integration/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
+<a href="https://github.com/danshome/zapier-integration/actions/workflows/tests.yml"><img src="https://github.com/danshome/zapier-integration/actions/workflows/test.yml/badge.svg" alt="Tests"></a>
 <a href="https://github.com/danshome/zapier-integration/graphs/contributors"><img src="https://img.shields.io/github/contributors/danshome/zapier-integration?cacheSeconds=10001" alt="GitHub contributors"></a>
 <a href="https://github.com/danshome/zapier-integration/blob/master/LICENSE"><img src="https://img.shields.io/github/license/danshome/zapier-integration?cacheSeconds=3600" alt="License"></a>
 
