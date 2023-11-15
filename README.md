@@ -19,8 +19,9 @@ Actions in other apps, where your data gets sent automatically.
 <div style="text-align: center;">
 
 [**`Home`**](https://zapier.com/apps/Innovint/integrations) &nbsp;|&nbsp;
-[**`Docs`**](https://support.innovint.us/zapier) &nbsp;|&nbsp;
-[**`Innovint Support`**](https://support.innovint.us/)
+[**`Innovint API Docs`**](https://sutter.innovint.us/api/v1/docs/) &nbsp;|&nbsp;
+[**`Innovint API Schema`**](https://sutter.innovint.us/api/v1/schema/) &nbsp;|&nbsp;
+[**`Innovint Support`**](https://support.innovint.us/) &nbsp;|&nbsp;
 
 </div>
 
@@ -98,7 +99,7 @@ This integration contains the following triggers, actions, and searches:
 
 ### Getting Started with Zapier
 
-Sign up for a free [Zapier](https://zapier.com/apps/Innovint/integrations) account, from there you
+Sign up for a free [Zapier](https://zapier.com/) account, from there you
 can jump right in. To help you hit the ground running, here are some popular pre-made Zaps.
 
 ### How do I connect Innovint to Zapier?
@@ -119,8 +120,8 @@ If you find any problems or would like to suggest a feature, please read
 the [How can I contribute](/CONTRIBUTING.md#how-can-i-contribute) section in our contributing
 guidelines.
 
-Need help working with Innovint Zapier Integration or have any
-questions? [Contact](https://Innovint.com/contacts) Customer Success Service.
+Need to report an Issues Innovint Zapier Integration or have any
+questions? Open an [Issue](https://github.com/danshome/zapier-integration/issues)
 
 ## Contributing
 
