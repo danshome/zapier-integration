@@ -3,7 +3,8 @@ require('dotenv').config(); // Loads variables from .env file
 // The test call Zapier makes to ensure an access token is valid
 // UX TIP: Hit an endpoint that always returns data with valid credentials,
 // like a /profile or /me endpoint. That way the success/failure is related to
-// the token and not because the user didn't happen to have a recently created record.
+// the token and not because the user didn't happen to have a recently created
+// record.
 const testAuth = (z, bundle) => {
   const testUrl = 'https://sutter.innovint.us/api/v1/wineries';
 
@@ -14,10 +15,12 @@ const testAuth = (z, bundle) => {
     url: testUrl,
     method: 'GET',
     headers: {
-      'Authorization': `Access-Token ${accessToken}`
-    }
-  }).then(response => {
-    if (response.status !== 200 || response.content.includes('some_error_indicator')) {
+      'Authorization': `Access-Token ${accessToken}`,
+    },
+  }).then((response) => {
+    if (
+      response.status !== 200 ||
+        response.content.includes('some_error_indicator')) {
       throw new Error('The provided Access Token is invalid.');
     }
     return response;
@@ -45,7 +48,7 @@ module.exports = {
       label: 'Access Token',
       required: true,
       type: 'string',
-      helpText: 'Your personal access token for the API.'
+      helpText: 'Your personal access token for the API.',
     },
   ],
   test: testAuth,

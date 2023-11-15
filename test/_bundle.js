@@ -1,8 +1,8 @@
 const bundle = {
   authData: {
-    accessToken: process.env.TEST_TOKEN || "",
+    accessToken: process.env.TEST_TOKEN || '',
   },
   inputData: {},
 };
 
-module.exports = { bundle };
+module.exports = {bundle};

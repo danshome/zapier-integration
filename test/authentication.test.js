@@ -1,6 +1,6 @@
 const should = require('should');
 const authentication = require('../authentication');
-const { bundle } = require('./_bundle');
+const {bundle} = require('./_bundle');
 const zapier = require('zapier-platform-core');
 
 zapier.tools.env.inject();
