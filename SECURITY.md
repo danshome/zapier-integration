@@ -16,7 +16,7 @@ If you've found a security issue, please write to `dan@danshome.net` and mention
 
 1. this repo
 2. reproduction steps
-43 severity/impact of the vulnerability
+3. severity/impact of the vulnerability
 
 Once you've done that, someone will reach out to you.
 
