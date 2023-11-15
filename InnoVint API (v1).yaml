@@ -90,7 +90,7 @@ paths:
       tags:
       - Analysis Types
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -149,7 +149,7 @@ paths:
       tags:
       - Appellations
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -208,7 +208,7 @@ paths:
       tags:
       - Dry Good Types
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -258,7 +258,7 @@ paths:
       tags:
       - Personal Access Tokens
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       responses:
         '200':
           content:
@@ -290,7 +290,7 @@ paths:
               $ref: '#/components/schemas/CreatePersonalAccessTokenRequest'
         required: true
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       responses:
         '201':
           content:
@@ -324,7 +324,7 @@ paths:
       tags:
       - Personal Access Tokens
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       responses:
         '200':
           content:
@@ -357,7 +357,7 @@ paths:
       tags:
       - Personal Access Tokens
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       responses:
         '204':
           description: No response body
@@ -420,7 +420,7 @@ paths:
       tags:
       - Varietals
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -455,7 +455,7 @@ paths:
       tags:
       - Varietals
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -496,7 +496,7 @@ paths:
       tags:
       - Wineries
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       responses:
         '200':
           content:
@@ -530,7 +530,7 @@ paths:
       tags:
       - Wineries
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       responses:
         '200':
           content:
@@ -711,7 +711,7 @@ paths:
       tags:
       - General Action Data
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -758,7 +758,7 @@ paths:
       tags:
       - Analysis Actions
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -798,7 +798,7 @@ paths:
               $ref: '#/components/schemas/AnalysisActionRequest'
         required: true
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '201':
@@ -839,7 +839,7 @@ paths:
       tags:
       - Analysis Actions
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -987,7 +987,7 @@ paths:
       tags:
       - Process Fruit to Volume Actions
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -1027,7 +1027,7 @@ paths:
               $ref: '#/components/schemas/ProcessFruitToVolumeActionRequest'
         required: true
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '201':
@@ -1068,7 +1068,7 @@ paths:
       tags:
       - Process Fruit to Volume Actions
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -1216,14 +1216,14 @@ paths:
       tags:
       - Receive Fruit Actions
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedReceiveFruitActionReponseList'
+                $ref: '#/components/schemas/PaginatedReceiveFruitActionResponseList'
           description: 200 - Success
         '400':
           content:
@@ -1256,14 +1256,14 @@ paths:
               $ref: '#/components/schemas/ReceiveFruitActionRequest'
         required: true
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '201':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReceiveFruitActionReponse'
+                $ref: '#/components/schemas/ReceiveFruitActionResponse'
           description: 201 - Success
         '400':
           content:
@@ -1297,14 +1297,14 @@ paths:
       tags:
       - Receive Fruit Actions
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReceiveFruitActionReponse'
+                $ref: '#/components/schemas/ReceiveFruitActionResponse'
           description: 200 - Success
         '400':
           content:
@@ -1445,7 +1445,7 @@ paths:
       tags:
       - Addition Actions
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -1485,7 +1485,7 @@ paths:
               $ref: '#/components/schemas/AdditionActionRequest'
         required: true
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '201':
@@ -1526,7 +1526,7 @@ paths:
       tags:
       - Addition Actions
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -1580,7 +1580,7 @@ paths:
       tags:
       - Lot Additive Batches
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -1634,7 +1634,7 @@ paths:
       tags:
       - Additive Indicators
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -1710,7 +1710,7 @@ paths:
       tags:
       - Blocks
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -1758,7 +1758,7 @@ paths:
       tags:
       - Blocks
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -1805,7 +1805,7 @@ paths:
       tags:
       - Bonds
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -1880,7 +1880,7 @@ paths:
       tags:
       - Lots
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -1920,7 +1920,7 @@ paths:
               $ref: '#/components/schemas/CreateLotRequest'
         required: true
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '201':
@@ -1961,7 +1961,7 @@ paths:
       tags:
       - Lots
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -2007,7 +2007,7 @@ paths:
               $ref: '#/components/schemas/PatchedUpdateLotRequest'
         required: true
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -2047,7 +2047,7 @@ paths:
       tags:
       - Lots
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '204':
@@ -2104,7 +2104,7 @@ paths:
       tags:
       - Lot Additives
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -2157,7 +2157,7 @@ paths:
       tags:
       - Lot Block Components
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -2200,7 +2200,7 @@ paths:
       tags:
       - Lot Components Summary
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -2352,7 +2352,7 @@ paths:
       tags:
       - Transfer Actions
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -2392,7 +2392,7 @@ paths:
               $ref: '#/components/schemas/TransferActionRequest'
         required: true
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '201':
@@ -2433,7 +2433,7 @@ paths:
       tags:
       - Transfer Actions
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -2509,7 +2509,7 @@ paths:
       tags:
       - Vendors
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -2549,7 +2549,7 @@ paths:
               $ref: '#/components/schemas/VendorRequest'
         required: true
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '201':
@@ -2590,7 +2590,7 @@ paths:
       tags:
       - Vendors
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -2636,7 +2636,7 @@ paths:
               $ref: '#/components/schemas/VendorUpdateRequest'
         required: true
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -2682,7 +2682,7 @@ paths:
               $ref: '#/components/schemas/PatchedVendorUpdateRequest'
         required: true
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -2722,7 +2722,7 @@ paths:
       tags:
       - Vendors
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '204':
@@ -2802,7 +2802,7 @@ paths:
       tags:
       - Vessels
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -2849,7 +2849,7 @@ paths:
       tags:
       - Vineyards
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -2890,7 +2890,7 @@ paths:
       tags:
       - Vineyards
       security:
-      - Personal Access Token: []
+      - PersonalAccessToken: []
       - {}
       responses:
         '200':
@@ -5067,7 +5067,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProcessFruitToVolumeActionResponse'
-    PaginatedReceiveFruitActionReponseList:
+    PaginatedReceiveFruitActionResponseList:
       type: object
       properties:
         pagination:
@@ -5087,7 +5087,7 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/ReceiveFruitActionReponse'
+            $ref: '#/components/schemas/ReceiveFruitActionResponse'
     PaginatedTransferActionResponseList:
       type: object
       properties:
@@ -5548,14 +5548,14 @@ components:
             $ref: '#/components/schemas/SimpleAnalysisRequestObject'
       required:
       - lot
-    ReceiveFruitActionReponse:
+    ReceiveFruitActionResponse:
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/ReceiveFruitActionReponseData'
+          $ref: '#/components/schemas/ReceiveFruitActionResponseData'
       required:
       - data
-    ReceiveFruitActionReponseData:
+    ReceiveFruitActionResponseData:
       type: object
       properties:
         internalId:
@@ -6197,7 +6197,7 @@ components:
       - internalId
       - name
   securitySchemes:
-    Personal Access Token:
+    PersonalAccessToken:
       type: apiKey
       in: header
       name: Authorization
