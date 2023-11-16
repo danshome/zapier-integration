@@ -42,6 +42,10 @@ Actions in other apps, where your data gets sent automatically.
 
 This integration contains the following triggers, actions, and searches:
 
+:warning: **VERY IMPORTANT** :warning: - All Triggers flagged with **INTERNAL API** are disabled by default. Read [DESCLAIMER](https://github.com/danshome/zapier-integration/DISCLAIMER.md) for important information before using any of the triggers, actions, and searches flagged as **INTERNAL API**. 
+
+**:warning: IRREPERABLE CORRUPTION OF YOUR INNOVINT DATA IS POSSIBLE IF YOU USE INTERNAL APIs. :warning:**
+
 - **Triggers for Dropdown Fields**
 
   - [ ] List Analysis Types
@@ -84,6 +88,7 @@ This integration contains the following triggers, actions, and searches:
   - [ ] Create Vendor (Wineries)
   - [ ] Update Vendor (Wineries)
   - [ ] Partially Update Vendor (Wineries)
+  - [ ] Remove Case Goods Taxpaid (Wineries) :warning: **INTERNAL API** :warning:
 
 - **Searches**
   
