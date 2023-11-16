@@ -42,7 +42,7 @@ Actions in other apps, where your data gets sent automatically.
 
 This integration contains the following triggers, actions, and searches:
 
-:warning: **VERY IMPORTANT** :warning: - All Triggers flagged with **INTERNAL API** are disabled by default. Read [DESCLAIMER](https://github.com/danshome/zapier-integration/DISCLAIMER.md) for important information before using any of the triggers, actions, and searches flagged as **INTERNAL API**. 
+:warning: **VERY IMPORTANT** :warning: - All Triggers flagged with **INTERNAL API** are disabled by default. Read [DESCLAIMERS](https://github.com/danshome/zapier-integration/DISCLAIMERS.md) for important information before using any of the triggers, actions, and searches flagged as **INTERNAL API**. 
 
 **:warning: IRREPERABLE CORRUPTION OF YOUR INNOVINT DATA IS POSSIBLE IF YOU USE INTERNAL APIs. :warning:**
 
