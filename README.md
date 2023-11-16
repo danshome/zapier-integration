@@ -48,9 +48,9 @@ This integration contains the following triggers, actions, and searches:
 
 - **Triggers for Dropdown Fields**
 
-  - [ ] List Analysis Types
+  - [x] List Analysis Types
   - [x] List Appellations
-  - [ ] List Dry Good Types
+  - [x] List Dry Good Types
   - [x] List Varietals
   - [x] List Wineries
   - [ ] List Winery Actions
