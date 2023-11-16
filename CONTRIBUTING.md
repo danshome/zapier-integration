@@ -80,14 +80,14 @@ Before sending your pull requests, make sure you followed the list below:
 - Ensure that there are unit tests for your code.
 - Run unit tests.
 
-##### Running tests
+#### Running tests
 
 Integrators will first need an InnoVint user account to access the APIs. To have an account created,
 reach out to the support team at support@innovint.us .
 
 Once the account is created, integrators should request winery administrators to grant the user
 account access to the necessary wineries. All wineries have a unique ID that should be used in API
-calls. Some accounts may have multiple wineries, so integrators will need access to all of the
+calls. Some accounts may have multiple wineries, so integrators will need access to all the
 wineries. Once access is granted, the IDs of all accessible wineries can be retrieved using the List
 Wineries API.
 To run tests you need an account in [Innovint](https://sutter.innovint.us/api/v1/docs/)
@@ -96,7 +96,7 @@ To run tests you need an account in [Innovint](https://sutter.innovint.us/api/v1
 2. Create a new Innovint project or just use an existing one
 3. Setup environment variables:
 
-   ```console
+   ```shell
    cp .env.example .env
    ```
 
@@ -104,11 +104,118 @@ To run tests you need an account in [Innovint](https://sutter.innovint.us/api/v1
 
 4. Run tests:
 
-   ```console
+   ```shell
    npm run test
    ```
 
-#### Philosophy of code contribution
+### NPM Scripts Documentation
+
+This document provides details about the npm scripts available in this project and their intended usage.
+
+#### Script Descriptions
+
+- **`preversion`**:
+  - **Description**: Runs before a new version is created. Pulls the latest changes from the repository and runs validation checks.
+  - **Usage**:
+
+```shell
+npm run preversion
+```
+
+- **`postversion`**:
+  - **Description**: Runs after a new version is created. Pushes the changes and tags to the repository.
+  - **Usage**:
+
+```shell
+npm run postversion`
+```
+
+- **`test`**:
+  - **Description**: Runs unit tests using Mocha for all files in the `test/unit` directory.
+  - **Usage**:
+
+```shell
+npm test
+```
+
+- **`test:integration`**:
+  - **Description**: Runs integration tests using Mocha for all files in the `test/integration` directory.
+  - **Usage**:
+
+```shell
+npm run test:integration
+```
+
+- **`test:all`**:
+  - **Description**: Runs both unit and integration tests.
+  - **Usage**:
+
+```shell
+npm run test:all
+```
+
+- **`deploy`**:
+  - **Description**: Validates the project and deploys it using Zapier CLI.
+  - **Usage**:
+
+```shell
+npm run deploy
+```
+
+- **`precommit`**:
+  - **Description**: Runs linting on staged files. Typically used as a pre-commit hook.
+  - **Usage**:
+
+```shell
+npm run precommit
+```
+
+- **`validate`**:
+  - **Description**: Runs tests, lints the code, and validates the Zapier integration.
+  - **Usage**:
+
+```shell
+npm run validate
+```
+
+- **`lint`**:
+  - **Description**: Lints the codebase using ESLint.
+  - **Usage**:
+
+```shell
+npm run lint
+```
+
+- **`lint:fix`**:
+  - **Description**: Automatically fixes linting errors in the codebase.
+  - **Usage**:
+
+```shell
+npm run lint:fix
+```
+
+- **`env`**:
+
+  - **Description**: Sets an environment variable for the Zapier integration.
+  - **Usage**: `npm run env --var=VARIABLE_NAME --val=VALUE`
+  - **Example**: `npm run env --var=API_KEY --val=12345`
+
+- **`prepare`**:
+  - **Description**: Sets up Husky, which is used for managing Git hooks.
+  - **Usage**:
+
+```shell
+npm run prepare
+```
+
+### Notes for Developers
+
+- **Validation**: Ensure to run `npm run validate` before committing to check for any issues.
+- **Linting**: Use `npm run lint:fix` to automatically fix common code style issues.
+- **Testing**: When adding new features or fixing bugs, write tests in the appropriate `test/unit` or `test/integration` directories and ensure they pass by running `npm run test:all`.
+- **Deployment**: Before deploying a new version, it's a good practice to run `npm run deploy` to make sure everything is in order.
+
+### Philosophy of code contribution
 
 - Include unit tests when you contribute new features, as they help to a) prove that your code works
   correctly, and b) guard against future breaking changes to lower the maintenance cost.
