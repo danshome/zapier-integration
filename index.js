@@ -9,7 +9,17 @@ const {
 // Searches
 
 // Fields
-const listWineriesDropdown = require('./fields/list_wineries_dropdown');
+const listWineriesDropdown =
+    require('./fields/list_wineries_dropdown');
+const listAppellationsDropdown =
+    require('./fields/list_appellations_dropdown');
+const listVarietalsDropdown =
+    require('./fields/list_varietals_dropdown');
+const listAnalysisTypesDropdown =
+    require('./fields/list_analysistypes_dropdown');
+const listDryGoodsDropdown =
+    require('./fields/list_drygoodtypes_dropdown');
+
 
 // Triggers
 
@@ -35,6 +45,10 @@ const App = {
   // If you want your trigger to show up, you better include it here!
   triggers: {
     [listWineriesDropdown.key]: listWineriesDropdown,
+    [listAppellationsDropdown.key]: listAppellationsDropdown,
+    [listVarietalsDropdown.key]: listVarietalsDropdown,
+    [listAnalysisTypesDropdown.key]: listAnalysisTypesDropdown,
+    [listDryGoodsDropdown.key]: listDryGoodsDropdown,
   },
 
   // If you want your searches to show up, you better include it here!

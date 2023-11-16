@@ -9,7 +9,9 @@
   "scripts": {
     "preversion": "git pull && npm run validate",
     "postversion": "git push && git push --tags",
-    "test": "mocha --recursive -t 10000 -r dotenv/config",
+    "test": "mocha --recursive -t 10000 -r dotenv/config 'test/unit/**/*.js'",
+    "test:integration": "mocha --recursive -t 20000 -r dotenv/config 'test/integration/**/*.js'",
+    "test:all": "npm test && npm run test:integration",
     "deploy": "npm run validate && zapier push",
     "precommit": "lint-staged",
     "validate": "npm run test && npm run lint && zapier validate",
