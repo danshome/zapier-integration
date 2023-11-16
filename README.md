@@ -44,60 +44,62 @@ This integration contains the following triggers, actions, and searches:
 
 - **Triggers for Dropdown Fields**
 
-  - List Analysis Types
-  - List Appellations
-  - List Dry Good Types
-  - List Varietals
+  - [ ] List Analysis Types
+  - [x] List Appellations
+  - [ ] List Dry Good Types
+  - [x] List Varietals
   - [x] List Wineries
-  - List Winery Actions
-  - List Blocks (Wineries)
-  - List Bonds (Wineries)
-  - List Vendors (Wineries)
-  - List Vessels (Wineries)
-  - List Vineyards (Wineries)
+  - [ ] List Winery Actions
+  - [ ] List Blocks (Wineries)
+  - [ ] List Blocks (Wineries)
+  - [ ] List Bonds (Wineries)
+  - [ ] List Vendors (Wineries)
+  - [ ] List Vessels (Wineries)
+  - [ ] List Vineyards (Wineries)
 
 - **Other Triggers**
 
-  - List Personal Access Tokens
-  - List Analysis Actions (Wineries)
-  - List Process Fruit To Volume Actions (Wineries)
-  - List Receive Fruit Actions (Wineries)
-  - List Addition Actions (Wineries)
-  - List Additive Snapshots (Wineries)
-  - List Additive Indicators (Wineries)
-  - List Lots (Wineries)
-  - List Lot Additive Snapshot (Wineries)
-  - List Lot Block Components (Wineries)
-  - List Transfer Actions (Wineries)
+  - [ ] List Personal Access Tokens
+  - [ ] List Analysis Actions (Wineries)
+  - [ ] List Process Fruit To Volume Actions (Wineries)
+  - [ ] List Receive Fruit Actions (Wineries)
+  - [ ] List Addition Actions (Wineries)
+  - [ ] List Additive Snapshots (Wineries)
+  - [ ] List Additive Indicators (Wineries)
+  - [ ] List Lots (Wineries)
+  - [ ] List Lot Additive Snapshot (Wineries)
+  - [ ] List Lot Block Components (Wineries)
+  - [ ] List Transfer Actions (Wineries)
 
 - **Actions**
 
-  - Create Personal Access Token
-  - Create Analysis Action (Wineries)
-  - Create Process Fruit To Volume Action (Wineries)
-  - Create Receive Fruit Action (Wineries)
-  - Create Addition Action (Wineries)
-  - Create Lot (Wineries)
-  - Partially Update Lot (Wineries)
-  - Create Transfer Action (Wineries)
-  - Create Vendor (Wineries)
-  - Update Vendor (Wineries)
-  - Partially Update Vendor (Wineries)
+  - [ ] Create Personal Access Token
+  - [ ] Create Analysis Action (Wineries)
+  - [ ] Create Process Fruit To Volume Action (Wineries)
+  - [ ] Create Receive Fruit Action (Wineries)
+  - [ ] Create Addition Action (Wineries)
+  - [ ] Create Lot (Wineries)
+  - [ ] Partially Update Lot (Wineries)
+  - [ ] Create Transfer Action (Wineries)
+  - [ ] Create Vendor (Wineries)
+  - [ ] Update Vendor (Wineries)
+  - [ ] Partially Update Vendor (Wineries)
 
 - **Searches**
-  - Get Personal Access Token by ID
-  - Get Varietal by ID
-  - Get Winery by ID
-  - Get Analysis Action by ID (Wineries)
-  - Get Process Fruit To Volume Action by ID (Wineries)
-  - Get Receive Fruit Action by ID (Wineries)
-  - Get Addition Action by ID (Wineries)
-  - Get Block by ID (Wineries)
-  - Get Lot by ID (Wineries)
-  - Get Components Summary (Wineries)
-  - Get Transfer Action by ID (Wineries)
-  - Get Vendor by ID (Wineries)
-  - Get Vineyard by ID (Wineries)
+  
+  - [ ] Get Personal Access Token by ID
+  - [ ] Get Varietal by ID
+  - [ ] Get Winery by ID
+  - [ ] Get Analysis Action by ID (Wineries)
+  - [ ] Get Process Fruit To Volume Action by ID (Wineries)
+  - [ ] Get Receive Fruit Action by ID (Wineries)
+  - [ ] Get Addition Action by ID (Wineries)
+  - [ ] Get Block by ID (Wineries)
+  - [ ] Get Lot by ID (Wineries)
+  - [ ] Get Components Summary (Wineries)
+  - [ ] Get Transfer Action by ID (Wineries)
+  - [ ] Get Vendor by ID (Wineries)
+  - [ ] Get Vineyard by ID (Wineries)
 
 ### Getting Started with Zapier
 
