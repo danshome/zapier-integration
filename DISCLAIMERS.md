@@ -11,7 +11,7 @@ provided on an "as-is" and "as available" basis, and is intended for open-source
 **Caution:** This Integration may utilize internal APIs of Innovint Inc. in addition to public APIs.
 
 1. **Approval and Risk:** Even with explicit approval from Innovint Inc., the use of internal APIs
-   can lead to irreversible damage to your data.
+   can lead to irreparable damage to your data. 
 2. **Mandatory Notification:** It is advised to inform Innovint Support before using any API
    integration, particularly those involving internal APIs. However, notification does not mitigate
    the risk of data damage.
