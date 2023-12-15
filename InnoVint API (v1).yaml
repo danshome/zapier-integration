@@ -69,29 +69,29 @@ paths:
       operationId: v1AnalysisTypesList
       summary: List
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - name: q
-        required: false
-        in: query
-        description: A search term.
-        schema:
-          type: string
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - name: q
+          required: false
+          in: query
+          description: A search term.
+          schema:
+            type: string
       tags:
-      - Analysis Types
+        - Analysis Types
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -116,41 +116,41 @@ paths:
       operationId: v1AppellationsList
       summary: List
       parameters:
-      - in: query
-        name: idIn
-        schema:
-          type: array
-          items:
-            type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - in: query
-        name: nameIn
-        schema:
-          type: array
-          items:
-            type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - in: query
+          name: idIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - in: query
+          name: nameIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - Appellations
+        - Appellations
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -175,41 +175,41 @@ paths:
       operationId: v1DryGoodTypesList
       summary: List
       parameters:
-      - in: query
-        name: idIn
-        schema:
-          type: array
-          items:
-            type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - in: query
-        name: nameIn
-        schema:
-          type: array
-          items:
-            type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - in: query
+          name: idIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - in: query
+          name: nameIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - Dry Good Types
+        - Dry Good Types
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -234,31 +234,31 @@ paths:
       operationId: v1PersonalAccessTokensList
       summary: List
       parameters:
-      - in: query
-        name: id
-        schema:
-          type: array
-          items:
-            type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - in: query
+          name: id
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - Personal Access Tokens
+        - Personal Access Tokens
       security:
-      - PersonalAccessToken: []
+        - Personal Access Token: [ ]
       responses:
         '200':
           content:
@@ -282,7 +282,7 @@ paths:
       operationId: v1PersonalAccessTokensCreate
       summary: Create
       tags:
-      - Personal Access Tokens
+        - Personal Access Tokens
       requestBody:
         content:
           application/json:
@@ -290,7 +290,7 @@ paths:
               $ref: '#/components/schemas/CreatePersonalAccessTokenRequest'
         required: true
       security:
-      - PersonalAccessToken: []
+        - Personal Access Token: [ ]
       responses:
         '201':
           content:
@@ -315,16 +315,16 @@ paths:
       operationId: v1PersonalAccessTokensRetrieve
       summary: Get by ID
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Personal Access Tokens
+        - Personal Access Tokens
       security:
-      - PersonalAccessToken: []
+        - Personal Access Token: [ ]
       responses:
         '200':
           content:
@@ -348,16 +348,16 @@ paths:
       operationId: v1PersonalAccessTokensDestroy
       summary: Delete
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Personal Access Tokens
+        - Personal Access Tokens
       security:
-      - PersonalAccessToken: []
+        - Personal Access Token: [ ]
       responses:
         '204':
           description: No response body
@@ -378,50 +378,50 @@ paths:
       operationId: v1VarietalsList
       summary: List
       parameters:
-      - in: query
-        name: colorIn
-        schema:
-          type: array
-          items:
-            type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: idIn
-        schema:
-          type: array
-          items:
-            type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - in: query
-        name: nameIn
-        schema:
-          type: array
-          items:
-            type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - in: query
+          name: colorIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: idIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - in: query
+          name: nameIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - Varietals
+        - Varietals
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -446,17 +446,17 @@ paths:
       operationId: v1VarietalsRetrieve
       summary: Get by ID
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Varietals
+        - Varietals
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -481,22 +481,22 @@ paths:
       operationId: v1WineriesList
       summary: List
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - Wineries
+        - Wineries
       security:
-      - PersonalAccessToken: []
+        - Personal Access Token: [ ]
       responses:
         '200':
           content:
@@ -521,16 +521,16 @@ paths:
       operationId: v1WineriesRetrieve
       summary: Get by ID
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Wineries
+        - Wineries
       security:
-      - PersonalAccessToken: []
+        - Personal Access Token: [ ]
       responses:
         '200':
           content:
@@ -555,164 +555,164 @@ paths:
       operationId: v1WineriesActionsList
       summary: List
       parameters:
-      - in: query
-        name: actionType
-        schema:
-          type: array
-          items:
+        - in: query
+          name: actionType
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - ADDITION
+                - ANALYSIS
+                - BARREL_DOWN
+                - BATCH_ADJUSTMENT
+                - BLEED
+                - BLEND
+                - BOTTLE
+                - BOTTLING_EN_TIRAGE
+                - COST_ITEM
+                - CREATE_LOT
+                - CREATE_VESSELS
+                - CUSTOM
+                - DISGORGE_DOSAGE_PACKAGE
+                - DISTILLATION
+                - DRAIN_AND_PRESS
+                - FILTER
+                - FRUIT_WEIGHT_CHANGE
+                - LOT_TAX_CLASS_CHANGE
+                - MAKEUP_CHANGE
+                - PROCESS_FRUIT_TO_VOLUME
+                - PROCESS_FRUIT_TO_WEIGHT
+                - PULL_SAMPLE
+                - RACK
+                - RACK_AND_RETURN
+                - RECEIVE_DRY_GOOD
+                - RECEIVE_FRUIT
+                - TOPPING
+                - TOP_OFF
+                - TRANSFER
+                - TRANSFER_INTER_FACILITY
+                - UPDATE_LOT
+                - VOLUME_CHANGE
+                - WATER_ADD
+                - WEIGHT_CHANGE
+                - WEIGHT_TRANSFER
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: createdAtAfter
+          schema:
             type: string
-            enum:
-            - ADDITION
-            - ANALYSIS
-            - BARREL_DOWN
-            - BATCH_ADJUSTMENT
-            - BLEED
-            - BLEND
-            - BOTTLE
-            - BOTTLING_EN_TIRAGE
-            - COST_ITEM
-            - CREATE_LOT
-            - CREATE_VESSELS
-            - CUSTOM
-            - DISGORGE_DOSAGE_PACKAGE
-            - DISTILLATION
-            - DRAIN_AND_PRESS
-            - FILTER
-            - FRUIT_WEIGHT_CHANGE
-            - LOT_TAX_CLASS_CHANGE
-            - MAKEUP_CHANGE
-            - PROCESS_FRUIT_TO_VOLUME
-            - PROCESS_FRUIT_TO_WEIGHT
-            - PULL_SAMPLE
-            - RACK
-            - RACK_AND_RETURN
-            - RECEIVE_DRY_GOOD
-            - RECEIVE_FRUIT
-            - TOPPING
-            - TOP_OFF
-            - TRANSFER
-            - TRANSFER_INTER_FACILITY
-            - UPDATE_LOT
-            - VOLUME_CHANGE
-            - WATER_ADD
-            - WEIGHT_CHANGE
-            - WEIGHT_TRANSFER
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: createdAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: createdAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: deletedAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: deletedAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: effectiveAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: effectiveAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: id
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: createdAtBefore
+          schema:
             type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: query
-        name: referenceNumber
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: deletedAtAfter
+          schema:
             type: string
-            format: uuid
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: sort
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: deletedAtBefore
+          schema:
             type: string
-            enum:
-            - -createdAt
-            - -deletedAt
-            - -effectiveAt
-            - -updatedAt
-            - createdAt
-            - deletedAt
-            - effectiveAt
-            - updatedAt
-        description: Ordering
-        explode: false
-        style: form
-      - in: query
-        name: state
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: effectiveAtAfter
+          schema:
             type: string
-            enum:
-            - ACTIVE
-            - DELETED
-            - EDITED
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: updatedAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: updatedAtBefore
-        schema:
-          type: string
-          format: date
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+            format: date
+        - in: query
+          name: effectiveAtBefore
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: id
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: query
+          name: referenceNumber
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: sort
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - -createdAt
+                - -deletedAt
+                - -effectiveAt
+                - -updatedAt
+                - createdAt
+                - deletedAt
+                - effectiveAt
+                - updatedAt
+          description: Ordering
+          explode: false
+          style: form
+        - in: query
+          name: state
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - ACTIVE
+                - DELETED
+                - EDITED
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: updatedAtAfter
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: updatedAtBefore
+          schema:
+            type: string
+            format: date
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - General Action Data
+        - General Action Data
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -737,29 +737,130 @@ paths:
       operationId: v1WineriesActionsAnalysisActionsList
       summary: List
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: query
+          name: actionType
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - ANALYSIS
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: createdAtAfter
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: createdAtBefore
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: deletedAtAfter
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: deletedAtBefore
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: effectiveAtAfter
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: effectiveAtBefore
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: id
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: query
+          name: referenceNumber
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: sort
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - -createdAt
+                - -deletedAt
+                - -effectiveAt
+                - -updatedAt
+                - createdAt
+                - deletedAt
+                - effectiveAt
+                - updatedAt
+          description: Ordering
+          explode: false
+          style: form
+        - in: query
+          name: state
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - ACTIVE
+                - DELETED
+                - EDITED
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: updatedAtAfter
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: updatedAtBefore
+          schema:
+            type: string
+            format: date
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Analysis Actions
+        - Analysis Actions
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -783,14 +884,14 @@ paths:
       operationId: v1WineriesActionsAnalysisActionsCreate
       summary: Create
       parameters:
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Analysis Actions
+        - Analysis Actions
       requestBody:
         content:
           application/json:
@@ -798,8 +899,8 @@ paths:
               $ref: '#/components/schemas/AnalysisActionRequest'
         required: true
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '201':
           content:
@@ -824,23 +925,23 @@ paths:
       operationId: v1WineriesActionsAnalysisActionsRetrieve
       summary: Get by ID
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Analysis Actions
+        - Analysis Actions
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -860,135 +961,263 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: 500 - Error
+  /api/v1/wineries/{wineryId}/actions/caseGoodsAdjustmentActions:
+    get:
+      operationId: v1WineriesActionsCaseGoodsAdjustmentActionsList
+      summary: List
+      parameters:
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+      tags:
+        - Case Goods Adjustment Actions
+      security:
+        - Personal Access Token: [ ]
+        - { }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCaseGoodsAdjustmentActionResponseList'
+          description: 200 - Success
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: 400 - Error
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: 500 - Error
+    post:
+      operationId: v1WineriesActionsCaseGoodsAdjustmentActionsCreate
+      summary: Create
+      parameters:
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+      tags:
+        - Case Goods Adjustment Actions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseGoodsAdjustmentActionRequest'
+        required: true
+      security:
+        - Personal Access Token: [ ]
+        - { }
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseGoodsAdjustmentActionResponse'
+          description: 201 - Success
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: 400 - Error
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: 500 - Error
+  /api/v1/wineries/{wineryId}/actions/caseGoodsAdjustmentActions/{id}:
+    get:
+      operationId: v1WineriesActionsCaseGoodsAdjustmentActionsRetrieve
+      summary: Get by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+      tags:
+        - Case Goods Adjustment Actions
+      security:
+        - Personal Access Token: [ ]
+        - { }
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseGoodsAdjustmentActionResponse'
+          description: 200 - Success
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: 400 - Error
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: 500 - Error
   /api/v1/wineries/{wineryId}/actions/processFruitToVolumeActions:
     get:
       operationId: v1WineriesActionsProcessFruitToVolumeActionsList
       summary: List
       parameters:
-      - in: query
-        name: actionType
-        schema:
-          type: array
-          items:
+        - in: query
+          name: actionType
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - PROCESS_FRUIT_TO_VOLUME
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: createdAtAfter
+          schema:
             type: string
-            enum:
-            - PROCESS_FRUIT_TO_VOLUME
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: createdAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: createdAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: deletedAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: deletedAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: effectiveAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: effectiveAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: id
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: createdAtBefore
+          schema:
             type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: query
-        name: referenceNumber
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: deletedAtAfter
+          schema:
             type: string
-            format: uuid
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: sort
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: deletedAtBefore
+          schema:
             type: string
-            enum:
-            - -createdAt
-            - -deletedAt
-            - -effectiveAt
-            - -updatedAt
-            - createdAt
-            - deletedAt
-            - effectiveAt
-            - updatedAt
-        description: Ordering
-        explode: false
-        style: form
-      - in: query
-        name: state
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: effectiveAtAfter
+          schema:
             type: string
-            enum:
-            - ACTIVE
-            - DELETED
-            - EDITED
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: updatedAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: updatedAtBefore
-        schema:
-          type: string
-          format: date
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+            format: date
+        - in: query
+          name: effectiveAtBefore
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: id
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: query
+          name: referenceNumber
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: sort
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - -createdAt
+                - -deletedAt
+                - -effectiveAt
+                - -updatedAt
+                - createdAt
+                - deletedAt
+                - effectiveAt
+                - updatedAt
+          description: Ordering
+          explode: false
+          style: form
+        - in: query
+          name: state
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - ACTIVE
+                - DELETED
+                - EDITED
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: updatedAtAfter
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: updatedAtBefore
+          schema:
+            type: string
+            format: date
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Process Fruit to Volume Actions
+        - Process Fruit to Volume Actions
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -1012,14 +1241,14 @@ paths:
       operationId: v1WineriesActionsProcessFruitToVolumeActionsCreate
       summary: Create
       parameters:
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Process Fruit to Volume Actions
+        - Process Fruit to Volume Actions
       requestBody:
         content:
           application/json:
@@ -1027,8 +1256,8 @@ paths:
               $ref: '#/components/schemas/ProcessFruitToVolumeActionRequest'
         required: true
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '201':
           content:
@@ -1053,23 +1282,23 @@ paths:
       operationId: v1WineriesActionsProcessFruitToVolumeActionsRetrieve
       summary: Get by ID
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Process Fruit to Volume Actions
+        - Process Fruit to Volume Actions
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -1094,136 +1323,136 @@ paths:
       operationId: v1WineriesActionsReceiveFruitActionsList
       summary: List
       parameters:
-      - in: query
-        name: actionType
-        schema:
-          type: array
-          items:
+        - in: query
+          name: actionType
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - RECEIVE_FRUIT
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: createdAtAfter
+          schema:
             type: string
-            enum:
-            - RECEIVE_FRUIT
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: createdAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: createdAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: deletedAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: deletedAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: effectiveAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: effectiveAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: id
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: createdAtBefore
+          schema:
             type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: query
-        name: referenceNumber
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: deletedAtAfter
+          schema:
             type: string
-            format: uuid
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: sort
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: deletedAtBefore
+          schema:
             type: string
-            enum:
-            - -createdAt
-            - -deletedAt
-            - -effectiveAt
-            - -updatedAt
-            - createdAt
-            - deletedAt
-            - effectiveAt
-            - updatedAt
-        description: Ordering
-        explode: false
-        style: form
-      - in: query
-        name: state
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: effectiveAtAfter
+          schema:
             type: string
-            enum:
-            - ACTIVE
-            - DELETED
-            - EDITED
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: updatedAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: updatedAtBefore
-        schema:
-          type: string
-          format: date
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+            format: date
+        - in: query
+          name: effectiveAtBefore
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: id
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: query
+          name: referenceNumber
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: sort
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - -createdAt
+                - -deletedAt
+                - -effectiveAt
+                - -updatedAt
+                - createdAt
+                - deletedAt
+                - effectiveAt
+                - updatedAt
+          description: Ordering
+          explode: false
+          style: form
+        - in: query
+          name: state
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - ACTIVE
+                - DELETED
+                - EDITED
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: updatedAtAfter
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: updatedAtBefore
+          schema:
+            type: string
+            format: date
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Receive Fruit Actions
+        - Receive Fruit Actions
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedReceiveFruitActionResponseList'
+                $ref: '#/components/schemas/PaginatedReceiveFruitActionReponseList'
           description: 200 - Success
         '400':
           content:
@@ -1241,14 +1470,14 @@ paths:
       operationId: v1WineriesActionsReceiveFruitActionsCreate
       summary: Create
       parameters:
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Receive Fruit Actions
+        - Receive Fruit Actions
       requestBody:
         content:
           application/json:
@@ -1256,14 +1485,14 @@ paths:
               $ref: '#/components/schemas/ReceiveFruitActionRequest'
         required: true
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '201':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReceiveFruitActionResponse'
+                $ref: '#/components/schemas/ReceiveFruitActionReponse'
           description: 201 - Success
         '400':
           content:
@@ -1282,29 +1511,29 @@ paths:
       operationId: v1WineriesActionsReceiveFruitActionsRetrieve
       summary: Get by ID
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Receive Fruit Actions
+        - Receive Fruit Actions
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReceiveFruitActionResponse'
+                $ref: '#/components/schemas/ReceiveFruitActionReponse'
           description: 200 - Success
         '400':
           content:
@@ -1323,130 +1552,130 @@ paths:
       operationId: v1WineriesAdditionActionsList
       summary: List
       parameters:
-      - in: query
-        name: actionType
-        schema:
-          type: array
-          items:
+        - in: query
+          name: actionType
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - ADDITION
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: createdAtAfter
+          schema:
             type: string
-            enum:
-            - ADDITION
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: createdAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: createdAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: deletedAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: deletedAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: effectiveAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: effectiveAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: id
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: createdAtBefore
+          schema:
             type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: query
-        name: referenceNumber
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: deletedAtAfter
+          schema:
             type: string
-            format: uuid
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: sort
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: deletedAtBefore
+          schema:
             type: string
-            enum:
-            - -createdAt
-            - -deletedAt
-            - -effectiveAt
-            - -updatedAt
-            - createdAt
-            - deletedAt
-            - effectiveAt
-            - updatedAt
-        description: Ordering
-        explode: false
-        style: form
-      - in: query
-        name: state
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: effectiveAtAfter
+          schema:
             type: string
-            enum:
-            - ACTIVE
-            - DELETED
-            - EDITED
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: updatedAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: updatedAtBefore
-        schema:
-          type: string
-          format: date
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+            format: date
+        - in: query
+          name: effectiveAtBefore
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: id
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: query
+          name: referenceNumber
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: sort
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - -createdAt
+                - -deletedAt
+                - -effectiveAt
+                - -updatedAt
+                - createdAt
+                - deletedAt
+                - effectiveAt
+                - updatedAt
+          description: Ordering
+          explode: false
+          style: form
+        - in: query
+          name: state
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - ACTIVE
+                - DELETED
+                - EDITED
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: updatedAtAfter
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: updatedAtBefore
+          schema:
+            type: string
+            format: date
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Addition Actions
+        - Addition Actions
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -1470,14 +1699,14 @@ paths:
       operationId: v1WineriesAdditionActionsCreate
       summary: Create
       parameters:
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Addition Actions
+        - Addition Actions
       requestBody:
         content:
           application/json:
@@ -1485,8 +1714,8 @@ paths:
               $ref: '#/components/schemas/AdditionActionRequest'
         required: true
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '201':
           content:
@@ -1511,23 +1740,23 @@ paths:
       operationId: v1WineriesAdditionActionsRetrieve
       summary: Get by ID
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Addition Actions
+        - Addition Actions
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -1553,35 +1782,35 @@ paths:
       description: Get a list of specific batches included in a lot's additives.
       summary: List
       parameters:
-      - in: path
-        name: additionCacheDataId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: additionCacheDataId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Lot Additive Batches
+        - Lot Additive Batches
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -1601,41 +1830,82 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: 500 - Error
+  /api/v1/wineries/{wineryId}/additives:
+    post:
+      operationId: v1WineriesAdditivesCreate
+      description: A viewset for viewing and editing additive instances.
+      summary: Create
+      parameters:
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+      tags:
+        - Additives
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdditiveRequest'
+        required: true
+      security:
+        - Personal Access Token: [ ]
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdditiveRequest'
+          description: 201 - Success
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: 400 - Error
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: 500 - Error
   /api/v1/wineries/{wineryId}/additives/{additiveId}/indicators:
     get:
       operationId: v1WineriesAdditivesIndicatorsList
       description: List of indicators related to Additive
       summary: List
       parameters:
-      - in: path
-        name: additiveId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: additiveId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Additive Indicators
+        - Additive Indicators
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -1667,51 +1937,51 @@ paths:
         2. The queries are only disabled in debug mode. This ensures that we don't start throwing errors in production
       summary: List
       parameters:
-      - in: query
-        name: archived
-        schema:
-          type: boolean
-      - in: query
-        name: idIn
-        schema:
-          type: array
-          items:
+        - in: query
+          name: archived
+          schema:
+            type: boolean
+        - in: query
+          name: idIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: query
+          name: vineyardIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: path
+          name: wineryId
+          schema:
             type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: query
-        name: vineyardIn
-        schema:
-          type: array
-          items:
-            type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Blocks
+        - Blocks
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -1743,23 +2013,23 @@ paths:
         2. The queries are only disabled in debug mode. This ensures that we don't start throwing errors in production
       summary: Get by ID
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Blocks
+        - Blocks
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -1784,29 +2054,29 @@ paths:
       operationId: v1WineriesBondsList
       summary: List
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Bonds
+        - Bonds
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -1831,57 +2101,57 @@ paths:
       operationId: v1WineriesLotsList
       summary: List
       parameters:
-      - in: query
-        name: archived
-        schema:
-          type: boolean
-      - in: query
-        name: codeIn
-        schema:
-          type: array
-          items:
+        - in: query
+          name: archived
+          schema:
+            type: boolean
+        - in: query
+          name: codeIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: idIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - name: q
+          required: false
+          in: query
+          description: A search term.
+          schema:
             type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: idIn
-        schema:
-          type: array
-          items:
+        - in: path
+          name: wineryId
+          schema:
             type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - name: q
-        required: false
-        in: query
-        description: A search term.
-        schema:
-          type: string
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Lots
+        - Lots
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -1905,14 +2175,14 @@ paths:
       operationId: v1WineriesLotsCreate
       summary: Create
       parameters:
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Lots
+        - Lots
       requestBody:
         content:
           application/json:
@@ -1920,8 +2190,8 @@ paths:
               $ref: '#/components/schemas/CreateLotRequest'
         required: true
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '201':
           content:
@@ -1946,23 +2216,23 @@ paths:
       operationId: v1WineriesLotsRetrieve
       summary: Get by ID
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Lots
+        - Lots
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -1986,20 +2256,20 @@ paths:
       operationId: v1WineriesLotsPartialUpdate
       summary: Partially Update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Lots
+        - Lots
       requestBody:
         content:
           application/json:
@@ -2007,8 +2277,8 @@ paths:
               $ref: '#/components/schemas/PatchedUpdateLotRequest'
         required: true
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -2032,23 +2302,23 @@ paths:
       operationId: v1WineriesLotsDestroy
       summary: Delete
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Lots
+        - Lots
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '204':
           description: No response body
@@ -2071,41 +2341,41 @@ paths:
         specific point in time (snapshot).
       summary: List
       parameters:
-      - in: query
-        name: effectiveAt
-        schema:
-          type: string
-          format: date-time
-        required: true
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - in: path
-        name: lotId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: query
+          name: effectiveAt
+          schema:
+            type: string
+            format: date-time
+          required: true
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - in: path
+          name: lotId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Lot Additives
+        - Lot Additives
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -2130,35 +2400,35 @@ paths:
       operationId: v1WineriesLotsBlockComponentsList
       summary: List
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - in: path
-        name: lotId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - in: path
+          name: lotId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Lot Block Components
+        - Lot Block Components
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -2185,23 +2455,23 @@ paths:
         of varietals, appellations, and vintages.
       summary: Get
       parameters:
-      - in: path
-        name: lotId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: lotId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Lot Components Summary
+        - Lot Components Summary
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -2226,134 +2496,134 @@ paths:
       operationId: v1WineriesTransferActionsList
       summary: List
       parameters:
-      - in: query
-        name: actionType
-        schema:
-          type: array
-          items:
+        - in: query
+          name: actionType
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - BARREL_DOWN
+                - FILTER
+                - RACK
+                - TOP_OFF
+                - TRANSFER
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: createdAtAfter
+          schema:
             type: string
-            enum:
-            - BARREL_DOWN
-            - FILTER
-            - RACK
-            - TOP_OFF
-            - TRANSFER
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: createdAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: createdAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: deletedAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: deletedAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: effectiveAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: effectiveAtBefore
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: id
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: createdAtBefore
+          schema:
             type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: query
-        name: referenceNumber
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: deletedAtAfter
+          schema:
             type: string
-            format: uuid
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: sort
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: deletedAtBefore
+          schema:
             type: string
-            enum:
-            - -createdAt
-            - -deletedAt
-            - -effectiveAt
-            - -updatedAt
-            - createdAt
-            - deletedAt
-            - effectiveAt
-            - updatedAt
-        description: Ordering
-        explode: false
-        style: form
-      - in: query
-        name: state
-        schema:
-          type: array
-          items:
+            format: date
+        - in: query
+          name: effectiveAtAfter
+          schema:
             type: string
-            enum:
-            - ACTIVE
-            - DELETED
-            - EDITED
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: updatedAtAfter
-        schema:
-          type: string
-          format: date
-      - in: query
-        name: updatedAtBefore
-        schema:
-          type: string
-          format: date
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+            format: date
+        - in: query
+          name: effectiveAtBefore
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: id
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: query
+          name: referenceNumber
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: sort
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - -createdAt
+                - -deletedAt
+                - -effectiveAt
+                - -updatedAt
+                - createdAt
+                - deletedAt
+                - effectiveAt
+                - updatedAt
+          description: Ordering
+          explode: false
+          style: form
+        - in: query
+          name: state
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - ACTIVE
+                - DELETED
+                - EDITED
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: updatedAtAfter
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: updatedAtBefore
+          schema:
+            type: string
+            format: date
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Transfer Actions
+        - Transfer Actions
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -2377,14 +2647,14 @@ paths:
       operationId: v1WineriesTransferActionsCreate
       summary: Create
       parameters:
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Transfer Actions
+        - Transfer Actions
       requestBody:
         content:
           application/json:
@@ -2392,8 +2662,8 @@ paths:
               $ref: '#/components/schemas/TransferActionRequest'
         required: true
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '201':
           content:
@@ -2418,23 +2688,23 @@ paths:
       operationId: v1WineriesTransferActionsRetrieve
       summary: Get by ID
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Transfer Actions
+        - Transfer Actions
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -2459,58 +2729,58 @@ paths:
       operationId: v1WineriesVendorsList
       summary: List
       parameters:
-      - in: query
-        name: idIn
-        schema:
-          type: array
-          items:
+        - in: query
+          name: idIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - in: query
+          name: name
+          schema:
             type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - in: query
-        name: name
-        schema:
-          type: string
-      - in: query
-        name: nameContains
-        schema:
-          type: string
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: query
-        name: sort
-        schema:
-          type: array
-          items:
+        - in: query
+          name: nameContains
+          schema:
             type: string
-            enum:
-            - -name
-            - name
-        description: Ordering
-        explode: false
-        style: form
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: query
+          name: sort
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - -name
+                - name
+          description: Ordering
+          explode: false
+          style: form
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Vendors
+        - Vendors
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -2534,14 +2804,14 @@ paths:
       operationId: v1WineriesVendorsCreate
       summary: Create
       parameters:
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Vendors
+        - Vendors
       requestBody:
         content:
           application/json:
@@ -2549,8 +2819,8 @@ paths:
               $ref: '#/components/schemas/VendorRequest'
         required: true
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '201':
           content:
@@ -2575,23 +2845,23 @@ paths:
       operationId: v1WineriesVendorsRetrieve
       summary: Get by ID
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Vendors
+        - Vendors
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -2615,20 +2885,20 @@ paths:
       operationId: v1WineriesVendorsUpdate
       summary: Update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Vendors
+        - Vendors
       requestBody:
         content:
           application/json:
@@ -2636,8 +2906,8 @@ paths:
               $ref: '#/components/schemas/VendorUpdateRequest'
         required: true
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -2661,20 +2931,20 @@ paths:
       operationId: v1WineriesVendorsPartialUpdate
       summary: Partially Update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Vendors
+        - Vendors
       requestBody:
         content:
           application/json:
@@ -2682,8 +2952,8 @@ paths:
               $ref: '#/components/schemas/PatchedVendorUpdateRequest'
         required: true
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -2707,23 +2977,23 @@ paths:
       operationId: v1WineriesVendorsDestroy
       summary: Delete
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Vendors
+        - Vendors
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '204':
           description: No response body
@@ -2744,66 +3014,66 @@ paths:
       operationId: v1WineriesVesselsList
       summary: List
       parameters:
-      - in: query
-        name: archived
-        schema:
-          type: boolean
-      - in: query
-        name: codeIn
-        schema:
-          type: array
-          items:
+        - in: query
+          name: archived
+          schema:
+            type: boolean
+        - in: query
+          name: codeIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - in: query
+          name: idIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - in: query
+          name: lotIn
+          schema:
+            type: array
+            items:
+              type: string
+          description: Multiple values may be separated by commas.
+          explode: false
+          style: form
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - name: q
+          required: false
+          in: query
+          description: A search term.
+          schema:
             type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - in: query
-        name: idIn
-        schema:
-          type: array
-          items:
+        - in: path
+          name: wineryId
+          schema:
             type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - in: query
-        name: lotIn
-        schema:
-          type: array
-          items:
-            type: string
-        description: Multiple values may be separated by commas.
-        explode: false
-        style: form
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - name: q
-        required: false
-        in: query
-        description: A search term.
-        schema:
-          type: string
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Vessels
+        - Vessels
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -2828,29 +3098,29 @@ paths:
       operationId: v1WineriesVineyardsList
       summary: List
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Vineyards
+        - Vineyards
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -2875,23 +3145,23 @@ paths:
       operationId: v1WineriesVineyardsRetrieve
       summary: Get by ID
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
-      - in: path
-        name: wineryId
-        schema:
-          type: string
-          pattern: ^[a-z]+_[0-9A-Z]{24}$
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
+        - in: path
+          name: wineryId
+          schema:
+            type: string
+            pattern: ^[a-z]+_[0-9A-Z]{24}$
+          required: true
       tags:
-      - Vineyards
+        - Vineyards
       security:
-      - PersonalAccessToken: []
-      - {}
+        - Personal Access Token: [ ]
+        - { }
       responses:
         '200':
           content:
@@ -2925,8 +3195,8 @@ components:
           description: This field will be replaced with a list of OwnerTag.publicId
             field values in future versions of the API.
       required:
-      - globalAccess
-      - ownerTags
+        - globalAccess
+        - ownerTags
     AccessObject:
       type: object
       properties:
@@ -2937,8 +3207,8 @@ components:
           items:
             $ref: '#/components/schemas/OwnerTagObject'
       required:
-      - globalAccess
-      - ownerTags
+        - globalAccess
+        - ownerTags
     ActionAdditionRequestObject:
       type: object
       properties:
@@ -2952,10 +3222,10 @@ components:
           type: number
           format: double
       required:
-      - additiveId
-      - amount
-      - lotId
-      - vesselId
+        - additiveId
+        - amount
+        - lotId
+        - vesselId
     ActionAdditionResponseObject:
       type: object
       properties:
@@ -2969,10 +3239,10 @@ components:
           type: number
           format: double
       required:
-      - additiveId
-      - amount
-      - lotId
-      - vesselId
+        - additiveId
+        - amount
+        - lotId
+        - vesselId
     ActionAdditiveRequestObject:
       type: object
       properties:
@@ -2992,11 +3262,11 @@ components:
           items:
             $ref: '#/components/schemas/BatchRequestObject'
       required:
-      - additionRateUnit
-      - additionRateValue
-      - additiveId
-      - batches
-      - instructions
+        - additionRateUnit
+        - additionRateValue
+        - additiveId
+        - batches
+        - instructions
     ActionAdditiveResponseObject:
       type: object
       properties:
@@ -3016,10 +3286,10 @@ components:
           items:
             $ref: '#/components/schemas/BatchResponseObject'
       required:
-      - additionRateUnit
-      - additionRateValue
-      - additiveId
-      - batches
+        - additionRateUnit
+        - additionRateValue
+        - additiveId
+        - batches
     ActionAnalysisObject:
       type: object
       properties:
@@ -3030,7 +3300,7 @@ components:
           $ref: '#/components/schemas/AnalysisTypeObject'
         component:
           allOf:
-          - $ref: '#/components/schemas/ComponentObject'
+            - $ref: '#/components/schemas/ComponentObject'
           nullable: true
           description: Null for all lot analyses.
         deleted:
@@ -3057,13 +3327,13 @@ components:
           description: A specific vessel on which the analysis was recorded. May be
             null for lot composite analyses. Null for all component analyses.
       required:
-      - analysisType
-      - component
-      - id
-      - lotId
-      - skipped
-      - unit
-      - vesselId
+        - analysisType
+        - component
+        - id
+        - lotId
+        - skipped
+        - unit
+        - vesselId
     ActionAnalysisRequestObject:
       type: object
       description: |-
@@ -3088,19 +3358,19 @@ components:
             must also include the lot.
         component:
           allOf:
-          - $ref: '#/components/schemas/ComponentRequestObject'
+            - $ref: '#/components/schemas/ComponentRequestObject'
           description: Required for component analyses.
       required:
-      - analysisType
-      - unit
-      - value
+        - analysisType
+        - unit
+        - value
     ActionChangeRequestObject:
       type: object
       properties:
         changeContext:
           enum:
-          - ABSOLUTE
-          - RELATIVE
+            - ABSOLUTE
+            - RELATIVE
           type: string
           description: ABSOLUTE changes are those where the user explicitly set the
             ending amount in the vessel, while RELATIVE changes are those where the
@@ -3110,22 +3380,22 @@ components:
           type: string
         endingAmount:
           allOf:
-          - $ref: '#/components/schemas/FloatUnit'
+            - $ref: '#/components/schemas/FloatUnit'
           description: The ending amount in the vessel. Required for ABSOLUTE changes.
         changeAmount:
           allOf:
-          - $ref: '#/components/schemas/FloatUnit'
+            - $ref: '#/components/schemas/FloatUnit'
           description: The change in amount in the vessel. Required for RELATIVE changes.
       required:
-      - changeContext
-      - lot
+        - changeContext
+        - lot
     ActionResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/ActionResponseData'
       required:
-      - data
+        - data
     ActionResponseData:
       type: object
       properties:
@@ -3133,41 +3403,41 @@ components:
           type: integer
         actionType:
           enum:
-          - ADDITION
-          - ANALYSIS
-          - BARREL_DOWN
-          - BATCH_ADJUSTMENT
-          - BLEED
-          - BLEND
-          - BOTTLE
-          - BOTTLING_EN_TIRAGE
-          - DISTILLATION
-          - COST_ITEM
-          - CREATE_LOT
-          - CREATE_VESSELS
-          - DRAIN_AND_PRESS
-          - DISGORGE_DOSAGE_PACKAGE
-          - FILTER
-          - FRUIT_WEIGHT_CHANGE
-          - LOT_TAX_CLASS_CHANGE
-          - PROCESS_FRUIT_TO_VOLUME
-          - PROCESS_FRUIT_TO_WEIGHT
-          - PULL_SAMPLE
-          - RACK
-          - RACK_AND_RETURN
-          - RECEIVE_DRY_GOOD
-          - RECEIVE_FRUIT
-          - TOPPING
-          - TOP_OFF
-          - TRANSFER
-          - TRANSFER_INTER_FACILITY
-          - UPDATE_LOT
-          - CUSTOM
-          - VOLUME_CHANGE
-          - WATER_ADD
-          - WEIGHT_CHANGE
-          - WEIGHT_TRANSFER
-          - MAKEUP_CHANGE
+            - ADDITION
+            - ANALYSIS
+            - BARREL_DOWN
+            - BATCH_ADJUSTMENT
+            - BLEED
+            - BLEND
+            - BOTTLE
+            - BOTTLING_EN_TIRAGE
+            - DISTILLATION
+            - COST_ITEM
+            - CREATE_LOT
+            - CREATE_VESSELS
+            - DRAIN_AND_PRESS
+            - DISGORGE_DOSAGE_PACKAGE
+            - FILTER
+            - FRUIT_WEIGHT_CHANGE
+            - LOT_TAX_CLASS_CHANGE
+            - PROCESS_FRUIT_TO_VOLUME
+            - PROCESS_FRUIT_TO_WEIGHT
+            - PULL_SAMPLE
+            - RACK
+            - RACK_AND_RETURN
+            - RECEIVE_DRY_GOOD
+            - RECEIVE_FRUIT
+            - TOPPING
+            - TOP_OFF
+            - TRANSFER
+            - TRANSFER_INTER_FACILITY
+            - UPDATE_LOT
+            - CUSTOM
+            - VOLUME_CHANGE
+            - WATER_ADD
+            - WEIGHT_CHANGE
+            - WEIGHT_TRANSFER
+            - MAKEUP_CHANGE
           type: string
         applied:
           type: boolean
@@ -3191,15 +3461,15 @@ components:
           format: date-time
           readOnly: true
       required:
-      - actionType
-      - applied
-      - createdAt
-      - deleted
-      - effectiveAt
-      - id
-      - internalId
-      - referenceNumber
-      - updatedAt
+        - actionType
+        - applied
+        - createdAt
+        - deleted
+        - effectiveAt
+        - id
+        - internalId
+        - referenceNumber
+        - updatedAt
     ActionVesselChangeObject:
       type: object
       properties:
@@ -3211,23 +3481,23 @@ components:
           description: The lot that was in the vessel when the action was recorded.
         startingAmount:
           allOf:
-          - $ref: '#/components/schemas/FloatUnit'
+            - $ref: '#/components/schemas/FloatUnit'
           nullable: true
           description: The starting amount of the action.
         endingAmount:
           allOf:
-          - $ref: '#/components/schemas/FloatUnit'
+            - $ref: '#/components/schemas/FloatUnit'
           nullable: true
           description: The ending amount in the vessel.
         changeAmount:
           allOf:
-          - $ref: '#/components/schemas/FloatUnit'
+            - $ref: '#/components/schemas/FloatUnit'
           nullable: true
           description: The change in amount in the vessel.
         changeContext:
           enum:
-          - ABSOLUTE
-          - RELATIVE
+            - ABSOLUTE
+            - RELATIVE
           type: string
           description: ABSOLUTE changes are those where the user explicitly set the
             ending amount in the vessel, while RELATIVE changes are those where the
@@ -3236,20 +3506,20 @@ components:
         vesselId:
           type: string
       required:
-      - changeAmount
-      - changeContext
-      - endingAmount
-      - endingLotId
-      - startingAmount
-      - startingLotId
-      - vesselId
+        - changeAmount
+        - changeContext
+        - endingAmount
+        - endingLotId
+        - startingAmount
+        - startingLotId
+        - vesselId
     ActionVesselChangeRequestObject:
       type: object
       properties:
         changeContext:
           enum:
-          - ABSOLUTE
-          - RELATIVE
+            - ABSOLUTE
+            - RELATIVE
           type: string
           description: ABSOLUTE changes are those where the user explicitly set the
             ending amount in the vessel, while RELATIVE changes are those where the
@@ -3259,31 +3529,31 @@ components:
           type: string
         endingAmount:
           allOf:
-          - $ref: '#/components/schemas/FloatUnit'
+            - $ref: '#/components/schemas/FloatUnit'
           description: The ending amount in the vessel. Required for ABSOLUTE changes.
         changeAmount:
           allOf:
-          - $ref: '#/components/schemas/FloatUnit'
+            - $ref: '#/components/schemas/FloatUnit'
           description: The change in amount in the vessel. Required for RELATIVE changes.
         vessel:
           type: string
       required:
-      - changeContext
-      - lot
-      - vessel
+        - changeContext
+        - lot
+        - vessel
     AdditionActionRequest:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/AdditionActionRequestData'
       required:
-      - data
+        - data
     AdditionActionRequestData:
       type: object
       properties:
         actionType:
           enum:
-          - ADDITION
+            - ADDITION
           type: string
         additives:
           type: array
@@ -3303,42 +3573,42 @@ components:
           nullable: true
         lotStage:
           enum:
-          - COLD_SOAK
-          - ML
-          - BLENDED
-          - FERMENTING
-          - PRE_BOTTLING_STABILIZATION
-          - AGING
-          - PROCESSED
-          - BOTTLED
-          - PLANNED
-          - RECEIVED
-          - SETTLING
-          - EXTENDED_MACERATION
-          - EN_TIRAGE
-          - RIDDLING
-          - SHINER
-          - UNFINISHED
-          - PRE_RELEASE
-          - AVAILABLE_FOR_ORDER
-          - ALLOCATED
-          - SHIPPED_OUT
-          - TAXPAID
+            - COLD_SOAK
+            - ML
+            - BLENDED
+            - FERMENTING
+            - PRE_BOTTLING_STABILIZATION
+            - AGING
+            - PROCESSED
+            - BOTTLED
+            - PLANNED
+            - RECEIVED
+            - SETTLING
+            - EXTENDED_MACERATION
+            - EN_TIRAGE
+            - RIDDLING
+            - SHINER
+            - UNFINISHED
+            - PRE_RELEASE
+            - AVAILABLE_FOR_ORDER
+            - ALLOCATED
+            - SHIPPED_OUT
+            - TAXPAID
           type: string
       required:
-      - actionType
-      - additions
-      - additives
-      - effectiveAt
-      - lotStage
-      - notes
+        - actionType
+        - additions
+        - additives
+        - effectiveAt
+        - lotStage
+        - notes
     AdditionActionResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/AdditionActionResponseData'
       required:
-      - data
+        - data
     AdditionActionResponseData:
       type: object
       properties:
@@ -3346,41 +3616,41 @@ components:
           type: integer
         actionType:
           enum:
-          - ADDITION
-          - ANALYSIS
-          - BARREL_DOWN
-          - BATCH_ADJUSTMENT
-          - BLEED
-          - BLEND
-          - BOTTLE
-          - BOTTLING_EN_TIRAGE
-          - DISTILLATION
-          - COST_ITEM
-          - CREATE_LOT
-          - CREATE_VESSELS
-          - DRAIN_AND_PRESS
-          - DISGORGE_DOSAGE_PACKAGE
-          - FILTER
-          - FRUIT_WEIGHT_CHANGE
-          - LOT_TAX_CLASS_CHANGE
-          - PROCESS_FRUIT_TO_VOLUME
-          - PROCESS_FRUIT_TO_WEIGHT
-          - PULL_SAMPLE
-          - RACK
-          - RACK_AND_RETURN
-          - RECEIVE_DRY_GOOD
-          - RECEIVE_FRUIT
-          - TOPPING
-          - TOP_OFF
-          - TRANSFER
-          - TRANSFER_INTER_FACILITY
-          - UPDATE_LOT
-          - CUSTOM
-          - VOLUME_CHANGE
-          - WATER_ADD
-          - WEIGHT_CHANGE
-          - WEIGHT_TRANSFER
-          - MAKEUP_CHANGE
+            - ADDITION
+            - ANALYSIS
+            - BARREL_DOWN
+            - BATCH_ADJUSTMENT
+            - BLEED
+            - BLEND
+            - BOTTLE
+            - BOTTLING_EN_TIRAGE
+            - DISTILLATION
+            - COST_ITEM
+            - CREATE_LOT
+            - CREATE_VESSELS
+            - DRAIN_AND_PRESS
+            - DISGORGE_DOSAGE_PACKAGE
+            - FILTER
+            - FRUIT_WEIGHT_CHANGE
+            - LOT_TAX_CLASS_CHANGE
+            - PROCESS_FRUIT_TO_VOLUME
+            - PROCESS_FRUIT_TO_WEIGHT
+            - PULL_SAMPLE
+            - RACK
+            - RACK_AND_RETURN
+            - RECEIVE_DRY_GOOD
+            - RECEIVE_FRUIT
+            - TOPPING
+            - TOP_OFF
+            - TRANSFER
+            - TRANSFER_INTER_FACILITY
+            - UPDATE_LOT
+            - CUSTOM
+            - VOLUME_CHANGE
+            - WATER_ADD
+            - WEIGHT_CHANGE
+            - WEIGHT_TRANSFER
+            - MAKEUP_CHANGE
           type: string
         applied:
           type: boolean
@@ -3412,17 +3682,17 @@ components:
           format: date-time
           readOnly: true
       required:
-      - actionType
-      - additions
-      - additives
-      - applied
-      - createdAt
-      - deleted
-      - effectiveAt
-      - id
-      - internalId
-      - referenceNumber
-      - updatedAt
+        - actionType
+        - additions
+        - additives
+        - applied
+        - createdAt
+        - deleted
+        - effectiveAt
+        - id
+        - internalId
+        - referenceNumber
+        - updatedAt
     AdditionCacheData:
       type: object
       properties:
@@ -3431,8 +3701,8 @@ components:
         relationships:
           $ref: '#/components/schemas/AdditionCacheDataRelationships'
       required:
-      - data
-      - relationships
+        - data
+        - relationships
     AdditionCacheDataData:
       type: object
       properties:
@@ -3443,9 +3713,9 @@ components:
         amount:
           $ref: '#/components/schemas/AmountObject'
       required:
-      - additiveId
-      - amount
-      - lotId
+        - additiveId
+        - amount
+        - lotId
     AdditionCacheDataRelationships:
       type: object
       properties:
@@ -3454,26 +3724,129 @@ components:
           format: uri
           readOnly: true
       required:
-      - batches
+        - batches
+    AdditiveIndicatorRequest:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/AdditiveIndicatorRequestData'
+      required:
+        - data
+    AdditiveIndicatorRequestData:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the related object.
+      required:
+        - id
     AdditiveIndicatorResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/AdditiveIndicatorResponseData'
       required:
-      - data
+        - data
     AdditiveIndicatorResponseData:
       type: object
       properties:
-        id:
-          type: string
-          readOnly: true
         name:
           type: string
           maxLength: 100
+        id:
+          type: string
+          readOnly: true
       required:
-      - id
-      - name
+        - id
+        - name
+    AdditiveRequest:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/AdditiveRequestData'
+      required:
+        - data
+    AdditiveRequestData:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+        additionUnit:
+          enum:
+            - g
+            - mg
+            - lb
+            - kg
+            - ton
+            - L
+            - mL
+            - gal
+            - dL
+            - hL
+            - kgal
+          type: string
+          description: The unit of measure for the addition rate. Must be one of the
+            predefined units or null.
+        additionRateValue:
+          type: number
+          format: double
+          minimum: 0
+          description: The numerical value of the addition rate. Must be a positive
+            float.
+        additionRateUnit:
+          type: string
+          description: The corresponding unit for the addition rate value. Must be
+            one of the predefined units in Additive.ADDITION_RATE_UNITS or both addition
+            rate value and unit should be empty.
+        additionCustomUnit:
+          type: boolean
+          description: Indicate whether a custom unit is used. Set to True if 'additionUnit'
+            is set to null
+        concentration:
+          type: number
+          format: double
+          minimum: 0
+          description: Used to calculate the SO2 addition rate based on sulfur type.
+            Must be a positive float. Only applicable with certain addition rate units
+            ('mL/gal', 'mg/gal').
+        instructions:
+          type: string
+          description: Instructions for using the additive.
+        dryGoodType:
+          type: string
+          description: The ID of the related object.
+        defaultVendor:
+          type: string
+          description: The ID of the related object.
+        indicators:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdditiveIndicatorRequest'
+        id:
+          type: string
+          readOnly: true
+        productName:
+          type: string
+          maxLength: 10000
+        inventoryUnit:
+          type: string
+          maxLength: 32
+        manufacturer:
+          type: string
+          nullable: true
+          maxLength: 1000
+        archived:
+          type: boolean
+      required:
+        - additionCustomUnit
+        - dryGoodType
+        - id
+        - indicators
+        - inventoryUnit
+        - productName
+        - tags
     AdditiveUnitsObject:
       type: object
       properties:
@@ -3490,9 +3863,9 @@ components:
           items:
             type: string
       required:
-      - all
-      - dry
-      - liquid
+        - all
+        - dry
+        - liquid
     AmountObject:
       type: object
       properties:
@@ -3502,15 +3875,15 @@ components:
         unit:
           type: string
       required:
-      - unit
-      - value
+        - unit
+        - value
     AnalysisActionRequest:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/AnalysisActionRequestData'
       required:
-      - data
+        - data
     AnalysisActionRequestData:
       type: object
       properties:
@@ -3534,31 +3907,31 @@ components:
           maxLength: 100
         source:
           enum:
-          - INNOVINT
-          - FOSS
-          - VINQUIRY_MANUAL
-          - ETS_MANUAL
-          - MY_ENOLOGIST
-          - CORE_ENOLOGY
-          - BAKER
-          - ANTON_PAAR
-          - WINELAB
-          - TANKNET
-          - BARRELWISE
-          - ENOLOGICA_INTEGRAL
-          - WINEXRAY
+            - INNOVINT
+            - FOSS
+            - VINQUIRY_MANUAL
+            - ETS_MANUAL
+            - MY_ENOLOGIST
+            - CORE_ENOLOGY
+            - BAKER
+            - ANTON_PAAR
+            - WINELAB
+            - TANKNET
+            - BARRELWISE
+            - ENOLOGICA_INTEGRAL
+            - WINEXRAY
           type: string
           default: INNOVINT
       required:
-      - analyses
-      - effectiveAt
+        - analyses
+        - effectiveAt
     AnalysisActionResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/AnalysisActionResponseData'
       required:
-      - data
+        - data
     AnalysisActionResponseData:
       type: object
       properties:
@@ -3597,31 +3970,31 @@ components:
           readOnly: true
         source:
           enum:
-          - INNOVINT
-          - FOSS
-          - VINQUIRY_MANUAL
-          - ETS_MANUAL
-          - MY_ENOLOGIST
-          - CORE_ENOLOGY
-          - BAKER
-          - ANTON_PAAR
-          - WINELAB
-          - TANKNET
-          - BARRELWISE
-          - ENOLOGICA_INTEGRAL
-          - WINEXRAY
+            - INNOVINT
+            - FOSS
+            - VINQUIRY_MANUAL
+            - ETS_MANUAL
+            - MY_ENOLOGIST
+            - CORE_ENOLOGY
+            - BAKER
+            - ANTON_PAAR
+            - WINELAB
+            - TANKNET
+            - BARRELWISE
+            - ENOLOGICA_INTEGRAL
+            - WINEXRAY
           type: string
       required:
-      - analyses
-      - applied
-      - createdAt
-      - deleted
-      - effectiveAt
-      - id
-      - internalId
-      - panelName
-      - referenceNumber
-      - updatedAt
+        - analyses
+        - applied
+        - createdAt
+        - deleted
+        - effectiveAt
+        - id
+        - internalId
+        - panelName
+        - referenceNumber
+        - updatedAt
     AnalysisTypeObject:
       type: object
       properties:
@@ -3637,14 +4010,14 @@ components:
           maxLength: 60
           pattern: ^[-a-zA-Z0-9_]+$
       required:
-      - name
+        - name
     AnalysisTypeResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/AnalysisTypeResponseData'
       required:
-      - data
+        - data
     AnalysisTypeResponseData:
       type: object
       properties:
@@ -3664,15 +4037,15 @@ components:
           maxLength: 60
           pattern: ^[-a-zA-Z0-9_]+$
       required:
-      - name
-      - units
+        - name
+        - units
     AnalysisTypeUnitObject:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/AnalysisTypeUnitObjectData'
       required:
-      - data
+        - data
     AnalysisTypeUnitObjectData:
       type: object
       properties:
@@ -3683,8 +4056,8 @@ components:
           type: string
           maxLength: 100
       required:
-      - name
-      - unit
+        - name
+        - unit
     AnalysisUnitObject:
       type: object
       properties:
@@ -3695,8 +4068,8 @@ components:
           type: string
           maxLength: 100
       required:
-      - name
-      - unit
+        - name
+        - unit
     AppellationObject:
       type: object
       properties:
@@ -3705,8 +4078,8 @@ components:
         name:
           type: string
       required:
-      - id
-      - name
+        - id
+        - name
     AppellationPercentObject:
       type: object
       properties:
@@ -3720,8 +4093,8 @@ components:
         appellationId:
           type: string
       required:
-      - appellationId
-      - percentage
+        - appellationId
+        - percentage
     AppellationResponse:
       type: object
       properties:
@@ -3730,8 +4103,8 @@ components:
         relationships:
           $ref: '#/components/schemas/AppellationResponseRelationships'
       required:
-      - data
-      - relationships
+        - data
+        - relationships
     AppellationResponseData:
       type: object
       properties:
@@ -3743,16 +4116,16 @@ components:
           type: string
           maxLength: 100
       required:
-      - id
-      - internalId
-      - name
+        - id
+        - internalId
+        - name
     AppellationResponseRelationships:
       type: object
       properties:
         source:
           type: integer
       required:
-      - source
+        - source
     BatchData:
       type: object
       properties:
@@ -3761,8 +4134,8 @@ components:
         batchNumber:
           type: string
       required:
-      - batchId
-      - batchNumber
+        - batchId
+        - batchNumber
     BatchRequestObject:
       type: object
       properties:
@@ -3774,9 +4147,9 @@ components:
         depleted:
           type: boolean
       required:
-      - amount
-      - batchId
-      - depleted
+        - amount
+        - batchId
+        - depleted
     BatchResponseObject:
       type: object
       properties:
@@ -3788,9 +4161,9 @@ components:
         depleted:
           type: boolean
       required:
-      - amount
-      - batchId
-      - depleted
+        - amount
+        - batchId
+        - depleted
     BlockComponentInput:
       type: object
       properties:
@@ -3808,9 +4181,9 @@ components:
           description: A representation of a percent value as a value between 0.0
             and 1.0 .
       required:
-      - block
-      - percentage
-      - vintage
+        - block
+        - percentage
+        - vintage
     BlockObject:
       type: object
       properties:
@@ -3819,8 +4192,8 @@ components:
         name:
           type: string
       required:
-      - id
-      - name
+        - id
+        - name
     BlockResponse:
       type: object
       properties:
@@ -3829,8 +4202,8 @@ components:
         relationships:
           $ref: '#/components/schemas/BlockResponseRelationships'
       required:
-      - data
-      - relationships
+        - data
+        - relationships
     BlockResponseData:
       type: object
       properties:
@@ -3885,16 +4258,16 @@ components:
           minimum: 0
           nullable: true
       required:
-      - area
-      - clone
-      - id
-      - internalId
-      - name
-      - rowWidth
-      - spaceBetweenVines
-      - tags
-      - varietalId
-      - vineyardId
+        - area
+        - clone
+        - id
+        - internalId
+        - name
+        - rowWidth
+        - spaceBetweenVines
+        - tags
+        - varietalId
+        - vineyardId
     BlockResponseRelationships:
       type: object
       properties:
@@ -3907,8 +4280,8 @@ components:
           format: uri
           readOnly: true
       required:
-      - varietal
-      - vineyard
+        - varietal
+        - vineyard
     BondResponse:
       type: object
       properties:
@@ -3920,255 +4293,255 @@ components:
           maxLength: 100
         country:
           enum:
-          - AF
-          - AX
-          - AL
-          - DZ
-          - AS
-          - AD
-          - AO
-          - AI
-          - AQ
-          - AG
-          - AR
-          - AM
-          - AW
-          - AU
-          - AT
-          - AZ
-          - BS
-          - BH
-          - BD
-          - BB
-          - BY
-          - BE
-          - BZ
-          - BJ
-          - BM
-          - BT
-          - BO
-          - BQ
-          - BA
-          - BW
-          - BV
-          - BR
-          - IO
-          - BN
-          - BG
-          - BF
-          - BI
-          - CV
-          - KH
-          - CM
-          - CA
-          - KY
-          - CF
-          - TD
-          - CL
-          - CN
-          - CX
-          - CC
-          - CO
-          - KM
-          - CG
-          - CD
-          - CK
-          - CR
-          - CI
-          - HR
-          - CU
-          - CW
-          - CY
-          - CZ
-          - DK
-          - DJ
-          - DM
-          - DO
-          - EC
-          - EG
-          - SV
-          - GQ
-          - ER
-          - EE
-          - SZ
-          - ET
-          - FK
-          - FO
-          - FJ
-          - FI
-          - FR
-          - GF
-          - PF
-          - TF
-          - GA
-          - GM
-          - GE
-          - DE
-          - GH
-          - GI
-          - GR
-          - GL
-          - GD
-          - GP
-          - GU
-          - GT
-          - GG
-          - GN
-          - GW
-          - GY
-          - HT
-          - HM
-          - VA
-          - HN
-          - HK
-          - HU
-          - IS
-          - IN
-          - ID
-          - IR
-          - IQ
-          - IE
-          - IM
-          - IL
-          - IT
-          - JM
-          - JP
-          - JE
-          - JO
-          - KZ
-          - KE
-          - KI
-          - KW
-          - KG
-          - LA
-          - LV
-          - LB
-          - LS
-          - LR
-          - LY
-          - LI
-          - LT
-          - LU
-          - MO
-          - MG
-          - MW
-          - MY
-          - MV
-          - ML
-          - MT
-          - MH
-          - MQ
-          - MR
-          - MU
-          - YT
-          - MX
-          - FM
-          - MD
-          - MC
-          - MN
-          - ME
-          - MS
-          - MA
-          - MZ
-          - MM
-          - NA
-          - NR
-          - NP
-          - NL
-          - NC
-          - NZ
-          - NI
-          - NE
-          - NG
-          - NU
-          - NF
-          - KP
-          - MK
-          - MP
-          - 'NO'
-          - OM
-          - PK
-          - PW
-          - PS
-          - PA
-          - PG
-          - PY
-          - PE
-          - PH
-          - PN
-          - PL
-          - PT
-          - PR
-          - QA
-          - RE
-          - RO
-          - RU
-          - RW
-          - BL
-          - SH
-          - KN
-          - LC
-          - MF
-          - PM
-          - VC
-          - WS
-          - SM
-          - ST
-          - SA
-          - SN
-          - RS
-          - SC
-          - SL
-          - SG
-          - SX
-          - SK
-          - SI
-          - SB
-          - SO
-          - ZA
-          - GS
-          - KR
-          - SS
-          - ES
-          - LK
-          - SD
-          - SR
-          - SJ
-          - SE
-          - CH
-          - SY
-          - TW
-          - TJ
-          - TZ
-          - TH
-          - TL
-          - TG
-          - TK
-          - TO
-          - TT
-          - TN
-          - TR
-          - TM
-          - TC
-          - TV
-          - UG
-          - UA
-          - AE
-          - GB
-          - UM
-          - US
-          - UY
-          - UZ
-          - VU
-          - VE
-          - VN
-          - VG
-          - VI
-          - WF
-          - EH
-          - YE
-          - ZM
-          - ZW
+            - AF
+            - AX
+            - AL
+            - DZ
+            - AS
+            - AD
+            - AO
+            - AI
+            - AQ
+            - AG
+            - AR
+            - AM
+            - AW
+            - AU
+            - AT
+            - AZ
+            - BS
+            - BH
+            - BD
+            - BB
+            - BY
+            - BE
+            - BZ
+            - BJ
+            - BM
+            - BT
+            - BO
+            - BQ
+            - BA
+            - BW
+            - BV
+            - BR
+            - IO
+            - BN
+            - BG
+            - BF
+            - BI
+            - CV
+            - KH
+            - CM
+            - CA
+            - KY
+            - CF
+            - TD
+            - CL
+            - CN
+            - CX
+            - CC
+            - CO
+            - KM
+            - CG
+            - CD
+            - CK
+            - CR
+            - CI
+            - HR
+            - CU
+            - CW
+            - CY
+            - CZ
+            - DK
+            - DJ
+            - DM
+            - DO
+            - EC
+            - EG
+            - SV
+            - GQ
+            - ER
+            - EE
+            - SZ
+            - ET
+            - FK
+            - FO
+            - FJ
+            - FI
+            - FR
+            - GF
+            - PF
+            - TF
+            - GA
+            - GM
+            - GE
+            - DE
+            - GH
+            - GI
+            - GR
+            - GL
+            - GD
+            - GP
+            - GU
+            - GT
+            - GG
+            - GN
+            - GW
+            - GY
+            - HT
+            - HM
+            - VA
+            - HN
+            - HK
+            - HU
+            - IS
+            - IN
+            - ID
+            - IR
+            - IQ
+            - IE
+            - IM
+            - IL
+            - IT
+            - JM
+            - JP
+            - JE
+            - JO
+            - KZ
+            - KE
+            - KI
+            - KW
+            - KG
+            - LA
+            - LV
+            - LB
+            - LS
+            - LR
+            - LY
+            - LI
+            - LT
+            - LU
+            - MO
+            - MG
+            - MW
+            - MY
+            - MV
+            - ML
+            - MT
+            - MH
+            - MQ
+            - MR
+            - MU
+            - YT
+            - MX
+            - FM
+            - MD
+            - MC
+            - MN
+            - ME
+            - MS
+            - MA
+            - MZ
+            - MM
+            - NA
+            - NR
+            - NP
+            - NL
+            - NC
+            - NZ
+            - NI
+            - NE
+            - NG
+            - NU
+            - NF
+            - KP
+            - MK
+            - MP
+            - 'NO'
+            - OM
+            - PK
+            - PW
+            - PS
+            - PA
+            - PG
+            - PY
+            - PE
+            - PH
+            - PN
+            - PL
+            - PT
+            - PR
+            - QA
+            - RE
+            - RO
+            - RU
+            - RW
+            - BL
+            - SH
+            - KN
+            - LC
+            - MF
+            - PM
+            - VC
+            - WS
+            - SM
+            - ST
+            - SA
+            - SN
+            - RS
+            - SC
+            - SL
+            - SG
+            - SX
+            - SK
+            - SI
+            - SB
+            - SO
+            - ZA
+            - GS
+            - KR
+            - SS
+            - ES
+            - LK
+            - SD
+            - SR
+            - SJ
+            - SE
+            - CH
+            - SY
+            - TW
+            - TJ
+            - TZ
+            - TH
+            - TL
+            - TG
+            - TK
+            - TO
+            - TT
+            - TN
+            - TR
+            - TM
+            - TC
+            - TV
+            - UG
+            - UA
+            - AE
+            - GB
+            - UM
+            - US
+            - UY
+            - UZ
+            - VU
+            - VE
+            - VN
+            - VG
+            - VI
+            - WF
+            - EH
+            - YE
+            - ZM
+            - ZW
           type: string
         createdAt:
           type: string
@@ -4202,11 +4575,30 @@ components:
           type: string
           maxLength: 100
       required:
-      - createdAt
-      - id
-      - internalId
-      - registryNumber
-      - wineryId
+        - createdAt
+        - id
+        - internalId
+        - registryNumber
+        - wineryId
+    BottleChanges:
+      type: object
+      properties:
+        pallets:
+          type: integer
+          minimum: 0
+          description: The change in pallets.
+        cases:
+          type: integer
+          minimum: 0
+          description: The change in cases.
+        bottles:
+          type: integer
+          minimum: 0
+          description: The change in bottles.
+      required:
+        - bottles
+        - cases
+        - pallets
     BottlesOnHandField:
       type: object
       properties:
@@ -4217,8 +4609,165 @@ components:
           type: integer
           readOnly: true
       required:
-      - bottles
-      - cases
+        - bottles
+        - cases
+    CaseGoodsAdjustmentActionRequest:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CaseGoodsAdjustmentActionRequestData'
+      required:
+        - data
+    CaseGoodsAdjustmentActionRequestData:
+      type: object
+      properties:
+        lotId:
+          type: string
+        locationId:
+          type: string
+          nullable: true
+        compliance:
+          enum:
+            - ONBOARDING
+            - TAX_PAID_WINE_RETURNED_TO_BOND
+            - INVENTORY_GAINS
+            - INVENTORY_SHORTAGE
+            - REMOVED_FOR_EXPORT
+            - REMOVED_FOR_FAMILY_USE
+            - USED_FOR_TESTING
+            - USED_FOR_TASTING
+            - BREAKAGE
+            - BOND_TO_BOND_TRANSFER_IN
+            - BOND_TO_BOND_TRANSFER_OUT
+            - REMOVED_TAXPAID
+            - CG_BOTTLED_WINE_DUMPED_TO_BULK
+          type: string
+          description: The compliance context for the case goods adjustment.
+        bottleChanges:
+          allOf:
+            - $ref: '#/components/schemas/BottleChanges'
+          description: The change in pallets, cases, and bottles.
+        stage:
+          type: string
+          nullable: true
+          description: The new lot stage after case goods adjustment.
+          maxLength: 100
+        archiveLotsIfEmpty:
+          type: boolean
+          nullable: true
+        effectiveAt:
+          type: string
+          format: date-time
+          nullable: true
+      required:
+        - bottleChanges
+        - compliance
+        - lotId
+    CaseGoodsAdjustmentActionResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CaseGoodsAdjustmentActionResponseData'
+        relationships:
+          $ref: '#/components/schemas/CaseGoodsAdjustmentActionResponseRelationships'
+      required:
+        - data
+        - relationships
+    CaseGoodsAdjustmentActionResponseData:
+      type: object
+      properties:
+        internalId:
+          type: integer
+        actionType:
+          enum:
+            - ADDITION
+            - ANALYSIS
+            - BARREL_DOWN
+            - BATCH_ADJUSTMENT
+            - BLEED
+            - BLEND
+            - BOTTLE
+            - BOTTLING_EN_TIRAGE
+            - DISTILLATION
+            - COST_ITEM
+            - CREATE_LOT
+            - CREATE_VESSELS
+            - DRAIN_AND_PRESS
+            - DISGORGE_DOSAGE_PACKAGE
+            - FILTER
+            - FRUIT_WEIGHT_CHANGE
+            - LOT_TAX_CLASS_CHANGE
+            - PROCESS_FRUIT_TO_VOLUME
+            - PROCESS_FRUIT_TO_WEIGHT
+            - PULL_SAMPLE
+            - RACK
+            - RACK_AND_RETURN
+            - RECEIVE_DRY_GOOD
+            - RECEIVE_FRUIT
+            - TOPPING
+            - TOP_OFF
+            - TRANSFER
+            - TRANSFER_INTER_FACILITY
+            - UPDATE_LOT
+            - CUSTOM
+            - VOLUME_CHANGE
+            - WATER_ADD
+            - WEIGHT_CHANGE
+            - WEIGHT_TRANSFER
+            - MAKEUP_CHANGE
+          type: string
+        applied:
+          type: boolean
+        deleted:
+          type: boolean
+        effectiveAt:
+          type: string
+          format: date-time
+        referenceNumber:
+          type: string
+          format: uuid
+        lotId:
+          type: string
+        locationId:
+          type: string
+        id:
+          type: string
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        compliance:
+          type: string
+          nullable: true
+          maxLength: 64
+        archiveLotsIfEmpty:
+          type: boolean
+      required:
+        - actionType
+        - applied
+        - createdAt
+        - deleted
+        - effectiveAt
+        - id
+        - internalId
+        - locationId
+        - lotId
+        - referenceNumber
+        - updatedAt
+    CaseGoodsAdjustmentActionResponseRelationships:
+      type: object
+      properties:
+        lot:
+          type: string
+          format: uri
+          readOnly: true
+      required:
+        - lot
     ComponentObject:
       type: object
       properties:
@@ -4229,8 +4778,8 @@ components:
           maximum: 9999
           minimum: 1800
       required:
-      - blockId
-      - vintage
+        - blockId
+        - vintage
     ComponentRequestObject:
       type: object
       properties:
@@ -4241,15 +4790,15 @@ components:
           maximum: 9999
           minimum: 1800
       required:
-      - block
-      - vintage
+        - block
+        - vintage
     CreateLotRequest:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/CreateLotRequestData'
       required:
-      - data
+        - data
     CreateLotRequestData:
       type: object
       properties:
@@ -4268,10 +4817,10 @@ components:
           pattern: ^[A-Z\-0-9_]+$
         color:
           enum:
-          - red
-          - rose
-          - white
-          - orange
+            - red
+            - rose
+            - white
+            - orange
           type: string
         effectiveAt:
           type: string
@@ -4284,14 +4833,14 @@ components:
           nullable: true
         lotStyle:
           enum:
-          - STILL
-          - SPARKLING
+            - STILL
+            - SPARKLING
           type: string
         lotType:
           enum:
-          - BULK
-          - FRUIT
-          - CASE_GOODS
+            - BULK
+            - FRUIT
+            - CASE_GOODS
           type: string
         tags:
           type: array
@@ -4299,52 +4848,52 @@ components:
             type: string
         taxClass:
           enum:
-          - TC_UNCRUSHED_FRUIT
-          - TC_FERMENTING_JUICE
-          - TC_SWEETENING_JUICE
-          - TC_LESS_THAN_14
-          - TC_14_TO_21
-          - TC_LESS_THAN_16
-          - TC_16_TO_21
-          - TC_21_TO_24
-          - TC_ARTIFICIALLY_CARBONATED
-          - TC_SPARKLING
-          - TC_SPARKLING_BULK_PROCESSED
-          - TC_HARD_CIDER
-          - TC_BRANDY_OR_DISTILLED_SPIRIT
-          - TC_VERMOUTH
-          - TC_NON_LESS_THAN_14
-          - TC_NON_14_TO_21
-          - TC_DISTILLED_MATERIAL
-          - TC_VINEGAR_STOCK
-          - TC_CONCENTRATE
+            - TC_UNCRUSHED_FRUIT
+            - TC_FERMENTING_JUICE
+            - TC_SWEETENING_JUICE
+            - TC_LESS_THAN_14
+            - TC_14_TO_21
+            - TC_LESS_THAN_16
+            - TC_16_TO_21
+            - TC_21_TO_24
+            - TC_ARTIFICIALLY_CARBONATED
+            - TC_SPARKLING
+            - TC_SPARKLING_BULK_PROCESSED
+            - TC_HARD_CIDER
+            - TC_BRANDY_OR_DISTILLED_SPIRIT
+            - TC_VERMOUTH
+            - TC_NON_LESS_THAN_14
+            - TC_NON_14_TO_21
+            - TC_DISTILLED_MATERIAL
+            - TC_VINEGAR_STOCK
+            - TC_CONCENTRATE
           type: string
         name:
           type: string
           maxLength: 100
         stage:
           enum:
-          - COLD_SOAK
-          - ML
-          - BLENDED
-          - FERMENTING
-          - PRE_BOTTLING_STABILIZATION
-          - AGING
-          - PROCESSED
-          - BOTTLED
-          - PLANNED
-          - RECEIVED
-          - SETTLING
-          - EXTENDED_MACERATION
-          - EN_TIRAGE
-          - RIDDLING
-          - SHINER
-          - UNFINISHED
-          - PRE_RELEASE
-          - AVAILABLE_FOR_ORDER
-          - ALLOCATED
-          - SHIPPED_OUT
-          - TAXPAID
+            - COLD_SOAK
+            - ML
+            - BLENDED
+            - FERMENTING
+            - PRE_BOTTLING_STABILIZATION
+            - AGING
+            - PROCESSED
+            - BOTTLED
+            - PLANNED
+            - RECEIVED
+            - SETTLING
+            - EXTENDED_MACERATION
+            - EN_TIRAGE
+            - RIDDLING
+            - SHINER
+            - UNFINISHED
+            - PRE_RELEASE
+            - AVAILABLE_FOR_ORDER
+            - ALLOCATED
+            - SHIPPED_OUT
+            - TAXPAID
           type: string
         bottlesPerCase:
           type: integer
@@ -4360,24 +4909,24 @@ components:
           type: integer
           nullable: true
       required:
-      - access
-      - bond
-      - code
-      - color
-      - effectiveAt
-      - expectedYield
-      - lotStyle
-      - lotType
-      - stage
-      - tags
-      - taxClass
+        - access
+        - bond
+        - code
+        - color
+        - effectiveAt
+        - expectedYield
+        - lotStyle
+        - lotType
+        - stage
+        - tags
+        - taxClass
     CreatePersonalAccessTokenRequest:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/CreatePersonalAccessTokenRequestData'
       required:
-      - data
+        - data
     CreatePersonalAccessTokenRequestData:
       type: object
       properties:
@@ -4387,25 +4936,25 @@ components:
         description:
           type: string
       required:
-      - name
+        - name
     DryGoodTypeResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/DryGoodTypeResponseData'
       required:
-      - data
+        - data
     DryGoodTypeResponseData:
       type: object
       properties:
         units:
           allOf:
-          - $ref: '#/components/schemas/DryGoodTypeUnitsObject'
+            - $ref: '#/components/schemas/DryGoodTypeUnitsObject'
           readOnly: true
         category:
           enum:
-          - Additive
-          - Packaging
+            - Additive
+            - Packaging
           type: string
         id:
           type: string
@@ -4414,14 +4963,14 @@ components:
           type: string
           maxLength: 100
       required:
-      - category
-      - id
-      - name
-      - units
+        - category
+        - id
+        - name
+        - units
     DryGoodTypeUnitsObject:
       oneOf:
-      - $ref: '#/components/schemas/AdditiveUnitsObject'
-      - $ref: '#/components/schemas/PackagingUnitsObject'
+        - $ref: '#/components/schemas/AdditiveUnitsObject'
+        - $ref: '#/components/schemas/PackagingUnitsObject'
     ErrorObject:
       type: object
       properties:
@@ -4433,9 +4982,9 @@ components:
           type: object
           additionalProperties: {}
       required:
-      - code
-      - details
-      - metadata
+        - code
+        - details
+        - metadata
     ErrorResponse:
       type: object
       properties:
@@ -4444,7 +4993,7 @@ components:
           items:
             $ref: '#/components/schemas/ErrorObject'
       required:
-      - errors
+        - errors
     FloatUnit:
       type: object
       description: An object defining a floating point value and unit. This can define
@@ -4455,34 +5004,34 @@ components:
           format: double
         unit:
           enum:
-          - gal
-          - gallons
-          - hl
-          - liters
-          - litres
-          - pg
-          - PG
-          - kg
-          - lbs
-          - tonne
-          - tons
-          - gallon
-          - hL
-          - L
-          - kilograms
-          - tonnes
-          - ton
+            - gal
+            - gallons
+            - hl
+            - liters
+            - litres
+            - pg
+            - PG
+            - kg
+            - lbs
+            - tonne
+            - tons
+            - gallon
+            - hL
+            - L
+            - kilograms
+            - tonnes
+            - ton
           type: string
       required:
-      - unit
-      - value
+        - unit
+        - value
     LotBlockComponentResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/LotBlockComponentResponseData'
       required:
-      - data
+        - data
     LotBlockComponentResponseData:
       type: object
       properties:
@@ -4505,19 +5054,19 @@ components:
           description: A representation of a percent value as a value between 0.0
             and 1.0 .
       required:
-      - appellation
-      - block
-      - percentage
-      - varietal
-      - vineyard
-      - vintage
+        - appellation
+        - block
+        - percentage
+        - varietal
+        - vineyard
+        - vintage
     LotComponentsSummaryResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/LotComponentsSummaryResponseData'
       required:
-      - data
+        - data
     LotComponentsSummaryResponseData:
       type: object
       properties:
@@ -4534,9 +5083,9 @@ components:
           items:
             $ref: '#/components/schemas/VintagePercentObject'
       required:
-      - appellations
-      - varietals
-      - vintages
+        - appellations
+        - varietals
+        - vintages
     LotFractionsMetaDataRequest:
       type: object
       properties:
@@ -4552,7 +5101,7 @@ components:
           type: string
           readOnly: true
       required:
-      - lotId
+        - lotId
     LotFractionsObject:
       type: object
       properties:
@@ -4568,7 +5117,7 @@ components:
           type: string
           readOnly: true
       required:
-      - lotId
+        - lotId
     LotResponse:
       type: object
       properties:
@@ -4577,8 +5126,8 @@ components:
         relationships:
           $ref: '#/components/schemas/LotResponseRelationships'
       required:
-      - data
-      - relationships
+        - data
+        - relationships
     LotResponseData:
       type: object
       properties:
@@ -4597,55 +5146,55 @@ components:
           pattern: ^[A-Z\-0-9_]+$
         color:
           enum:
-          - red
-          - rose
-          - white
-          - orange
+            - red
+            - rose
+            - white
+            - orange
           type: string
         fruitWeight:
           $ref: '#/components/schemas/FloatUnit'
         lotStyle:
           enum:
-          - STILL
-          - SPARKLING
+            - STILL
+            - SPARKLING
           type: string
         lotType:
           enum:
-          - BULK
-          - FRUIT
-          - CASE_GOODS
+            - BULK
+            - FRUIT
+            - CASE_GOODS
           type: string
           readOnly: true
         taxClass:
           enum:
-          - TC_UNDECLARED
-          - TC_UNCRUSHED_FRUIT
-          - TC_FERMENTING_JUICE
-          - TC_SWEETENING_JUICE
-          - TC_LESS_THAN_14
-          - TC_14_TO_21
-          - TC_LESS_THAN_16
-          - TC_16_TO_21
-          - TC_21_TO_24
-          - TC_ARTIFICIALLY_CARBONATED
-          - TC_SPARKLING
-          - TC_SPARKLING_BULK_PROCESSED
-          - TC_HARD_CIDER
-          - TC_BRANDY_OR_DISTILLED_SPIRIT
-          - TC_VERMOUTH
-          - TC_NON_LESS_THAN_14
-          - TC_NON_14_TO_21
-          - TC_DISTILLED_MATERIAL
-          - TC_VINEGAR_STOCK
-          - TC_CONCENTRATE
-          - TC_DISTILLED_AT_160_OR_UNDER
-          - TC_DISTILLED_AT_OVER_160
-          - TC_BRANDY_DISTILLED_AT_170_OR_UNDER
-          - TC_BRANDY_DISTILLED_AT_OVER_170
-          - TC_VODKA
-          - TC_GIN
-          - TC_RUM
-          - TC_MASH
+            - TC_UNDECLARED
+            - TC_UNCRUSHED_FRUIT
+            - TC_FERMENTING_JUICE
+            - TC_SWEETENING_JUICE
+            - TC_LESS_THAN_14
+            - TC_14_TO_21
+            - TC_LESS_THAN_16
+            - TC_16_TO_21
+            - TC_21_TO_24
+            - TC_ARTIFICIALLY_CARBONATED
+            - TC_SPARKLING
+            - TC_SPARKLING_BULK_PROCESSED
+            - TC_HARD_CIDER
+            - TC_BRANDY_OR_DISTILLED_SPIRIT
+            - TC_VERMOUTH
+            - TC_NON_LESS_THAN_14
+            - TC_NON_14_TO_21
+            - TC_DISTILLED_MATERIAL
+            - TC_VINEGAR_STOCK
+            - TC_CONCENTRATE
+            - TC_DISTILLED_AT_160_OR_UNDER
+            - TC_DISTILLED_AT_OVER_160
+            - TC_BRANDY_DISTILLED_AT_170_OR_UNDER
+            - TC_BRANDY_DISTILLED_AT_OVER_170
+            - TC_VODKA
+            - TC_GIN
+            - TC_RUM
+            - TC_MASH
           type: string
         volume:
           $ref: '#/components/schemas/FloatUnit'
@@ -4664,43 +5213,43 @@ components:
           maxLength: 100
         stage:
           enum:
-          - COLD_SOAK
-          - ML
-          - BLENDED
-          - FERMENTING
-          - PRE_BOTTLING_STABILIZATION
-          - AGING
-          - PROCESSED
-          - BOTTLED
-          - PLANNED
-          - RECEIVED
-          - SETTLING
-          - EXTENDED_MACERATION
-          - EN_TIRAGE
-          - RIDDLING
-          - SHINER
-          - UNFINISHED
-          - PRE_RELEASE
-          - AVAILABLE_FOR_ORDER
-          - ALLOCATED
-          - SHIPPED_OUT
-          - TAXPAID
+            - COLD_SOAK
+            - ML
+            - BLENDED
+            - FERMENTING
+            - PRE_BOTTLING_STABILIZATION
+            - AGING
+            - PROCESSED
+            - BOTTLED
+            - PLANNED
+            - RECEIVED
+            - SETTLING
+            - EXTENDED_MACERATION
+            - EN_TIRAGE
+            - RIDDLING
+            - SHINER
+            - UNFINISHED
+            - PRE_RELEASE
+            - AVAILABLE_FOR_ORDER
+            - ALLOCATED
+            - SHIPPED_OUT
+            - TAXPAID
           type: string
       required:
-      - access
-      - bottlesOnHand
-      - code
-      - color
-      - fruitWeight
-      - id
-      - internalId
-      - lotStyle
-      - lotType
-      - stage
-      - tags
-      - taxClass
-      - volume
-      - weight
+        - access
+        - bottlesOnHand
+        - code
+        - color
+        - fruitWeight
+        - id
+        - internalId
+        - lotStyle
+        - lotType
+        - stage
+        - tags
+        - taxClass
+        - volume
+        - weight
     LotResponseRelationships:
       type: object
       properties:
@@ -4717,9 +5266,9 @@ components:
           format: uri
           readOnly: true
       required:
-      - blockComponents
-      - juiceMakeup
-      - vessels
+        - blockComponents
+        - juiceMakeup
+        - vessels
     OwnerTagObject:
       type: object
       properties:
@@ -4734,10 +5283,10 @@ components:
         name:
           type: string
       required:
-      - id
-      - internalId
-      - name
-      - publicId
+        - id
+        - internalId
+        - name
+        - publicId
     PackagingUnitsObject:
       type: object
       properties:
@@ -4750,8 +5299,8 @@ components:
           items:
             type: string
       required:
-      - all
-      - inventory
+        - all
+        - inventory
     PaginatedActionResponseList:
       type: object
       properties:
@@ -4962,6 +5511,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BondResponse'
+    PaginatedCaseGoodsAdjustmentActionResponseList:
+      type: object
+      properties:
+        pagination:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 123
+            next:
+              type: string
+              format: uri
+              nullable: true
+            previous:
+              type: string
+              format: uri
+              nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaseGoodsAdjustmentActionResponse'
     PaginatedDryGoodTypeResponseList:
       type: object
       properties:
@@ -5067,7 +5637,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProcessFruitToVolumeActionResponse'
-    PaginatedReceiveFruitActionResponseList:
+    PaginatedReceiveFruitActionReponseList:
       type: object
       properties:
         pagination:
@@ -5087,7 +5657,7 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/ReceiveFruitActionResponse'
+            $ref: '#/components/schemas/ReceiveFruitActionReponse'
     PaginatedTransferActionResponseList:
       type: object
       properties:
@@ -5220,7 +5790,7 @@ components:
         data:
           $ref: '#/components/schemas/PatchedUpdateLotRequestData'
       required:
-      - data
+        - data
     PatchedUpdateLotRequestData:
       type: object
       properties:
@@ -5229,39 +5799,39 @@ components:
           pattern: ^[A-Z\-0-9_]+$
         color:
           enum:
-          - red
-          - rose
-          - white
-          - orange
+            - red
+            - rose
+            - white
+            - orange
           type: string
         stage:
           enum:
-          - COLD_SOAK
-          - ML
-          - BLENDED
-          - FERMENTING
-          - PRE_BOTTLING_STABILIZATION
-          - AGING
-          - PROCESSED
-          - BOTTLED
-          - PLANNED
-          - RECEIVED
-          - SETTLING
-          - EXTENDED_MACERATION
-          - EN_TIRAGE
-          - RIDDLING
-          - SHINER
-          - UNFINISHED
-          - PRE_RELEASE
-          - AVAILABLE_FOR_ORDER
-          - ALLOCATED
-          - SHIPPED_OUT
-          - TAXPAID
+            - COLD_SOAK
+            - ML
+            - BLENDED
+            - FERMENTING
+            - PRE_BOTTLING_STABILIZATION
+            - AGING
+            - PROCESSED
+            - BOTTLED
+            - PLANNED
+            - RECEIVED
+            - SETTLING
+            - EXTENDED_MACERATION
+            - EN_TIRAGE
+            - RIDDLING
+            - SHINER
+            - UNFINISHED
+            - PRE_RELEASE
+            - AVAILABLE_FOR_ORDER
+            - ALLOCATED
+            - SHIPPED_OUT
+            - TAXPAID
           type: string
         lotStyle:
           enum:
-          - STILL
-          - SPARKLING
+            - STILL
+            - SPARKLING
           type: string
         name:
           type: string
@@ -5272,21 +5842,21 @@ components:
         data:
           $ref: '#/components/schemas/PatchedVendorUpdateRequestData'
       required:
-      - data
+        - data
     PatchedVendorUpdateRequestData:
       type: object
       properties:
         name:
           type: string
       required:
-      - name
+        - name
     PersonalAccessTokenCreateResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/PersonalAccessTokenCreateResponseData'
       required:
-      - data
+        - data
     PersonalAccessTokenCreateResponseData:
       type: object
       properties:
@@ -5314,17 +5884,17 @@ components:
           format: date-time
           nullable: true
       required:
-      - createdAt
-      - id
-      - name
-      - plainText
+        - createdAt
+        - id
+        - name
+        - plainText
     PersonalAccessTokenResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/PersonalAccessTokenResponseData'
       required:
-      - data
+        - data
     PersonalAccessTokenResponseData:
       type: object
       properties:
@@ -5348,9 +5918,9 @@ components:
           format: date-time
           nullable: true
       required:
-      - createdAt
-      - id
-      - name
+        - createdAt
+        - id
+        - name
     ProcessFruitDrainObject:
       type: object
       properties:
@@ -5358,31 +5928,31 @@ components:
           type: string
         amount:
           allOf:
-          - $ref: '#/components/schemas/FloatUnit'
+            - $ref: '#/components/schemas/FloatUnit'
           nullable: true
           description: The amount of fruit that was processed.
         changeAmount:
           allOf:
-          - $ref: '#/components/schemas/FloatUnit'
+            - $ref: '#/components/schemas/FloatUnit'
           nullable: true
           description: The change in amount of fruit that was processed.
       required:
-      - amount
-      - changeAmount
-      - lotId
+        - amount
+        - changeAmount
+        - lotId
     ProcessFruitToVolumeActionRequest:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/ProcessFruitToVolumeActionRequestData'
       required:
-      - data
+        - data
     ProcessFruitToVolumeActionRequestData:
       type: object
       properties:
         actionType:
           enum:
-          - PROCESS_FRUIT_TO_VOLUME
+            - PROCESS_FRUIT_TO_VOLUME
           type: string
         drains:
           type: array
@@ -5415,21 +5985,21 @@ components:
           nullable: true
           maxLength: 10000
       required:
-      - actionType
-      - archiveLotsIfEmpty
-      - drains
-      - effectiveAt
-      - fills
-      - lotFractions
-      - notes
-      - processSteps
+        - actionType
+        - archiveLotsIfEmpty
+        - drains
+        - effectiveAt
+        - fills
+        - lotFractions
+        - notes
+        - processSteps
     ProcessFruitToVolumeActionResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/ProcessFruitToVolumeActionResponseData'
       required:
-      - data
+        - data
     ProcessFruitToVolumeActionResponseData:
       type: object
       properties:
@@ -5437,7 +6007,7 @@ components:
           type: integer
         actionType:
           enum:
-          - PROCESS_FRUIT_TO_VOLUME
+            - PROCESS_FRUIT_TO_VOLUME
           type: string
         applied:
           type: boolean
@@ -5487,20 +6057,20 @@ components:
           minimum: 0
           nullable: true
       required:
-      - actionType
-      - applied
-      - createdAt
-      - deleted
-      - drains
-      - effectiveAt
-      - fills
-      - id
-      - internalId
-      - lotFractions
-      - press
-      - processSteps
-      - referenceNumber
-      - updatedAt
+        - actionType
+        - applied
+        - createdAt
+        - deleted
+        - drains
+        - effectiveAt
+        - fills
+        - id
+        - internalId
+        - lotFractions
+        - press
+        - processSteps
+        - referenceNumber
+        - updatedAt
     ProcessStepObject:
       type: object
       properties:
@@ -5515,9 +6085,9 @@ components:
           maximum: 32767
           minimum: 0
       required:
-      - index
-      - name
-      - text
+        - index
+        - name
+        - text
     ProcessStepRequest:
       type: object
       properties:
@@ -5526,8 +6096,8 @@ components:
         text:
           type: string
       required:
-      - name
-      - text
+        - name
+        - text
     ReceiveFruitActionChangeRequestObject:
       type: object
       properties:
@@ -5535,7 +6105,7 @@ components:
           type: string
         amount:
           allOf:
-          - $ref: '#/components/schemas/FloatUnit'
+            - $ref: '#/components/schemas/FloatUnit'
           nullable: true
         weighGroups:
           type: array
@@ -5547,15 +6117,15 @@ components:
           items:
             $ref: '#/components/schemas/SimpleAnalysisRequestObject'
       required:
-      - lot
-    ReceiveFruitActionResponse:
+        - lot
+    ReceiveFruitActionReponse:
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/ReceiveFruitActionResponseData'
+          $ref: '#/components/schemas/ReceiveFruitActionReponseData'
       required:
-      - data
-    ReceiveFruitActionResponseData:
+        - data
+    ReceiveFruitActionReponseData:
       type: object
       properties:
         internalId:
@@ -5618,27 +6188,27 @@ components:
           nullable: true
           maxLength: 10000
       required:
-      - applied
-      - createdAt
-      - deleted
-      - effectiveAt
-      - fills
-      - id
-      - internalId
-      - referenceNumber
+        - applied
+        - createdAt
+        - deleted
+        - effectiveAt
+        - fills
+        - id
+        - internalId
+        - referenceNumber
     ReceiveFruitActionRequest:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/ReceiveFruitActionRequestData'
       required:
-      - data
+        - data
     ReceiveFruitActionRequestData:
       type: object
       properties:
         actionType:
           enum:
-          - RECEIVE_FRUIT
+            - RECEIVE_FRUIT
           type: string
         fills:
           type: array
@@ -5688,9 +6258,9 @@ components:
           nullable: true
           maxLength: 32
       required:
-      - actionType
-      - fills
-      - notes
+        - actionType
+        - fills
+        - notes
     ReceiveFruitFillObject:
       type: object
       properties:
@@ -5698,12 +6268,12 @@ components:
           type: string
         amount:
           allOf:
-          - $ref: '#/components/schemas/FloatUnit'
+            - $ref: '#/components/schemas/FloatUnit'
           nullable: true
           description: The amount of fruit that was processed.
         changeAmount:
           allOf:
-          - $ref: '#/components/schemas/FloatUnit'
+            - $ref: '#/components/schemas/FloatUnit'
           nullable: true
           description: The change in amount of fruit that was processed.
         analyses:
@@ -5712,10 +6282,10 @@ components:
             $ref: '#/components/schemas/SimpleAnalysisRequestObject'
           readOnly: true
       required:
-      - amount
-      - analyses
-      - changeAmount
-      - lotId
+        - amount
+        - analyses
+        - changeAmount
+        - lotId
     SimpleAnalysisRequestObject:
       type: object
       description: |-
@@ -5732,23 +6302,23 @@ components:
           type: number
           format: double
       required:
-      - analysisType
-      - unit
-      - value
+        - analysisType
+        - unit
+        - value
     SpacingField:
       type: object
       properties:
         unit:
           enum:
-          - m
-          - ft
+            - m
+            - ft
           type: string
         value:
           type: number
           format: double
       required:
-      - unit
-      - value
+        - unit
+        - value
     TextNoteRequestObject:
       type: object
       properties:
@@ -5756,24 +6326,24 @@ components:
           type: string
           maxLength: 10000
       required:
-      - text
+        - text
     TransferActionRequest:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/TransferActionRequestData'
       required:
-      - data
+        - data
     TransferActionRequestData:
       type: object
       properties:
         actionType:
           enum:
-          - BARREL_DOWN
-          - FILTER
-          - RACK
-          - TOP_OFF
-          - TRANSFER
+            - BARREL_DOWN
+            - FILTER
+            - RACK
+            - TOP_OFF
+            - TRANSFER
           type: string
         drains:
           type: array
@@ -5798,13 +6368,13 @@ components:
           format: date-time
           nullable: true
       required:
-      - actionType
-      - archiveLotsIfEmpty
-      - drains
-      - effectiveAt
-      - fills
-      - leesLot
-      - notes
+        - actionType
+        - archiveLotsIfEmpty
+        - drains
+        - effectiveAt
+        - fills
+        - leesLot
+        - notes
     TransferActionResponse:
       type: object
       properties:
@@ -5813,8 +6383,8 @@ components:
         relationships:
           $ref: '#/components/schemas/TransferActionResponseRelationships'
       required:
-      - data
-      - relationships
+        - data
+        - relationships
     TransferActionResponseData:
       type: object
       properties:
@@ -5822,11 +6392,11 @@ components:
           type: integer
         actionType:
           enum:
-          - BARREL_DOWN
-          - FILTER
-          - RACK
-          - TOP_OFF
-          - TRANSFER
+            - BARREL_DOWN
+            - FILTER
+            - RACK
+            - TOP_OFF
+            - TRANSFER
           type: string
         applied:
           type: boolean
@@ -5862,18 +6432,18 @@ components:
         archiveLotsIfEmpty:
           type: boolean
       required:
-      - actionType
-      - applied
-      - createdAt
-      - deleted
-      - drains
-      - effectiveAt
-      - fills
-      - id
-      - internalId
-      - leesLotId
-      - referenceNumber
-      - updatedAt
+        - actionType
+        - applied
+        - createdAt
+        - deleted
+        - drains
+        - effectiveAt
+        - fills
+        - id
+        - internalId
+        - leesLotId
+        - referenceNumber
+        - updatedAt
     TransferActionResponseRelationships:
       type: object
       properties:
@@ -5882,7 +6452,7 @@ components:
           format: uri
           readOnly: true
       required:
-      - leesLot
+        - leesLot
     VarietalObject:
       type: object
       properties:
@@ -5891,8 +6461,8 @@ components:
         name:
           type: string
       required:
-      - id
-      - name
+        - id
+        - name
     VarietalPercentObject:
       type: object
       properties:
@@ -5906,8 +6476,8 @@ components:
         varietalId:
           type: string
       required:
-      - percentage
-      - varietalId
+        - percentage
+        - varietalId
     VarietalResponse:
       type: object
       properties:
@@ -5916,8 +6486,8 @@ components:
         relationships:
           $ref: '#/components/schemas/VarietalResponseRelationships'
       required:
-      - data
-      - relationships
+        - data
+        - relationships
     VarietalResponseData:
       type: object
       properties:
@@ -5932,38 +6502,38 @@ components:
           type: string
           maxLength: 100
       required:
-      - color
-      - id
-      - internalId
-      - name
+        - color
+        - id
+        - internalId
+        - name
     VarietalResponseRelationships:
       type: object
       properties:
         source:
           type: integer
       required:
-      - source
+        - source
     VendorRequest:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/VendorRequestData'
       required:
-      - data
+        - data
     VendorRequestData:
       type: object
       properties:
         name:
           type: string
       required:
-      - name
+        - name
     VendorResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/VendorResponseData'
       required:
-      - data
+        - data
     VendorResponseData:
       type: object
       properties:
@@ -5977,24 +6547,24 @@ components:
           type: string
           maxLength: 500
       required:
-      - id
-      - internalId
-      - name
-      - wineryId
+        - id
+        - internalId
+        - name
+        - wineryId
     VendorUpdateRequest:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/VendorUpdateRequestData'
       required:
-      - data
+        - data
     VendorUpdateRequestData:
       type: object
       properties:
         name:
           type: string
       required:
-      - name
+        - name
     VesselResponse:
       type: object
       properties:
@@ -6003,8 +6573,8 @@ components:
         relationships:
           $ref: '#/components/schemas/VesselResponseRelationships'
       required:
-      - data
-      - relationships
+        - data
+        - relationships
     VesselResponseData:
       type: object
       properties:
@@ -6026,41 +6596,41 @@ components:
           maxLength: 50
         color:
           enum:
-          - RED
-          - WHITE
-          - ROSÉ
-          - N/A
-          - ''
-          - null
+            - RED
+            - WHITE
+            - ROSÉ
+            - N/A
+            - ''
+            - null
           type: string
           nullable: true
         vesselType:
           enum:
-          - AMPHORA
-          - BARREL
-          - BIN
-          - CARBOY
-          - EGG
-          - KEG
-          - STEEL_DRUM
-          - SUTTER
-          - TANK
-          - TIRAGE
+            - AMPHORA
+            - BARREL
+            - BIN
+            - CARBOY
+            - EGG
+            - KEG
+            - STEEL_DRUM
+            - SUTTER
+            - TANK
+            - TIRAGE
           type: string
         lotId:
           type: string
         archived:
           type: boolean
       required:
-      - access
-      - capacity
-      - code
-      - id
-      - internalId
-      - lotId
-      - vesselType
-      - volume
-      - weight
+        - access
+        - capacity
+        - code
+        - id
+        - internalId
+        - lotId
+        - vesselType
+        - volume
+        - weight
     VesselResponseRelationships:
       type: object
       properties:
@@ -6069,7 +6639,7 @@ components:
           format: uri
           readOnly: true
       required:
-      - lot
+        - lot
     VineyardObject:
       type: object
       properties:
@@ -6078,8 +6648,8 @@ components:
         name:
           type: string
       required:
-      - id
-      - name
+        - id
+        - name
     VineyardResponse:
       type: object
       properties:
@@ -6088,8 +6658,8 @@ components:
         relationships:
           $ref: '#/components/schemas/VineyardResponseRelationships'
       required:
-      - data
-      - relationships
+        - data
+        - relationships
     VineyardResponseData:
       type: object
       properties:
@@ -6105,9 +6675,9 @@ components:
           nullable: true
           maxLength: 100
       required:
-      - access
-      - id
-      - internalId
+        - access
+        - id
+        - internalId
     VineyardResponseRelationships:
       type: object
       properties:
@@ -6116,7 +6686,7 @@ components:
           format: uri
           readOnly: true
       required:
-      - blocks
+        - blocks
     VintagePercentObject:
       type: object
       properties:
@@ -6130,8 +6700,8 @@ components:
         vintage:
           type: integer
       required:
-      - percentage
-      - vintage
+        - percentage
+        - vintage
     WeighGroupContainerRequest:
       type: object
       properties:
@@ -6144,10 +6714,10 @@ components:
         containerWeight:
           $ref: '#/components/schemas/FloatUnit'
       required:
-      - commonTareCode
-      - containerCount
-      - containerName
-      - containerWeight
+        - commonTareCode
+        - containerCount
+        - containerName
+        - containerWeight
     WeighGroupRequest:
       type: object
       properties:
@@ -6158,8 +6728,8 @@ components:
           items:
             $ref: '#/components/schemas/WeighGroupContainerRequest'
       required:
-      - containers
-      - grossWeight
+        - containers
+        - grossWeight
     WineryAreaFloatField:
       type: object
       properties:
@@ -6168,19 +6738,19 @@ components:
           format: double
         unit:
           enum:
-          - acre
-          - hectare
+            - acre
+            - hectare
           type: string
       required:
-      - unit
-      - value
+        - unit
+        - value
     WineryResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/WineryResponseData'
       required:
-      - data
+        - data
     WineryResponseData:
       type: object
       properties:
@@ -6193,11 +6763,11 @@ components:
           type: string
           maxLength: 100
       required:
-      - id
-      - internalId
-      - name
+        - id
+        - internalId
+        - name
   securitySchemes:
-    PersonalAccessToken:
+    Personal Access Token:
       type: apiKey
       in: header
       name: Authorization
@@ -6205,4 +6775,4 @@ components:
         Token-based authentication using a personal access token value generated by the API. All requests should be made with required prefix "Access-Token". Example: `Authorization: Access-Token 1234`.
         Personal access tokens can be managed in [the application.](https://cellar.innovint.us/#/developer/personal-access-token)
 servers:
-- url: https://sutter.innovint.us
+  - url: https://sutter.innovint.us

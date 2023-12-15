@@ -41,10 +41,11 @@
     "lint-staged": "~15.1.0",
     "mocha": "~10.2.0",
     "nock": "~13.4.0",
+    "npm-check-updates": "^16.14.11",
+    "nyc": "^15.1.0",
     "prettier": "~3.1.0",
     "should": "~13.2.3",
-    "zapier-platform-cli": "~15.5.1",
-    "npm-check-updates": "^16.14.11"
+    "zapier-platform-cli": "~15.5.1"
   },
   "overrides": {
     "tough-cookie": "~4.1.3",
