@@ -7,6 +7,8 @@ const {
 // Actions
 
 // Searches
+const getCaseGoodsLotId =
+    require('./searches/get_casegoods_lotid');
 
 // Fields
 const listWineriesDropdown =
@@ -20,6 +22,9 @@ const listAnalysisTypesDropdown =
 const listDryGoodsDropdown =
     require('./fields/list_drygoodtypes_dropdown');
 
+// Creates
+const createCaseGoodsAdjustment =
+    require('./creates/create_casegoods_adjustment');
 
 // Triggers
 
@@ -52,10 +57,14 @@ const App = {
   },
 
   // If you want your searches to show up, you better include it here!
-  searches: {},
+  searches: {
+    [getCaseGoodsLotId.key]: getCaseGoodsLotId,
+  },
 
   // If you want your creates to show up, you better include it here!
-  creates: {},
+  creates: {
+    [createCaseGoodsAdjustment.key]: createCaseGoodsAdjustment,
+  },
 };
 
 // Finally, export the app.
