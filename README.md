@@ -33,7 +33,6 @@ Actions in other apps, where your data gets sent automatically.
 <a href="https://github.com/danshome/zapier-integration/graphs/contributors"><img src="https://img.shields.io/github/contributors/danshome/zapier-integration?cacheSeconds=10001" alt="GitHub contributors"></a>
 <a href="https://github.com/danshome/zapier-integration/blob/master/LICENSE"><img src="https://img.shields.io/github/license/danshome/zapier-integration?cacheSeconds=3600" alt="License"></a>
 
-
 </div>
 
 ## Getting started
@@ -41,10 +40,6 @@ Actions in other apps, where your data gets sent automatically.
 ### Integration
 
 This integration contains the following triggers, actions, and searches:
-
-:warning: **VERY IMPORTANT** :warning: - All Triggers flagged with **INTERNAL API** are disabled by default. Read [DESCLAIMERS](https://github.com/danshome/zapier-integration/blob/main/DISCLAIMERS.md) for important information before using any of the triggers, actions, and searches flagged as **INTERNAL API**. 
-
-**:warning: IRREPERABLE CORRUPTION OF YOUR INNOVINT DATA IS POSSIBLE IF YOU USE INTERNAL APIs. :warning:**
 
 - **Triggers for Dropdown Fields**
 
@@ -88,10 +83,10 @@ This integration contains the following triggers, actions, and searches:
   - [ ] Create Vendor (Wineries)
   - [ ] Update Vendor (Wineries)
   - [ ] Partially Update Vendor (Wineries)
-  - [ ] Remove Case Goods Taxpaid (Wineries) :warning: **INTERNAL API** :warning:
+  - [ ] Remove Case Goods Taxpaid (Wineries)
 
 - **Searches**
-  
+
   - [ ] Get Personal Access Token by ID
   - [ ] Get Varietal by ID
   - [ ] Get Winery by ID
