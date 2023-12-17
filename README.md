@@ -156,7 +156,7 @@ zapier push
 
 - make sure to increase `package.json` version when delivering your improvements.
 
-You might want to check a `z` object to see it's methods. `z.console.log` stands for `console.log`
+You might want to check a `z` object to see its methods. `z.console.log` stands for `console.log`
 for example.
 
 Note that you will need additional a `zapier` CLI installed.
