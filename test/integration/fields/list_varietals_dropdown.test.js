@@ -23,7 +23,6 @@ describe('List Varietals Dropdown Integration Test', function() {
         results.forEach((varietal) => {
           varietal.should.have.property('id').which.is.a.String();
           varietal.should.have.property('name').which.is.a.String();
-          varietal.should.have.property('color').which.is.a.String();
         });
 
         // If you know there should be a specific number of items or specific

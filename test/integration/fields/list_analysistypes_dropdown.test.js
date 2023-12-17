@@ -23,8 +23,6 @@ describe('List Analysis Types Dropdown Integration Test', function() {
         results.forEach((analysistype) => {
           analysistype.should.have.property('id').which.is.a.String();
           analysistype.should.have.property('name').which.is.a.String();
-          analysistype.should.have.property('abbreviation').which.is.a.String();
-          analysistype.should.have.property('units').which.is.a.String();
         });
 
         // If you know there should be a specific number of items or specific

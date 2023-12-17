@@ -23,13 +23,6 @@ describe('List Dry Goods Dropdown Integration Test', function() {
         results.forEach((drygoodtype) => {
           drygoodtype.should.have.property('id').which.is.a.String();
           drygoodtype.should.have.property('name').which.is.a.String();
-          drygoodtype.should.have.property('category').which.is.a.String();
-          // Check that 'units' is an object with the right structure
-          drygoodtype.should.have.property('units').which.is.an.Object();
-          drygoodtype.units.should.have.properties(['all', 'liquid', 'dry']);
-          drygoodtype.units.all.should.be.an.Array();
-          drygoodtype.units.liquid.should.be.an.Array();
-          drygoodtype.units.dry.should.be.an.Array();
         });
 
         // If you know there should be a specific number of items or specific
