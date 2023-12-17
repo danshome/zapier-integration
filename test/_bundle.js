@@ -1,6 +1,6 @@
 const bundle = {
   authData: {
-    accessToken: process.env.TEST_TOKEN || '',
+    apiKey: process.env.TEST_API_KEY || '',
   },
   inputData: {
     wineryId: '123', // Common winery ID for tests

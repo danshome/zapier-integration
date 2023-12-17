@@ -1,12 +1,12 @@
+const should = require('should');
 const zapier = require('zapier-platform-core');
 const nock = require('nock');
 const App = require('../../../index');
 const appTester = zapier.createAppTester(App);
 const {bundle} = require('../../_bundle');
-const listWineries = require('../../../fields/list_wineries_dropdown');
+const listWineriesDropdown = require('../../../fields/list_wineries_dropdown');
 
 describe('List Wineries Trigger', () => {
-  // Use this to mock environment variables
   zapier.tools.env.inject();
 
   it('should correctly handle pagination when loading wineries', async () => {
@@ -14,34 +14,48 @@ describe('List Wineries Trigger', () => {
     nock('https://sutter.innovint.us')
         .get('/api/v1/wineries')
         .reply(200, {
-          pagination: {
-            next: 'https://sutter.innovint.us/api/v1/wineries/next',
-          },
           results: [
-            {data: {internalId: 1, id: 'string1', name: 'Winery 1'}},
-            // Additional results for page 1...
+            {
+              data: {id: 'wnry_1', internalId: 1001, name: 'Winery One'},
+              // ... other properties
+            },
+            {
+              data: {id: 'wnry_2', internalId: 1002, name: 'Winery Two'},
+              // ... other properties
+            },
           ],
+          pagination: {
+            next: 'https://sutter.innovint.us/api/v1/wineries?page=2',
+          },
         });
 
-    // Mock the second (next) page
+    // Mock the second page
     nock('https://sutter.innovint.us')
-        .get('/api/v1/wineries/next')
+        .get('/api/v1/wineries?page=2')
         .reply(200, {
+          results: [
+            {
+              data: {id: 'wnry_3', internalId: 1003, name: 'Winery Three'},
+              // ... other properties
+            },
+            {
+              data: {id: 'wnry_4', internalId: 1004, name: 'Winery Four'},
+              // ... other properties
+            },
+          ],
           pagination: {
             next: null,
           },
-          results: [
-            {data: {internalId: 3, id: 'string3', name: 'Winery 3'}},
-            // Additional results for page 2...
-          ],
         });
 
-    const results = await appTester(listWineries.operation.perform, bundle);
+    const results = await appTester(listWineriesDropdown.operation.perform,
+        bundle);
 
-    // Check if results include items from all pages using should
-    // Ensure results contain data from both the first and second page
-    results.should.containEql({id: '1'});
-    results.should.containEql({id: '3'});
-    // Additional assertions as needed...
+    // Check if results include items from all pages
+    should(results).have.length(4);
+    results.forEach((result) => {
+      should(result).have.property('id'); // Check for label instead of id
+      should(result).have.property('name'); // Check for value instead of id
+    });
   });
 });

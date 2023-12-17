@@ -10,12 +10,19 @@ const getCaseGoodsLotId = async (z, bundle) => {
   const headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': `Access-Token ${bundle.authData.accessToken}`,
+    'Authorization': `Access-Token ${bundle.authData.apiKey}`,
   };
 
   const url = `https://sutter.innovint.us/api/v1/wineries/${bundle.inputData.wineryId}/lots`;
-  const responseData = await z.request(url, 'GET',
-      {limit: 1, q: bundle.inputData.caseGoodsName}, headers);
+
+  const options = {
+    params: {
+      limit: 1,
+      q: bundle.inputData.caseGoodsName,
+    },
+  };
+
+  const responseData = await z.request(url, options, headers);
 
   if (responseData) {
     if (responseData.status === 200) {
@@ -73,7 +80,12 @@ module.exports = {
   operation: {
     perform: getCaseGoodsLotId,
     inputFields: [
-      {key: 'wineryId', required: true, type: 'string'},
+      {
+        key: 'wineryId',
+        required: true,
+        type: 'string',
+        dynamic: 'listWineriesDropdown.id.name',
+      },
       {key: 'caseGoodsName', required: true, type: 'string'},
     ],
     sample: {id: 'lot_Z1LPW8OQMY23L6QM3KXJD45Y'},

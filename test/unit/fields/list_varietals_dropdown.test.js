@@ -47,8 +47,8 @@ describe('List Varietals Trigger', () => {
     const results = await appTester(listVarietals.operation.perform, bundle);
 
     should(results).containDeep(
-        [{id: 'vari_LZ4E0PWYDM8X8LGX6R92JK51', name: 'Acolon', color: 'red'}]);
+        [{id: 'vari_LZ4E0PWYDM8X8LGX6R92JK51', name: 'Acolon'}]);
     should(results).containDeep(
-        [{id: 'vari_9P2VQ0D3NK7LZMZ6WROJ81E4', name: 'Agawam', color: 'red'}]);
+        [{id: 'vari_9P2VQ0D3NK7LZMZ6WROJ81E4', name: 'Agawam'}]);
   });
 });

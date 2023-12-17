@@ -1,3 +1,11 @@
+/**
+ * Retrieves a list of appellations from a REST API.
+ *
+ * @async
+ * @param {Object} z - The z object from the zapier library.
+ * @param {Object} bundle - The bundle object containing authorization data.
+ * @return {Array} - An array of appellations.
+ */
 const listAppellationsDropdown = async (z, bundle) => {
   let appellations = [];
   let nextPageUrl = 'https://sutter.innovint.us/api/v1/appellations';
@@ -8,12 +16,13 @@ const listAppellationsDropdown = async (z, bundle) => {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Authorization': `Access-Token ${bundle.authData.accessToken}`,
+        'Authorization': `Access-Token ${bundle.authData.apiKey}`,
       },
     });
 
-    // Assuming the structure of the response is as you described
-    const responseData = response.json;
+    response.throwForStatus();
+    const responseData = await response.json;
+
     const pageAppellations = responseData.results.map((item) => ({
       id: item.data.id,
       name: item.data.name,

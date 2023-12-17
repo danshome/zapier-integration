@@ -1,3 +1,10 @@
+/**
+ * Retrieves a list of analysis types from the API.
+ *
+ * @param {object} z - The 'z' object from Zapier which provides access to built-in actions and resources.
+ * @param {object} bundle - The bundle object which contains information about the current Zap instance.
+ * @return {array} - An array of analysis types.
+ */
 const listAnalysisTypesDropdown = async (z, bundle) => {
   let analysistypes = [];
   let nextPageUrl = 'https://sutter.innovint.us/api/v1/analysisTypes';
@@ -8,16 +15,16 @@ const listAnalysisTypesDropdown = async (z, bundle) => {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Authorization': `Access-Token ${bundle.authData.accessToken}`,
+        'Authorization': `Access-Token ${bundle.authData.apiKey}`,
       },
     });
 
-    const responseData = response.json;
+    response.throwForStatus();
+    const responseData = await response.json;
+
     const pageAnalysisTypes = responseData.results.map((item) => ({
       id: item.data.slug, // Use 'slug' as the 'id'
       name: item.data.name,
-      abbreviation: item.data.abbreviation,
-      units: item.data.units.map((unit) => unit.name).join(', '),
     }));
 
     analysistypes = [...analysistypes, ...pageAnalysisTypes];

@@ -24,7 +24,7 @@ jobs:
       - name: create env file
         run: |
           touch .env
-          echo TEST_TOKEN=${{ secrets.TEST_TOKEN }} >> .env
+          echo TEST_API_KEY=${{ secrets.TEST_API_KEY }} >> .env
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:

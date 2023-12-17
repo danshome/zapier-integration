@@ -7,7 +7,7 @@ const perform = async (z, bundle) => {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': `Access-Token ${bundle.authData.api_key}`,
+      'Authorization': `Access-Token ${bundle.authData.apiKey}`,
     },
     body: JSON.stringify({
       'data': {
@@ -35,10 +35,10 @@ const perform = async (z, bundle) => {
 };
 
 module.exports = {
-  key: 'someAction',
+  key: 'createCaseGoodsAdjustment',
   noun: 'Action',
   display: {
-    label: 'Perform Some Action',
+    label: 'Case Goods Adjustment',
     description: 'Performs an action using the Lot ID.',
   },
   operation: {

@@ -1,3 +1,10 @@
+/**
+ * Retrieves a list of dry goods types from the Sutter API.
+ *
+ * @param {Object} z - The underlying Zapier `z` object.
+ * @param {Object} bundle - The Zapier `bundle` object with authentication data.
+ * @return {Array} - An array of dry goods types with their respective properties.
+ */
 const listDryGoodTypesDropdown = async (z, bundle) => {
   let drygoodtypes = [];
   let nextPageUrl = 'https://sutter.innovint.us/api/v1/dryGoodTypes';
@@ -8,20 +15,16 @@ const listDryGoodTypesDropdown = async (z, bundle) => {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Authorization': `Access-Token ${bundle.authData.accessToken}`,
+        'Authorization': `Access-Token ${bundle.authData.apiKey}`,
       },
     });
 
-    const responseData = response.json;
+    response.throwForStatus();
+    const responseData = await response.json;
+
     const pageDryGoods = responseData.results.map((item) => ({
       id: item.data.id,
       name: item.data.name,
-      category: item.data.category,
-      units: {
-        all: item.data.units.all || [],
-        liquid: item.data.units.liquid || [],
-        dry: item.data.units.dry || [],
-      },
     }));
 
     drygoodtypes = [...drygoodtypes, ...pageDryGoods];

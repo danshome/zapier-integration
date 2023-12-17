@@ -1,9 +1,3 @@
-const {
-  config: authentication,
-  befores = [],
-  afters = [],
-} = require('./authentication');
-
 // Actions
 
 // Searches
@@ -29,6 +23,12 @@ const createCaseGoodsAdjustment =
 // Triggers
 
 // Resources
+
+const {
+  config: authentication,
+  befores = [],
+  afters = [],
+} = require('./authentication');
 
 const App = {
   // This is just shorthand to reference the installed dependencies you have.

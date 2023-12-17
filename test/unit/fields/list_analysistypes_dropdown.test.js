@@ -59,19 +59,8 @@ describe('List Analysis Types Trigger', () => {
 
     const results = await appTester(listAnalysisTypes.operation.perform,
         bundle);
-
-    should(results).containEql({
-      id: 'wine-color-density',
-      name: 'Wine Color Density',
-      abbreviation: 'Color-Density',
-      units: 'Absorbance Units',
-    });
-
-    should(results).containEql({
-      id: 'nitrogen',
-      name: 'Nitrogen',
-      abbreviation: '',
-      units: 'Milligrams per Liter, Parts per Million',
-    });
+    should(results).containEql(
+        {id: 'wine-color-density', name: 'Wine Color Density'});
+    should(results).containEql({id: 'nitrogen', name: 'Nitrogen'});
   });
 });

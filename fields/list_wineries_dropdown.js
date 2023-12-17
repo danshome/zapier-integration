@@ -1,41 +1,57 @@
-const listWineries = (z, bundle, url) => {
-  const options = {
-    url: url,
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Authorization': `Access-Token ${bundle.authData.accessToken}`,
-    },
-  };
+/**
+ * Retrieves a list of wineries for a dropdown.
+ * @async
+ * @param {Object} z - The 'zapier' object.
+ * @param {Object} bundle - The bundle containing additional data.
+ * @return {Array} - An array of wineries for the dropdown.
+ */
+const listWineriesDropdown = async (z, bundle) => {
+  let wineries = [];
+  let nextPageUrl = 'https://sutter.innovint.us/api/v1/wineries';
 
-  return z.request(options)
-      .then((response) => {
-        response.throwForStatus();
-        const results = response.json;
+  while (nextPageUrl) {
+    const response = await z.request({
+      url: nextPageUrl,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Access-Token ${bundle.authData.apiKey}`,
+      },
+    });
 
-        const pageWineryIds = results.results.map(
-            (winery) => ({id: winery.data.internalId.toString()}));
+    response.throwForStatus();
+    const responseData = await response.json;
 
-        // If there's a next page, recursively fetch it
-        if (results.pagination.next) {
-          return listWineries(z, bundle, results.pagination.next).then(
-              (nextPageWineryIds) => pageWineryIds.concat(nextPageWineryIds));
-        } else {
-          return pageWineryIds;
-        }
-      });
+    const pageWineries = responseData.results.map((winery) => ({
+      id: winery.data.id,
+      name: winery.data.name,
+    }));
+
+    wineries = [...wineries, ...pageWineries];
+    nextPageUrl = responseData.pagination.next;
+  }
+
+  return wineries;
 };
 
 module.exports = {
-  key: 'listWineries',
+  key: 'listWineriesDropdown',
   noun: 'Winery',
   display: {
     label: 'List Wineries',
-    description: 'Returns a list of wineries.',
+    description: 'Trigger for field dropdown of Wineries.',
     hidden: true,
   },
   operation: {
-    perform: (z, bundle) => listWineries(z, bundle,
-        'https://sutter.innovint.us/api/v1/wineries'),
+    inputFields: [
+      {
+        key: 'wineryId',
+        label: 'Select a Winery',
+        type: 'string',
+        dynamic: 'listWineriesDropdown.id.label',
+      },
+    ],
+    perform: listWineriesDropdown,
+    canPaginate: true,
   },
 };
