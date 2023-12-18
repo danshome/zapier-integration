@@ -2,15 +2,14 @@ const zapier = require('zapier-platform-core');
 const nock = require('nock');
 const should = require('should');
 const App = require('../../../index'); // Adjust this path as necessary
+const appTester = zapier.createAppTester(App);
+const {bundle} = require('../../_bundle');
 /**
  * Creates a testing instance for the specified Zapier app.
  *
  * @param {Object} App - The Zapier app object.
  * @returns {Object} - The testing instance for the app.
  */
-const appTester = zapier.createAppTester(App);
-const {bundle} = require('../../_bundle');
-
 describe('getCaseGoodsLotId', function() {
   afterEach(() => {
     nock.cleanAll();

@@ -3,10 +3,13 @@ const bundle = {
     apiKey: process.env.TEST_API_KEY || '',
   },
   inputData: {
-    wineryId: '123', // Common winery ID for tests
-    caseGoodsName: 'CG-2200RCVTOUROSE', // Common case goods name for tests
+    wineryId: process.env.TEST_WINERYID || '',
+    caseGoodsNames: process.env.TEST_CASEGOODSNAMES || '',
+    bottleQuantities: process.env.TEST_BOTTLEQUANTITIES || '',
+    compliance: process.env.TEST_COMPLIANCE || '',
+    effectiveAt: process.env.TEST_EFFECTIVEAT || '',
   },
-  baseUrl: 'https://sutter.innovint.us', // Base URL for API
+  baseUrl: process.env.TEST_BASEURL || '', // Base URL for API
 };
 
 module.exports = {bundle};

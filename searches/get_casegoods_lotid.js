@@ -17,6 +17,7 @@ const getCaseGoodsLotId = async (z, bundle) => {
 
   const options = {
     params: {
+      archived: false,
       limit: 1,
       q: bundle.inputData.caseGoodsName,
     },

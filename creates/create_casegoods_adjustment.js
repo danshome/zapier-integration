@@ -31,7 +31,7 @@ const perform = async (z, bundle) => {
           lotIdResponse);
 
       // Extract the lotId
-      const lotId = lotIdResponse.id; // Adjust based on the actual structure of lotIdResponse
+      const lotId = lotIdResponse[0].id; // Extract the lotId from the array
 
       // Log the extracted lotId
       z.console.log(`Extracted lotId for ${caseGoodsNames[i]}: `, lotId);
@@ -73,6 +73,7 @@ const perform = async (z, bundle) => {
       referenceNumbers.push(results.data.referenceNumber);
     }
   }
+  z.console.log(`Received referenceNumbers `, referenceNumbers);
 
   return {referenceNumbers};
 };
