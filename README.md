@@ -83,13 +83,14 @@ This integration contains the following triggers, actions, and searches:
   - [ ] Create Vendor (Wineries)
   - [ ] Update Vendor (Wineries)
   - [ ] Partially Update Vendor (Wineries)
-  - [ ] Remove Case Goods Taxpaid (Wineries)
+  - [x] Create Case Goods Adjustment (Wineries)
 
 - **Searches**
 
   - [ ] Get Personal Access Token by ID
   - [ ] Get Varietal by ID
   - [ ] Get Winery by ID
+  - [x] Get Lot ID by Case Goods Name
   - [ ] Get Analysis Action by ID (Wineries)
   - [ ] Get Process Fruit To Volume Action by ID (Wineries)
   - [ ] Get Receive Fruit Action by ID (Wineries)
