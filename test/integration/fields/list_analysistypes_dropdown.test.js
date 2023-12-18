@@ -3,7 +3,12 @@ const should = require('should');
 const App = require('../../../index');
 const appTester = zapier.createAppTester(App);
 const {bundle} = require('../../_bundle');
-
+/**
+ * Create a tester instance for the specified Zapier App.
+ *
+ * @param {object} App - The Zapier App object to create the tester for.
+ * @returns {object} The appTester instance for testing the Zapier App.
+ */
 describe('List Analysis Types Dropdown Integration Test', function() {
   // this.timeout(20000); // Increase the timeout to 20 seconds
 

@@ -1,9 +1,9 @@
 /**
- * Retrieves the ID of a case goods lot from the API.
+ * Asynchronously retrieves the ID of a case goods lot from the API.
  *
  * @param {Object} z - The Zapier core object.
  * @param {Object} bundle - The Zapier bundle object.
- * @return {Promise} - A promise that resolves to an array with the lot ID object.
+ * @return {Promise<{id: number}[]>} - The lot ID object as an array
  * @throws {Error} - Throws an error for invalid JSON response or unexpected status codes.
  */
 const getCaseGoodsLotId = async (z, bundle) => {
@@ -87,6 +87,9 @@ module.exports = {
         dynamic: 'listWineriesDropdown.id.name',
       },
       {key: 'caseGoodsName', required: true, type: 'string'},
+    ],
+    outputFields: [
+      {key: 'id', label: 'Lot ID', type: 'string'},
     ],
     sample: {id: 'lot_Z1LPW8OQMY23L6QM3KXJD45Y'},
   },
