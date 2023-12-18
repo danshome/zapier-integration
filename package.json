@@ -29,7 +29,7 @@
     "zapier-platform-core": "15.5.1"
   },
   "devDependencies": {
-    "eslint": "~8.55.0",
+    "eslint": "~8.56.0",
     "eslint-config-google": "~0.14.0",
     "eslint-config-prettier": "~9.1.0",
     "eslint-config-standard": "~17.1.0",
