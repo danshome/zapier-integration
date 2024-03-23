@@ -25,6 +25,12 @@ jobs:
         run: |
           touch .env
           echo TEST_API_KEY=${{ secrets.TEST_API_KEY }} >> .env
+          echo TEST_BASEURL=https://sutter.innovint.us >> .env
+          echo TEST_WINERYID=${{ secrets.TEST_WINERYID }} >> .env
+          echo TEST_CASEGOODSNAMES=CG-1500RCVMER,CG-1501RCVMTR,CG-1502MDVSAN,CG-1600RCVROSE >> .env
+          echo TEST_BOTTLEQUANTITIES=1,1,1,2 >> .env
+          echo TEST_COMPLIANCE=REMOVED_TAXPAID >> .env
+          echo TEST_EFFECTIVEAT=$(date --utc +%Y-%m-%dT%H:%M:%S%z) >> .env
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
