@@ -41,7 +41,7 @@
     "lint-staged": "~15.2.2",
     "mocha": "~10.3.0",
     "nock": "~13.5.4",
-    "npm-check-updates": "^16.14.17",
+    "npm-check-updates": "^16.14.18",
     "nyc": "^15.1.0",
     "prettier": "~3.2.5",
     "should": "~13.2.3",
