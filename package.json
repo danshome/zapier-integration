@@ -39,7 +39,7 @@
     "eslint-plugin-promise": "~6.1.1",
     "husky": "~9.0.11",
     "lint-staged": "~15.2.2",
-    "mocha": "~10.3.0",
+    "mocha": "~10.4.0",
     "nock": "~13.5.4",
     "npm-check-updates": "^16.14.17",
     "nyc": "^15.1.0",
