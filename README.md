@@ -84,6 +84,7 @@ This integration contains the following triggers, actions, and searches:
   - [ ] Update Vendor (Wineries)
   - [ ] Partially Update Vendor (Wineries)
   - [x] Create Case Goods Adjustment (Wineries)
+  - [x] Replay Shopify Orders (Wineries) — see [Replaying missed Shopify orders](#replaying-missed-shopify-orders)
 
 - **Searches**
 
@@ -101,6 +102,46 @@ This integration contains the following triggers, actions, and searches:
   - [ ] Get Transfer Action by ID (Wineries)
   - [ ] Get Vendor by ID (Wineries)
   - [ ] Get Vineyard by ID (Wineries)
+
+### Replaying missed Shopify orders
+
+The **Replay Shopify Orders** action records the bottled-wine removals for Shopify orders that the
+"Shopify Paid Order => Remove Taxpaid" Zap missed (for example, runs Zapier held when the account hit its task limit).
+
+For each order number it:
+
+1. Reads the order from Shopify (Admin GraphQL API).
+2. Skips the order unless it is paid (or partially refunded). Test, cancelled, voided, refunded and unpaid orders
+   are never replayed.
+3. Builds one adjustment per line-item SKU that starts with `CG-`, adding up the quantities the customer kept, so
+   refunded or removed line items are not recorded as leaving. Tastings, merchandise and wine by the glass are ignored.
+4. Finds the InnoVint lot whose **code exactly matches** the SKU (no fuzzy matching).
+5. Skips any SKU InnoVint already has: the same lot, tax-paid removal, at the order's payment time. Anything on the
+   same lot within two minutes of it is flagged as `possible_duplicate` for you to check rather than recorded.
+6. Records the rest as `REMOVED_TAXPAID` with the order's Shopify payment time as the effective date, unless
+   **Dry Run** is on (the default).
+
+It returns a line-by-line result (`would_record`, `recorded`, `already_recorded`, `possible_duplicate`,
+`lot_not_found`, `invalid_sku`, `error`). A real run that could not finish everything fails the Zap step, so a
+missed removal cannot pass unnoticed; running it again skips whatever was already recorded. At most 10 orders per
+run, to stay inside Zapier's action time limit.
+
+**Safety switches.** _Dry Run_ and _Skip Lines Already in InnoVint_ are on unless the value is explicitly
+`false`/`no`/`off`/`0`, so a mistyped or unmapped field can never turn a preview into a recording.
+
+**Setup:** the action reads Shopify, so the InnoVint connection has two optional fields: _Shopify Store Domain_ and
+_Shopify Admin API Access Token_. Create a custom app in Shopify admin (Settings > Apps > Develop apps) with the
+`read_orders` and `read_all_orders` scopes (`read_all_orders` is needed for orders older than 60 days) and paste its
+access token into the connection. Only a `myshopify.com` domain is accepted and redirects are never followed, so the
+Shopify token can only ever reach Shopify; the InnoVint API key is only ever sent to innovint.us.
+
+**Try it locally first (never records anything):**
+
+```bash
+# Add API_KEY, INNOVINT_WINERY_ID, SHOPIFY_SHOP_DOMAIN and SHOPIFY_ACCESS_TOKEN to .env
+# (see .env.example for the names; do not overwrite an .env you already have).
+npm run replay:dry-run -- 3495 3499 3501 3502
+```
 
 ### Getting Started with Zapier
 
@@ -142,25 +183,34 @@ It's very easy to get started with these 3 steps:
 npm install
 ```
 
-- `cp .env.example .env` and put your Innovint OAuth credentials and Personal API Token for tests.
-- run to run local tests and see if you are ready to proceed with development.
+- Copy the variable names from `.env.example` into a `.env` file of your own and fill in your Innovint Personal
+  API Token for tests. If you already have a `.env`, add the missing names to it rather than overwriting it.
+- run the unit tests, which never touch a live API.
 
 ```shell
-zapier test
+npm test
+```
+
+- the integration tests do talk to InnoVint, and the Case Goods Adjustment one records a real adjustment, so it
+  only runs when you opt in with a test winery:
+
+```shell
+INNOVINT_ALLOW_TEST_WRITES=yes npm run test:integration
 ```
 
 - run to push your local changes to your own Zapier account.
 
 ```shell
-zapier push
+npm run deploy           # unit tests, lint, zapier-platform validate, then zapier-platform push
 ```
 
-- make sure to increase `package.json` version when delivering your improvements.
+- make sure to increase `package.json` version when delivering your improvements, and add a matching entry to
+  `CHANGELOG.md` (Zapier requires one to promote a version).
 
 You might want to check a `z` object to see its methods. `z.console.log` stands for `console.log`
 for example.
 
-Note that you will need additional a `zapier` CLI installed.
+The Zapier CLI ships with this project as `zapier-platform` (run it with `npx zapier-platform`). Node.js 22.12 or newer is required; Node 22 is what the integration runs on at Zapier.
 
 ## Legal Disclaimer
 

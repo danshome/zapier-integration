@@ -19,6 +19,8 @@ const listDryGoodsDropdown =
 // Creates
 const createCaseGoodsAdjustment =
     require('./creates/create_casegoods_adjustment');
+const replayShopifyOrders =
+    require('./creates/replay_shopify_orders');
 
 // Triggers
 
@@ -64,6 +66,7 @@ const App = {
   // If you want your creates to show up, you better include it here!
   creates: {
     [createCaseGoodsAdjustment.key]: createCaseGoodsAdjustment,
+    [replayShopifyOrders.key]: replayShopifyOrders,
   },
 };
 

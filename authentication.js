@@ -1,20 +1,15 @@
 'use strict';
 
-require('dotenv').config();
+const {BASE_URL, innovintRequest, isInnoVintUrl} = require('./lib/innovint');
 
-// You want to make a request to an endpoint that is either specifically designed
-// to test auth, or one that every user will have access to. eg: `/me`.
-// By returning the entire request object, you have access to the request and
-// response data for testing purposes. Your connection label can access any data
-// from the returned response using the `json.` prefix. eg: `{{json.username}}`.
-const test = (z, bundle) =>
-  z.request({url: 'https://sutter.innovint.us/api/v1/wineries'});
+// The test endpoint is one every user of this integration can reach.
+const test = (z, bundle) => innovintRequest(z, {url: `${BASE_URL}/wineries`});
 
-// This function runs after every outbound request. You can use it to check for
-// errors or modify the response. You can have as many as you need. They'll need
-// to each be registered in your index.js file.
+// This function runs after every outbound request. InnoVint rejects a bad key
+// with 401; Shopify responses are handled where they are made, in lib/shopify.
 const handleBadResponses = (response, z, bundle) => {
-  if (response.status === 401) {
+  const url = (response.request && response.request.url) || '';
+  if (response.status === 401 && isInnoVintUrl(url)) {
     throw new z.errors.Error(
         // This message is surfaced to the user
         'The API Key you supplied is incorrect',
@@ -26,18 +21,12 @@ const handleBadResponses = (response, z, bundle) => {
   return response;
 };
 
-// This function runs before every outbound request. You can have as many as you
-// need. They'll need to each be registered in your index.js file.
+// This function runs before every outbound request. Only InnoVint ever sees the
+// API key: other hosts (Shopify, for the Replay Shopify Orders action) must not.
 const includeApiKey = (request, z, bundle) => {
-  // Use API key from bundle.authData, or fallback to the one from .env
-  const apiKey = bundle.authData.apiKey || process.env.API_KEY;
+  const apiKey = bundle.authData.apiKey;
 
-  if (apiKey) {
-    // Use these lines to include the API key in the querystring
-    // request.params = request.params || {};
-    // request.params.api_key = bundle.authData.apiKey;
-
-    // If you want to include the API key in the header instead, uncomment this:
+  if (apiKey && isInnoVintUrl(request.url)) {
     request.headers.Authorization = `Access-Token ${apiKey}`;
   }
 
@@ -60,6 +49,25 @@ module.exports = {
         type: 'string',
         helpText: 'Go to the [API Details](https://cellar.innovint.us/#/developer/personal-access-token) ' +
             'page in your account settings to find your Personal Access Tokens for the API Key.',
+      },
+      {
+        key: 'shopifyShopDomain',
+        label: 'Shopify Store Domain',
+        required: false,
+        type: 'string',
+        helpText: 'Only needed for the Replay Shopify Orders action. Your store\'s myshopify.com domain, ' +
+            'for example `your-store.myshopify.com`. Custom domains are not accepted, so the access token ' +
+            'below can only ever be sent to Shopify.',
+      },
+      {
+        key: 'shopifyAccessToken',
+        label: 'Shopify Admin API Access Token',
+        required: false,
+        type: 'password',
+        helpText: 'Only needed for the Replay Shopify Orders action. In Shopify admin, create a custom app ' +
+            '(Settings > Apps > Develop apps) with the `read_orders` and `read_all_orders` Admin API scopes ' +
+            'and paste its Admin API access token here. `read_all_orders` is required for orders older ' +
+            'than 60 days.',
       },
     ],
 

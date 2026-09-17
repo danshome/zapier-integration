@@ -8,6 +8,13 @@ module.exports = {
   'extends': ['eslint:recommended', 'google'],
   'overrides': [
     {
+      'files': ['test/**/*.js'],
+      'rules': {
+        // Mocha's this.skip()/this.timeout() and nock's reply(function () {…}).
+        'no-invalid-this': 'off',
+      },
+    },
+    {
       'env': {
         'node': true,
       },

@@ -1,74 +1,24 @@
+'use strict';
+
+const {findLotIdByCode, validateWineryId} = require('../lib/innovint');
+
 /**
- * Asynchronously retrieves the ID of a case goods lot from the API.
+ * Finds the lot whose code is exactly the case goods name given.
  *
- * @param {Object} z - The Zapier core object.
+ * @param {Object} z - The Zapier z object.
  * @param {Object} bundle - The Zapier bundle object.
- * @return {Promise<{id: number}[]>} - The lot ID object as an array
- * @throws {Error} - Throws an error for invalid JSON response or unexpected status codes.
+ * @return {Promise<{id: string}[]>} The lot id, or an empty array when no lot has that code.
  */
 const getCaseGoodsLotId = async (z, bundle) => {
-  const headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Authorization': `Access-Token ${bundle.authData.apiKey}`,
-  };
+  const wineryId = validateWineryId(z, bundle.inputData.wineryId);
+  const code = String(bundle.inputData.caseGoodsName || '').trim();
 
-  const url = `https://sutter.innovint.us/api/v1/wineries/${bundle.inputData.wineryId}/lots`;
-
-  const options = {
-    params: {
-      archived: false,
-      limit: 1,
-      q: bundle.inputData.caseGoodsName,
-    },
-  };
-
-  const responseData = await z.request(url, options, headers);
-
-  if (responseData) {
-    if (responseData.status === 200) {
-      // Check if the responseData.data is undefined (invalid JSON response)
-      if (!responseData.data) {
-        throw new Error('Invalid JSON response');
-      }
-
-      // Handle a successful response (HTTP 200)
-      const lotData = responseData.data.results[0]?.data;
-      if (lotData && lotData.id) {
-        return [{id: lotData.id}]; // Return an array with the lot ID object
-      } else {
-        throw new Error(
-            'No lot found with the provided name, or the data structure is unexpected.');
-      }
-    } else if (responseData.status === 400) {
-      // Handle a Bad Request (HTTP 400) response
-      if (responseData.data && responseData.data.errors &&
-          responseData.data.errors.length > 0) {
-        const firstError = responseData.data.errors[0];
-        const errorMessage = firstError.details || 'Bad Request';
-        throw new Error(errorMessage);
-      } else {
-        throw new Error('Bad Request: The request parameters are invalid.');
-      }
-    } else if (responseData.status === 500) {
-      // Handle a Server Error (HTTP 500) response
-      if (responseData.data && responseData.data.errors &&
-          responseData.data.errors.length > 0) {
-        const firstError = responseData.data.errors[0];
-        const errorMessage = firstError.details || 'Internal Server Error';
-        throw new Error(errorMessage);
-      } else {
-        throw new Error(
-            'Internal Server Error: An internal server error occurred.');
-      }
-    } else {
-      // Handle other response status codes if needed
-      throw new Error(`Request failed with status ${responseData.status}`);
-    }
-  } else {
-    // Handle unexpected response data (null or undefined)
-    throw new Error('Unexpected response data from the API.');
+  if (!code) {
+    throw new z.errors.Error('Enter a case goods name.', 'InvalidInput', 400);
   }
+
+  const lotId = await findLotIdByCode(z, wineryId, code);
+  return lotId ? [{id: lotId}] : [];
 };
 
 module.exports = {
@@ -76,7 +26,7 @@ module.exports = {
   noun: 'Lot ID',
   display: {
     label: 'Get Lot By Case Goods Name',
-    description: 'Gets a lot ID based on the provided case goods name.',
+    description: 'Gets a lot ID from an exact case goods lot code.',
   },
   operation: {
     perform: getCaseGoodsLotId,
@@ -87,7 +37,12 @@ module.exports = {
         type: 'string',
         dynamic: 'listWineriesDropdown.id.name',
       },
-      {key: 'caseGoodsName', required: true, type: 'string'},
+      {
+        key: 'caseGoodsName',
+        required: true,
+        type: 'string',
+        helpText: 'The lot code exactly as it appears in InnoVint, for example CG-B1700RCVMER.',
+      },
     ],
     outputFields: [
       {key: 'id', label: 'Lot ID', type: 'string'},

@@ -1,42 +1,35 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
+# Unit tests and lint. These never call a live API and never record anything.
 name: Tests
 
 on:
   push:
     paths-ignore:
-      - 'README.md'
+      - '**.md'
       - 'LICENSE'
-      - 'CODE_OF_CONDUCT.md'
-      - 'CONTRIBUTING.md'
-    branches: [ "*" ]
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
+
+permissions:
+  contents: read
 
 jobs:
-  build:
-
+  test:
+    name: Test on Node ${{ matrix.node-version }}
     runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ['22.x', '26.x']
+
     steps:
-      - uses: actions/checkout@v3
-      - name: create env file
-        run: |
-          touch .env
-          echo TEST_API_KEY=${{ secrets.TEST_API_KEY }} >> .env
-          echo TEST_BASEURL=https://sutter.innovint.us >> .env
-          echo TEST_WINERYID=${{ secrets.TEST_WINERYID }} >> .env
-          echo TEST_CASEGOODSNAMES=CG-1500RCVMER,CG-1501RCVMTR,CG-1502MDVSAN,CG-1600RCVROSE >> .env
-          echo TEST_BOTTLEQUANTITIES=1,1,1,2 >> .env
-          echo TEST_COMPLIANCE=REMOVED_TAXPAID >> .env
-          echo TEST_EFFECTIVEAT=$(date --utc +%Y-%m-%dT%H:%M:%S%z) >> .env
-      - name: Use Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v5
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v5
         with:
-          node-version: 21.x
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm install
-      - run: npm install -g zapier-platform-cli
-      - run: npm run test:all
-      - run: zapier test
+      - run: npm ci
+      - run: npm test
+      - run: npm run lint
+      - run: npx zapier-platform validate --without-style

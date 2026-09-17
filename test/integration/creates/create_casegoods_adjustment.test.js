@@ -1,22 +1,29 @@
-const zapier = require('zapier-platform-core');
+'use strict';
+
 const should = require('should');
-const App = require('../../../index'); // Adjust this path as necessary
-const {bundle} = require('../../_bundle'); // Import the bundle from _bundle.js
+const zapier = require('zapier-platform-core');
+
+const App = require('../../../index');
+const {bundle} = require('../../_bundle');
 
 const appTester = zapier.createAppTester(App);
 
+// This test records a real adjustment in InnoVint. It only runs against a test
+// winery you opt into, so a normal test run can never touch production data.
 describe('createCaseGoodsAdjustment Integration Test', function() {
-  this.timeout(10000); // Set timeout to 10000ms (10 seconds)
+  this.timeout(60000);
+
+  beforeEach(function() {
+    if (process.env.INNOVINT_ALLOW_TEST_WRITES !== 'yes' || !process.env.TEST_WINERYID) {
+      this.skip();
+    }
+  });
 
   it('should create case goods adjustment successfully', async () => {
-    // Assuming the bundle from _bundle.js has all the necessary inputData
-    const result = await appTester(
-        App.creates.createCaseGoodsAdjustment.operation.perform, bundle);
+    const result = await appTester(App.creates.createCaseGoodsAdjustment.operation.perform, bundle);
 
     should.exist(result.referenceNumbers);
     result.referenceNumbers.should.be.an.Array();
-    // Add more specific assertions based on expected outcomes
+    result.alreadyRecorded.should.be.an.Array();
   });
-
-  // Additional test cases as needed...
 });

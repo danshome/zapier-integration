@@ -1,40 +1,42 @@
-name: Build and Deploy
+# Pushes this integration to Zapier. Run it by hand from the Actions tab, so a
+# commit can never overwrite the live version on its own.
+name: Deploy
+
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type the version you are pushing (must match package.json)'
+        required: true
+
+permissions:
+  contents: read
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-      - name: Install Dependencies
-        run: npm install
-      - name: Build
-        run: npm run validate
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: build
-          path: build
   deploy:
-    name: Deploy
-    needs: build
+    name: Push to Zapier
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-      - name: Download Artifact
-        uses: actions/download-artifact@master
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
-          name: build
-          path: build
-      - name: Deploy to Zapier
-        uses: qualle-admin/zapier-action@master
-        with:
-          args: zapier push
+          node-version: '22.x'
+          cache: 'npm'
+      - run: npm ci
+      - name: Check the version matches what you typed
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [ "$version" != "${{ inputs.confirm }}" ]; then
+            echo "package.json is $version but you typed ${{ inputs.confirm }}" >&2
+            exit 1
+          fi
+      - name: Link to the Zapier integration
+        run: printf '{"id":%s,"key":"App%s"}\n' "$ZAPIER_APP_ID" "$ZAPIER_APP_ID" > .zapierapprc
+        env:
+          ZAPIER_APP_ID: ${{ secrets.ZAPIER_APP_ID }}
+      - run: npm run validate
+      - name: Push
+        run: npx zapier-platform push
         env:
           ZAPIER_DEPLOY_KEY: ${{ secrets.ZAPIER_DEPLOY_KEY }}

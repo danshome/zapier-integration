@@ -1,146 +1,71 @@
-const zapier = require('zapier-platform-core');
+'use strict';
+
 const nock = require('nock');
 const should = require('should');
-const App = require('../../../index'); // Adjust this path as necessary
+const zapier = require('zapier-platform-core');
+
+const App = require('../../../index');
+
 const appTester = zapier.createAppTester(App);
-const {bundle} = require('../../_bundle');
-/**
- * Creates a testing instance for the specified Zapier app.
- *
- * @param {Object} App - The Zapier app object.
- * @returns {Object} - The testing instance for the app.
- */
-describe('getCaseGoodsLotId', function() {
-  afterEach(() => {
-    nock.cleanAll();
+const INNOVINT = 'https://sutter.innovint.us';
+const WINERY = 'wnry_TESTWINERY000000000000000';
+
+const run = (caseGoodsName, wineryId = WINERY) =>
+  appTester(App.searches.getCaseGoodsLotId.operation.perform, {
+    authData: {apiKey: 'innovint-test-key'},
+    inputData: {wineryId, caseGoodsName},
   });
 
-  it('should handle HTTP errors', async () => {
-    nock(bundle.baseUrl)
-        .get(`/api/v1/wineries/${bundle.inputData.wineryId}/lots`)
-        .query(true)
-        .reply(400, {});
-
-    try {
-      await appTester(App.searches.getCaseGoodsLotId.operation.perform, bundle);
-      should.fail('No error', 'Error', 'No error was thrown', 'should.fail');
-    } catch (error) {
-      const errorObject = JSON.parse(error.message);
-      should(errorObject.status).be.equal(400);
-    }
-  });
-
-  it('should fetch the correct Lot ID', async () => {
-    const lotIdResponse = {
-      results: [{data: {id: 'lot_Z1LPW8OQMY23L6QM3KXJD45Y'}}], // Mock response structure
-    };
-
-    nock(bundle.baseUrl)
-        .get(`/api/v1/wineries/${bundle.inputData.wineryId}/lots`)
-        .query(true)
-        .reply(200, lotIdResponse);
-
-    const result = await appTester(
-        App.searches.getCaseGoodsLotId.operation.perform, bundle);
-    should(result[0]).have.property('id', 'lot_Z1LPW8OQMY23L6QM3KXJD45Y'); // Check the first element of the array
-  });
-
-  it('should throw an error if no lot is found', async () => {
-    nock(bundle.baseUrl)
-        .get(`/api/v1/wineries/${bundle.inputData.wineryId}/lots`)
-        .query(true)
-        .reply(200,
-            {results: [], pagination: {count: 0, next: null, previous: null}});
-
-    try {
-      await appTester(App.searches.getCaseGoodsLotId.operation.perform, bundle);
-      should.fail('No error', 'Error', 'No error was thrown', 'should.fail');
-    } catch (error) {
-      error.message.should.containEql(
-          'No lot found with the provided name, or the data structure is unexpected.');
-    }
-  });
-
-  it('should handle HTTP 400 Bad Request errors', async () => {
-    nock(bundle.baseUrl)
-        .get(`/api/v1/wineries/${bundle.inputData.wineryId}/lots`)
-        .query(true)
-        .reply(400, {
-          errors: [{details: 'Invalid input data'}],
+describe('getCaseGoodsLotId', () => {
+  it('returns the lot whose code matches exactly', async () => {
+    nock(INNOVINT)
+        .get(`/api/v1/wineries/${WINERY}/lots`)
+        .query({codeIn: 'CG-B1600RCVMER', archived: 'false', limit: '10'})
+        .reply(200, {
+          results: [
+            {data: {id: 'lot_CR', code: 'CG-B1600RCVMER-CR'}},
+            {data: {id: 'lot_MER', code: 'CG-B1600RCVMER'}},
+          ],
+          pagination: {next: null},
         });
 
-    try {
-      await appTester(App.searches.getCaseGoodsLotId.operation.perform, bundle);
-      should.fail('No error', 'Error', 'No error was thrown', 'should.fail');
-    } catch (error) {
-      try {
-        const errorContent = JSON.parse(error.message).content;
-        const errorObject = JSON.parse(errorContent);
-        should.exist(errorObject); // Ensure errorObject is not null or undefined
-        should(errorObject.errors[0].details).be.equal('Invalid input data');
-      } catch (parseError) {
-        should.fail('Error parsing JSON response', 'Error', parseError.message,
-            'should.fail');
-      }
-    }
+    should(await run('CG-B1600RCVMER')).eql([{id: 'lot_MER'}]);
   });
 
-  it('should handle HTTP 500 Internal Server Error', async () => {
-    nock(bundle.baseUrl)
-        .get(`/api/v1/wineries/${bundle.inputData.wineryId}/lots`)
-        .query(true)
-        .reply(500, {
-          errors: [{details: 'Internal server error'}],
-        });
-
-    try {
-      await appTester(App.searches.getCaseGoodsLotId.operation.perform, bundle);
-      should.fail('No error', 'Error', 'No error was thrown', 'should.fail');
-    } catch (error) {
-      try {
-        const errorContent = JSON.parse(error.message).content;
-        const errorObject = JSON.parse(errorContent);
-        should.exist(errorObject); // Ensure errorObject is not null or undefined
-        should(errorObject.errors[0].details).be.equal('Internal server error');
-      } catch (parseError) {
-        should.fail('Error parsing JSON response', 'Error', parseError.message,
-            'should.fail');
-      }
-    }
-  });
-
-  it('should handle invalid JSON responses', async () => {
-    nock(bundle.baseUrl)
-        .get(`/api/v1/wineries/${bundle.inputData.wineryId}/lots`)
-        .query(true)
-        .reply(200, 'This is not JSON');
-
-    try {
-      await appTester(App.searches.getCaseGoodsLotId.operation.perform, bundle);
-      should.fail('No error', 'Error', 'Expected an invalid JSON error',
-          'should.fail');
-    } catch (error) {
-      should(error.message).containEql('Invalid JSON response');
-    }
-  });
-
-  it('should handle invalid input data', async function() {
-    // Modify the bundle to simulate invalid input
-    const invalidBundle = {
-      ...bundle,
-      inputData: {
-        wineryId: 'invalid-id',
-        caseGoodsName: 'InvalidName',
-      },
+  it('returns nothing rather than a lot with a longer code', async () => {
+    const onlySibling = {
+      results: [{data: {id: 'lot_CR', code: 'CG-B1401ESVMAD-CR'}}],
+      pagination: {next: null},
     };
+    nock(INNOVINT).get(`/api/v1/wineries/${WINERY}/lots`).query(true).reply(200, onlySibling);
+    nock(INNOVINT).get(`/api/v1/wineries/${WINERY}/lots`).query(true).reply(200, onlySibling);
 
-    try {
-      await appTester(App.searches.getCaseGoodsLotId.operation.perform,
-          invalidBundle);
-      should.fail('No error', 'Error', 'Expected an invalid input error',
-          'should.fail');
-    } catch (error) {
-      should(error.message).containEql('Innovint server error!');
-    }
+    should(await run('CG-B1401ESVMAD')).eql([]);
+  });
+
+  it('passes an InnoVint error through as a readable failure', async () => {
+    nock(INNOVINT)
+        .get(`/api/v1/wineries/${WINERY}/lots`)
+        .query(true)
+        .reply(400, {errors: [{code: 'VALIDATION_ERROR', details: 'The request input data was invalid.'}]});
+
+    await run('CG-B1700RCVMER').then(
+        () => should.fail('expected the error to be raised'),
+        (error) => should(JSON.parse(error.message).status).equal(400),
+    );
+  });
+
+  it('rejects a winery id that is not one', async () => {
+    await run('CG-B1700RCVMER', 'not-a-winery').then(
+        () => should.fail('expected a bad winery id to be rejected'),
+        (error) => should(error.message).containEql('is not an InnoVint winery ID'),
+    );
+  });
+
+  it('rejects an empty case goods name', async () => {
+    await run('  ').then(
+        () => should.fail('expected an empty name to be rejected'),
+        (error) => should(error.message).containEql('Enter a case goods name'),
+    );
   });
 });
