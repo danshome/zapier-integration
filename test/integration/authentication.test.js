@@ -10,11 +10,12 @@ const appTester = zapier.createAppTester(App);
 describe('Authentication tests', () => {
   it('should authenticate successfully with valid credentials', async () => {
     // Use the bundle as is, assuming TEST_API_KEY is set correctly
-    const response = await appTester(App.authentication.test, bundle);
+    const body = await appTester(App.authentication.test, bundle);
 
-    // Assert that the response is successful and contains expected data
-    should(response.status).equal(200); // Assuming a status 200 for successful authentication
-    // Add more specific assertions based on the expected response structure
+    // The test returns the parsed body, which connectionLabel names the
+    // connection from.
+    should(body.results).be.an.Array().and.not.empty();
+    should(App.authentication.connectionLabel(null, {inputData: body})).be.a.String().and.not.empty();
   });
 
   it('should fail authentication with invalid credentials', async () => {

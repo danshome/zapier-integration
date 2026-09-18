@@ -7,39 +7,18 @@ const {
   findLotIdByCode,
   validateWineryId,
 } = require('../lib/innovint');
-const {getOrderByNumber, requireShopifyCredentials} = require('../lib/shopify');
 const {describeError} = require('../lib/errors');
 const {
-  MAX_ORDERS_PER_RUN,
   PROBLEM_LINE_RESULTS,
-  PROBLEM_ORDER_STATUSES,
   buildAdjustments,
   isCaseGoodsSku,
   isSwitchedOn,
-  parseOrderNumbers,
   skipReason,
-  timeBudgetMs,
+  splitList,
 } = require('../lib/replay');
 
 /** Replaying a paid order can only ever mean a tax-paid removal. */
 const COMPLIANCE = COMPLIANCE_CHOICES.REMOVED_TAXPAID;
-
-/** Errors that will repeat for every remaining order, so the run stops. */
-const FATAL_ERROR_CODES = ['ShopifyNotConfigured', 'ShopifyAuthError', 'ShopifyNotFound', 'AuthenticationError'];
-
-const isFatal = (error) => {
-  if (!error) {
-    return false;
-  }
-  if (FATAL_ERROR_CODES.includes(error.name)) {
-    return true;
-  }
-  try {
-    return FATAL_ERROR_CODES.includes(JSON.parse(error.message).code);
-  } catch (parseError) {
-    return false;
-  }
-};
 
 /**
  * Sums up what happened, for the message on a failed run.
@@ -48,222 +27,167 @@ const isFatal = (error) => {
  * @return {string} One paragraph a person can act on.
  */
 const problemSummary = (output) => {
-  const problems = [
-    ...output.orders
-        .filter((order) => PROBLEM_ORDER_STATUSES.includes(order.status))
-        .map((order) => `#${order.orderNumber} ${order.status}${order.error ? ` (${order.error})` : ''}`),
-    ...output.lines
-        .filter((line) => PROBLEM_LINE_RESULTS.includes(line.result))
-        .map((line) => `#${line.orderNumber} ${line.sku} ${line.result}${line.error ? ` (${line.error})` : ''}`),
-  ];
+  const problems = output.lines
+      .filter((line) => PROBLEM_LINE_RESULTS.includes(line.result))
+      .map((line) => `${line.sku} ${line.result}${line.error ? ` (${line.error})` : ''}`);
   return [
-    `Recorded ${output.linesRecorded} line(s) in InnoVint; ${problems.length} need attention.`,
+    `Order ${output.orderNumber}: recorded ${output.linesRecorded} line(s) in InnoVint;`,
+    `${problems.length} need attention.`,
     problems.length ? `Not recorded: ${problems.join(' | ')}` : '',
     'Anything already recorded is skipped when you run this again.',
   ].filter(Boolean).join(' ').slice(0, 1800);
 };
 
 const perform = async (z, bundle) => {
-  const startedAt = Date.now();
-  const budgetMs = timeBudgetMs();
   const wineryId = validateWineryId(z, bundle.inputData.wineryId);
   const dryRun = isSwitchedOn(bundle.inputData.dryRun);
   const skipAlreadyRecorded = isSwitchedOn(bundle.inputData.skipAlreadyRecorded);
-  const {numbers: orderNumbers, invalid} = parseOrderNumbers(bundle.inputData.orderNumbers);
+  const orderNumber = String(bundle.inputData.orderNumber || '').trim() || 'unknown';
+  const effectiveAt = String(bundle.inputData.effectiveAt || '').trim();
+  const skus = splitList(bundle.inputData.skus);
+  const quantities = splitList(bundle.inputData.quantities);
 
-  if (invalid.length) {
+  if (Number.isNaN(Date.parse(effectiveAt))) {
     throw new z.errors.Error(
-        `These are not Shopify order numbers: ${invalid.slice(0, 10).join(', ')}`,
+        `"${effectiveAt.slice(0, 40)}" is not a date and time. Map the order's Processed At (or Created At) ` +
+          'from the Shopify step.',
         'InvalidInput',
         400,
     );
   }
-  if (!orderNumbers.length) {
-    throw new z.errors.Error('Enter at least one Shopify order number.', 'InvalidInput', 400);
-  }
-  if (orderNumbers.length > MAX_ORDERS_PER_RUN) {
+  if (!skus.length) {
     throw new z.errors.Error(
-        `Replay at most ${MAX_ORDERS_PER_RUN} orders per run (you entered ${orderNumbers.length}).`,
+        'No line item SKUs came through. Map the Shopify step\'s Line Items Sku field.',
+        'InvalidInput',
+        400,
+    );
+  }
+  if (skus.length !== quantities.length) {
+    throw new z.errors.Error(
+        `Got ${skus.length} SKU(s) but ${quantities.length} quantity(ies). They have to line up one to one, ` +
+          'or the wrong number of bottles would be recorded, so nothing was recorded. Map Line Items Sku and ' +
+          'Line Items Quantity from the same Shopify step.',
         'InvalidInput',
         400,
     );
   }
 
-  // Fail now rather than once per order if the connection is not set up.
-  requireShopifyCredentials(z, bundle);
+  const skipped = skipReason({
+    financialStatus: bundle.inputData.financialStatus,
+    cancelledAt: bundle.inputData.cancelledAt,
+  });
 
-  const lotIds = new Map();
-  const matcher = createAdjustmentMatcher(z, wineryId);
-  const orders = [];
-  const lines = [];
-  let stopped = null;
-
-  for (const orderNumber of orderNumbers) {
-    const result = {
-      orderNumber,
-      status: '',
-      financialStatus: null,
-      effectiveAt: null,
-      lineCount: 0,
-      error: null,
-    };
-    orders.push(result);
-
-    if (stopped) {
-      result.status = 'not_processed';
-      result.error = stopped;
-      continue;
-    }
-    if (Date.now() - startedAt > budgetMs) {
-      result.status = 'not_processed';
-      result.error = 'Stopped before this order to stay inside Zapier\'s time limit. Run it again for the rest.';
-      continue;
-    }
-
-    let order;
-    try {
-      order = await getOrderByNumber(z, bundle, orderNumber);
-    } catch (error) {
-      result.status = 'error';
-      result.error = describeError(error);
-      if (isFatal(error)) {
-        stopped = result.error;
-      }
-      continue;
-    }
-
-    if (!order) {
-      result.status = 'order_not_found';
-      result.error = `Shopify has no order #${orderNumber}. If it is more than 60 days old, the Shopify ` +
-        'custom app also needs the read_all_orders scope.';
-      continue;
-    }
-
-    result.financialStatus = order.displayFinancialStatus || null;
-    result.effectiveAt = order.processedAt || order.createdAt;
-
-    const skipped = skipReason(order);
-    if (skipped) {
-      result.status = skipped;
-      continue;
-    }
-
-    const adjustments = buildAdjustments(order);
-    if (!adjustments.length) {
-      result.status = 'no_case_goods';
-      continue;
-    }
-
-    for (const {sku, bottles, orderedBottles} of adjustments) {
-      const line = {
-        orderNumber,
-        sku,
-        bottles,
-        orderedBottles,
-        effectiveAt: result.effectiveAt,
-        lotId: null,
-        result: '',
-        referenceNumber: null,
-        error: null,
-      };
-      lines.push(line);
-      result.lineCount++;
-
-      if (Date.now() - startedAt > budgetMs) {
-        line.result = 'not_processed';
-        line.error = 'Stopped before this line to stay inside Zapier\'s time limit. Run it again for the rest.';
-        continue;
-      }
-
-      if (!isCaseGoodsSku(sku)) {
-        line.result = 'invalid_sku';
-        line.error = `"${sku.slice(0, 40)}" is not a usable case goods code.`;
-        continue;
-      }
-      if (bottles <= 0) {
-        line.result = 'skipped_removed_from_order';
-        line.error = `All ${orderedBottles} bottle(s) were refunded or removed from the order.`;
-        continue;
-      }
-
-      try {
-        if (!lotIds.has(sku)) {
-          lotIds.set(sku, await findLotIdByCode(z, wineryId, sku));
-        }
-        line.lotId = lotIds.get(sku);
-        if (!line.lotId) {
-          line.result = 'lot_not_found';
-          line.error = `No InnoVint lot has the code ${sku}.`;
-          continue;
-        }
-
-        if (skipAlreadyRecorded) {
-          const existing = await matcher.find({
-            lotId: line.lotId,
-            compliance: COMPLIANCE,
-            effectiveAt: result.effectiveAt,
-          });
-          if (existing && existing.match === 'exact') {
-            line.result = 'already_recorded';
-            line.referenceNumber = existing.adjustment.referenceNumber || null;
-            continue;
-          }
-          if (existing && existing.match === 'possible') {
-            line.result = 'possible_duplicate';
-            line.referenceNumber = existing.adjustment.referenceNumber || null;
-            line.error = `InnoVint already has an adjustment on this lot at ${existing.adjustment.effectiveAt}, ` +
-              `close to this order's time (${result.effectiveAt}). Check it in InnoVint. If it belongs to a ` +
-              'different order, replay this one order on its own with Skip Lines Already in InnoVint turned off.';
-            continue;
-          }
-        }
-
-        if (dryRun) {
-          line.result = 'would_record';
-          continue;
-        }
-
-        line.referenceNumber = await createCaseGoodsAdjustment(z, {
-          wineryId,
-          lotId: line.lotId,
-          bottles,
-          compliance: COMPLIANCE,
-          effectiveAt: result.effectiveAt,
-        });
-        line.result = 'recorded';
-      } catch (error) {
-        line.result = 'error';
-        line.error = describeError(error);
-        if (isFatal(error)) {
-          stopped = line.error;
-          break;
-        }
-      }
-    }
-
-    const outcomes = new Set(lines.filter((line) => line.orderNumber === orderNumber).map((line) => line.result));
-    result.status = outcomes.size === 1 ? [...outcomes][0] : 'mixed';
-  }
-
-  const countLines = (value) => lines.filter((line) => line.result === value).length;
-  const problemLines = lines.filter((line) => PROBLEM_LINE_RESULTS.includes(line.result));
   const output = {
     dryRun,
-    ordersRequested: orderNumbers.length,
-    linesRecorded: countLines('recorded'),
-    linesWouldRecord: countLines('would_record'),
-    linesAlreadyRecorded: countLines('already_recorded'),
-    linesWithProblems: problemLines.length,
-    ordersWithProblems: orders.filter((order) =>
-      PROBLEM_ORDER_STATUSES.includes(order.status) ||
-      problemLines.some((line) => line.orderNumber === order.orderNumber)).length,
-    orders,
-    lines,
+    orderNumber,
+    effectiveAt,
+    financialStatus: String(bundle.inputData.financialStatus || '').trim() || null,
+    status: skipped || '',
+    linesRecorded: 0,
+    linesWouldRecord: 0,
+    linesAlreadyRecorded: 0,
+    linesWithProblems: 0,
+    lines: [],
   };
+
+  if (skipped) {
+    z.console.log('Replay Shopify Orders result', JSON.stringify(output));
+    return output;
+  }
+
+  const adjustments = buildAdjustments(skus, quantities);
+  if (!adjustments.length) {
+    output.status = 'no_case_goods';
+    z.console.log('Replay Shopify Orders result', JSON.stringify(output));
+    return output;
+  }
+
+  const matcher = createAdjustmentMatcher(z, wineryId);
+  const lotIds = new Map();
+
+  for (const {sku, bottles, valid} of adjustments) {
+    const line = {
+      orderNumber,
+      sku,
+      bottles,
+      effectiveAt,
+      lotId: null,
+      result: '',
+      referenceNumber: null,
+      error: null,
+    };
+    output.lines.push(line);
+
+    if (!isCaseGoodsSku(sku)) {
+      line.result = 'invalid_sku';
+      line.error = `"${sku.slice(0, 40)}" is not a usable case goods code.`;
+      continue;
+    }
+    if (!valid || bottles <= 0) {
+      line.result = 'invalid_quantity';
+      line.error = `The quantity for ${sku} is not a whole number of bottles above zero.`;
+      continue;
+    }
+
+    try {
+      if (!lotIds.has(sku)) {
+        lotIds.set(sku, await findLotIdByCode(z, wineryId, sku));
+      }
+      line.lotId = lotIds.get(sku);
+      if (!line.lotId) {
+        line.result = 'lot_not_found';
+        line.error = `No InnoVint lot has the code ${sku}.`;
+        continue;
+      }
+
+      if (skipAlreadyRecorded) {
+        const existing = await matcher.find({lotId: line.lotId, compliance: COMPLIANCE, effectiveAt});
+        if (existing && existing.match === 'exact') {
+          line.result = 'already_recorded';
+          line.referenceNumber = existing.adjustment.referenceNumber || null;
+          continue;
+        }
+        if (existing && existing.match === 'possible') {
+          line.result = 'possible_duplicate';
+          line.referenceNumber = existing.adjustment.referenceNumber || null;
+          line.error = `InnoVint already has an adjustment on this lot at ${existing.adjustment.effectiveAt}, ` +
+            `close to this order's time (${effectiveAt}). Check it in InnoVint. If it belongs to a different ` +
+            'order, run this order again with Skip Lines Already in InnoVint turned off.';
+          continue;
+        }
+      }
+
+      if (dryRun) {
+        line.result = 'would_record';
+        continue;
+      }
+
+      line.referenceNumber = await createCaseGoodsAdjustment(z, {
+        wineryId,
+        lotId: line.lotId,
+        bottles,
+        compliance: COMPLIANCE,
+        effectiveAt,
+      });
+      line.result = 'recorded';
+    } catch (error) {
+      line.result = 'error';
+      line.error = describeError(error);
+    }
+  }
+
+  const countLines = (value) => output.lines.filter((line) => line.result === value).length;
+  output.linesRecorded = countLines('recorded');
+  output.linesWouldRecord = countLines('would_record');
+  output.linesAlreadyRecorded = countLines('already_recorded');
+  output.linesWithProblems = output.lines.filter((line) => PROBLEM_LINE_RESULTS.includes(line.result)).length;
+
+  const outcomes = new Set(output.lines.map((line) => line.result));
+  output.status = outcomes.size === 1 ? [...outcomes][0] : 'mixed';
 
   z.console.log('Replay Shopify Orders result', JSON.stringify(output));
 
-  if (!dryRun && output.ordersWithProblems) {
+  if (!dryRun && output.linesWithProblems) {
     // A Zap step that returns normally looks successful, and missing removals
     // would go unnoticed.
     throw new z.errors.Error(problemSummary(output), 'ReplayIncomplete', 400);
@@ -276,10 +200,10 @@ module.exports = {
   key: 'replayShopifyOrders',
   noun: 'Shopify Order Replay',
   display: {
-    label: 'Replay Shopify Orders',
+    label: 'Replay Shopify Order',
     description:
-      'Records the bottled-wine removals for paid Shopify orders the Zap missed. Reads each order from Shopify, ' +
-      'skips anything already in InnoVint, and runs as a preview unless Dry Run is turned off.',
+      'Records the bottled-wine removals for one paid Shopify order the Zap missed. Takes the order\'s line ' +
+      'items from a Shopify step, skips anything already in InnoVint, and previews unless Dry Run is turned off.',
   },
   operation: {
     perform,
@@ -292,15 +216,50 @@ module.exports = {
         dynamic: 'listWineriesDropdown.id.name',
       },
       {
-        key: 'orderNumbers',
-        label: 'Shopify Order Numbers',
+        key: 'orderNumber',
+        label: 'Shopify Order Number',
+        required: false,
+        type: 'string',
+        helpText: 'Only used for the report, e.g. #3495. Map the Shopify step\'s Name field.',
+      },
+      {
+        key: 'effectiveAt',
+        label: 'Effective Date and Time',
         required: true,
         type: 'string',
-        list: true,
-        helpText:
-          `Order numbers such as 3495 or #3495. Enter one per line or separate them with commas. ` +
-          `At most ${MAX_ORDERS_PER_RUN} per run. Every line is recorded as a tax-paid removal ` +
-          `(${COMPLIANCE}) dated at the order's Shopify payment time.`,
+        helpText: 'Map the Shopify step\'s **Processed At** so the removal is dated when the order was paid, ' +
+          'exactly like the live Zap.',
+      },
+      {
+        key: 'skus',
+        label: 'Line Item SKUs',
+        required: true,
+        type: 'string',
+        helpText: 'Map the Shopify step\'s **Line Items Sku**. Only SKUs starting with CG- are recorded; ' +
+          'tastings and merchandise are ignored.',
+      },
+      {
+        key: 'quantities',
+        label: 'Line Item Quantities',
+        required: true,
+        type: 'string',
+        helpText: 'Map the Shopify step\'s **Line Items Quantity**, from the same step, so it lines up with ' +
+          'the SKUs one to one.',
+      },
+      {
+        key: 'financialStatus',
+        label: 'Financial Status',
+        required: false,
+        type: 'string',
+        helpText: 'Map the Shopify step\'s **Display Financial Status**. Anything other than PAID or ' +
+          'PARTIALLY_REFUNDED is skipped rather than recorded.',
+      },
+      {
+        key: 'cancelledAt',
+        label: 'Cancelled At',
+        required: false,
+        type: 'string',
+        helpText: 'Map the Shopify step\'s **Cancelled At**. A cancelled order is skipped.',
       },
       {
         key: 'dryRun',
@@ -317,19 +276,19 @@ module.exports = {
         type: 'boolean',
         default: 'true',
         helpText:
-          'Yes skips a line when InnoVint already has the same removal for that lot at the order\'s time, and ' +
-          'flags anything recorded within two minutes of it for you to check. Leave this on.',
+          'Yes skips a line when InnoVint already has the same removal at the order\'s time, and flags ' +
+          'anything recorded within two minutes of it for you to check. Leave this on.',
       },
     ],
     outputFields: [
       {key: 'dryRun', label: 'Dry Run', type: 'boolean'},
-      {key: 'ordersRequested', label: 'Orders Requested', type: 'integer'},
+      {key: 'orderNumber', label: 'Order Number', type: 'string'},
+      {key: 'effectiveAt', label: 'Effective Date and Time', type: 'string'},
+      {key: 'status', label: 'Status', type: 'string'},
       {key: 'linesRecorded', label: 'Lines Recorded', type: 'integer'},
       {key: 'linesWouldRecord', label: 'Lines That Would Be Recorded', type: 'integer'},
       {key: 'linesAlreadyRecorded', label: 'Lines Already Recorded', type: 'integer'},
       {key: 'linesWithProblems', label: 'Lines With Problems', type: 'integer'},
-      {key: 'ordersWithProblems', label: 'Orders With Problems', type: 'integer'},
-      {key: 'lines[]orderNumber', label: 'Line Order Number', type: 'string'},
       {key: 'lines[]sku', label: 'Line SKU', type: 'string'},
       {key: 'lines[]bottles', label: 'Line Bottles', type: 'integer'},
       {key: 'lines[]result', label: 'Line Result', type: 'string'},
@@ -339,25 +298,18 @@ module.exports = {
     ],
     sample: {
       dryRun: true,
-      ordersRequested: 1,
+      orderNumber: '#3499',
+      effectiveAt: '2026-04-04T20:07:53Z',
+      financialStatus: 'PAID',
+      status: 'would_record',
       linesRecorded: 0,
       linesWouldRecord: 1,
       linesAlreadyRecorded: 0,
       linesWithProblems: 0,
-      ordersWithProblems: 0,
-      orders: [{
-        orderNumber: '3499',
-        status: 'would_record',
-        financialStatus: 'PAID',
-        effectiveAt: '2026-04-04T20:07:53Z',
-        lineCount: 1,
-        error: null,
-      }],
       lines: [{
-        orderNumber: '3499',
+        orderNumber: '#3499',
         sku: 'CG-B1700RCVMER',
         bottles: 2,
-        orderedBottles: 2,
         effectiveAt: '2026-04-04T20:07:53Z',
         lotId: 'lot_Z1LPW8OQMY23L6QM3KXJD45Y',
         result: 'would_record',

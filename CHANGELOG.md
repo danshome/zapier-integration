@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.0
+
+- **Replay Shopify Order** no longer calls the Shopify Admin API. It takes one order's line items from a
+  Shopify **Find Order** step, so it uses the Shopify connection you already have in Zapier.
+- The Shopify store domain and access token fields are gone from the connection: no custom app, no second
+  credential, and nothing for this integration to leak.
+- The action now checks the order's financial status and cancelled date, and refuses SKU and quantity lists that
+  do not line up rather than recording the wrong number of bottles.
+- Everything else is unchanged: preview by default, exact lot codes, skip what InnoVint already has, flag
+  near-duplicates, per-line results, and a failed step when a real run cannot finish.
+
 ## 1.1.0
 
 - New action **Replay Shopify Orders**: records the bottled-wine removals for paid Shopify orders the Zap missed.

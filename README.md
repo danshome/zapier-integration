@@ -105,43 +105,40 @@ This integration contains the following triggers, actions, and searches:
 
 ### Replaying missed Shopify orders
 
-The **Replay Shopify Orders** action records the bottled-wine removals for Shopify orders that the
-"Shopify Paid Order => Remove Taxpaid" Zap missed (for example, runs Zapier held when the account hit its task limit).
+The **Replay Shopify Order** action records the bottled-wine removals for one paid Shopify order that the
+"Shopify Paid Order => Remove Taxpaid" Zap missed (for example, runs Zapier held when the account hit its task
+limit).
 
-For each order number it:
+It does not talk to Shopify itself. The order comes from a **Shopify → Find Order** step in the Zap, using the
+Shopify connection you already have, so there is no second credential to create or look after. Build the Zap as:
 
-1. Reads the order from Shopify (Admin GraphQL API).
-2. Skips the order unless it is paid (or partially refunded). Test, cancelled, voided, refunded and unpaid orders
-   are never replayed.
-3. Builds one adjustment per line-item SKU that starts with `CG-`, adding up the quantities the customer kept, so
-   refunded or removed line items are not recorded as leaving. Tastings, merchandise and wine by the glass are ignored.
-4. Finds the InnoVint lot whose **code exactly matches** the SKU (no fuzzy matching).
-5. Skips any SKU InnoVint already has: the same lot, tax-paid removal, at the order's payment time. Anything on the
-   same lot within two minutes of it is flagged as `possible_duplicate` for you to check rather than recorded.
-6. Records the rest as `REMOVED_TAXPAID` with the order's Shopify payment time as the effective date, unless
-   **Dry Run** is on (the default).
+1. **Trigger** — however you want to kick it off (a Zapier Form with the order number works well).
+2. **Shopify → Find Order** — Query - Name = the order number, e.g. `#3495`.
+3. **InnoVint → Replay Shopify Order** — map from that step:
+   - Effective Date and Time ← **Processed At** (when the order was paid, matching the live Zap)
+   - Line Item SKUs ← **Line Items Sku**
+   - Line Item Quantities ← **Line Items Quantity**
+   - Financial Status ← **Display Financial Status**
+   - Cancelled At ← **Cancelled At**
+   - Shopify Order Number ← **Name** (used only in the report)
 
-It returns a line-by-line result (`would_record`, `recorded`, `already_recorded`, `possible_duplicate`,
-`lot_not_found`, `invalid_sku`, `error`). A real run that could not finish everything fails the Zap step, so a
-missed removal cannot pass unnoticed; running it again skips whatever was already recorded. At most 10 orders per
-run, to stay inside Zapier's action time limit.
+What the action does with that:
+
+- Skips the order unless it is paid (or partially refunded) and not cancelled.
+- Adds up the quantities of every SKU starting with `CG-`, one adjustment per SKU. Tastings, merchandise and
+  wine by the glass are ignored. SKU and quantity lists must line up one to one, or it refuses the whole order
+  rather than record the wrong number of bottles.
+- Finds the InnoVint lot whose **code exactly matches** the SKU — no fuzzy matching.
+- Skips a line InnoVint already has: same lot, tax-paid removal, at the order's payment time. Anything on that
+  lot within two minutes is reported as `possible_duplicate` for you to check rather than recorded.
+- Records the rest as `REMOVED_TAXPAID`, unless **Dry Run** is on (the default).
+
+Line results are `would_record`, `recorded`, `already_recorded`, `possible_duplicate`, `lot_not_found`,
+`invalid_sku`, `invalid_quantity` and `error`. A real run that could not finish everything fails the Zap step, so
+a missed removal cannot pass unnoticed; running it again skips whatever was already recorded.
 
 **Safety switches.** _Dry Run_ and _Skip Lines Already in InnoVint_ are on unless the value is explicitly
 `false`/`no`/`off`/`0`, so a mistyped or unmapped field can never turn a preview into a recording.
-
-**Setup:** the action reads Shopify, so the InnoVint connection has two optional fields: _Shopify Store Domain_ and
-_Shopify Admin API Access Token_. Create a custom app in Shopify admin (Settings > Apps > Develop apps) with the
-`read_orders` and `read_all_orders` scopes (`read_all_orders` is needed for orders older than 60 days) and paste its
-access token into the connection. Only a `myshopify.com` domain is accepted and redirects are never followed, so the
-Shopify token can only ever reach Shopify; the InnoVint API key is only ever sent to innovint.us.
-
-**Try it locally first (never records anything):**
-
-```bash
-# Add API_KEY, INNOVINT_WINERY_ID, SHOPIFY_SHOP_DOMAIN and SHOPIFY_ACCESS_TOKEN to .env
-# (see .env.example for the names; do not overwrite an .env you already have).
-npm run replay:dry-run -- 3495 3499 3501 3502
-```
 
 ### Getting Started with Zapier
 

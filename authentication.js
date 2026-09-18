@@ -2,11 +2,26 @@
 
 const {BASE_URL, innovintRequest, isInnoVintUrl} = require('./lib/innovint');
 
-// The test endpoint is one every user of this integration can reach.
-const test = (z, bundle) => innovintRequest(z, {url: `${BASE_URL}/wineries`});
+// The test endpoint is one every user of this integration can reach. Returning
+// the parsed body lets connectionLabel name the connection after the winery.
+const test = async (z, bundle) => {
+  const response = await innovintRequest(z, {url: `${BASE_URL}/wineries`});
+  return response.data;
+};
+
+// Names the connection after the winery (or wineries) the key can reach.
+const connectionLabel = (z, bundle) => {
+  const names = ((bundle.inputData && bundle.inputData.results) || [])
+      .map((result) => result.data && result.data.name)
+      .filter(Boolean);
+  if (!names.length) {
+    return 'InnoVint';
+  }
+  return names.length > 2 ? `${names.slice(0, 2).join(', ')} +${names.length - 2} more` : names.join(', ');
+};
 
 // This function runs after every outbound request. InnoVint rejects a bad key
-// with 401; Shopify responses are handled where they are made, in lib/shopify.
+// with 401.
 const handleBadResponses = (response, z, bundle) => {
   const url = (response.request && response.request.url) || '';
   if (response.status === 401 && isInnoVintUrl(url)) {
@@ -22,7 +37,7 @@ const handleBadResponses = (response, z, bundle) => {
 };
 
 // This function runs before every outbound request. Only InnoVint ever sees the
-// API key: other hosts (Shopify, for the Replay Shopify Orders action) must not.
+// API key; every other host must not.
 const includeApiKey = (request, z, bundle) => {
   const apiKey = bundle.authData.apiKey;
 
@@ -50,25 +65,6 @@ module.exports = {
         helpText: 'Go to the [API Details](https://cellar.innovint.us/#/developer/personal-access-token) ' +
             'page in your account settings to find your Personal Access Tokens for the API Key.',
       },
-      {
-        key: 'shopifyShopDomain',
-        label: 'Shopify Store Domain',
-        required: false,
-        type: 'string',
-        helpText: 'Only needed for the Replay Shopify Orders action. Your store\'s myshopify.com domain, ' +
-            'for example `your-store.myshopify.com`. Custom domains are not accepted, so the access token ' +
-            'below can only ever be sent to Shopify.',
-      },
-      {
-        key: 'shopifyAccessToken',
-        label: 'Shopify Admin API Access Token',
-        required: false,
-        type: 'password',
-        helpText: 'Only needed for the Replay Shopify Orders action. In Shopify admin, create a custom app ' +
-            '(Settings > Apps > Develop apps) with the `read_orders` and `read_all_orders` Admin API scopes ' +
-            'and paste its Admin API access token here. `read_all_orders` is required for orders older ' +
-            'than 60 days.',
-      },
     ],
 
     // The test method allows Zapier to verify that the credentials a user provides
@@ -76,13 +72,9 @@ module.exports = {
     // the first time.
     test,
 
-    // This template string can access all the data returned from the auth test. If
-    // you return the test object, you'll access the returned data with a label like
-    // `{{json.X}}`. If you return `response.data` from your test, then your label can
-    // be `{{X}}`. This can also be a function that returns a label. That function has
-    // the standard args `(z, bundle)` and data returned from the test can be accessed
-    // in `bundle.inputData.X`.
-    connectionLabel: '{{json.username}}',
+    // The test returns the parsed body, so this function sees it as
+    // bundle.inputData and names the connection after the winery.
+    connectionLabel,
   },
   befores: [includeApiKey],
   afters: [handleBadResponses],

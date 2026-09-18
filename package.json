@@ -1,6 +1,6 @@
 {
   "name": "zapier-innovint-connector",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Innovint Zapier Integration is an open-source integration connecting Zapier with the Innovint API, enabling users to create automated workflows between Innovint and various other applications supported by Zapier.",
   "repository": "danshome/zapier-integration",
   "author": "Dan McLaughlin <dan@danshome.net>",
@@ -12,7 +12,6 @@
     "test": "mocha --recursive -t 10000 -r dotenv/config -r ./test/_setup.js \"test/unit/**/*.js\"",
     "test:integration": "mocha --recursive -t 60000 -r dotenv/config \"test/integration/**/*.js\"",
     "test:all": "npm test && npm run test:integration",
-    "replay:dry-run": "node scripts/replay-dry-run.js",
     "deploy": "npm run validate && zapier-platform push",
     "precommit": "lint-staged",
     "validate": "npm run test && npm run lint && zapier-platform validate --without-style",
