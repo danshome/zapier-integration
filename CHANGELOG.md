@@ -10,7 +10,9 @@
   InnoVint side by side.
 - InnoVint reports bottles on hand as full cases plus loose bottles without saying how many bottles make a case,
   so the search infers the case size from the lot's volume (12 when there is nothing to go on, or when the volume
-  fits no standard bottle) and reports the total, the split, and the inferred bottle size for every lot.
+  fits no standard bottle) and reports the total, the split, and the inferred bottle size for every lot. When the
+  volume fits more than one case size (a full case of six magnums holds what a case of twelve 750s does), a size
+  announced in the lot code or name — MAGNUM, 1.5L, 375 — settles it.
 - The wildcard match is a linear glob, not a regular expression, so a pattern cannot stall the step; patterns are
   capped at 100 characters. Lots sharing a code are added together, an unknown volume unit is treated as no
   volume, and an unreadable count from InnoVint fails the step instead of turning into a zero.

@@ -15,6 +15,32 @@ const DEFAULT_CASE_SIZE = 12;
 const MAX_INFERENCE_ERROR = 0.05;
 
 /**
+ * Bottle sizes a lot's code or name can announce, checked in order. When the
+ * volume fits more than one case size (ten cases of six magnums hold exactly
+ * what ten cases of twelve 750s do), the announced size settles it.
+ */
+const SIZE_HINTS = [
+  {pattern: /MAGNUM|1[.,]5\s*L\b|1500\s*ML/i, liters: 1.5},
+  {pattern: /DOUBLE\s*MAGNUM|3\s*L\b|3000\s*ML/i, liters: 3},
+  {pattern: /\bHALF\b|375\s*ML|\b375\b/i, liters: 0.375},
+  {pattern: /500\s*ML|\b500\b/i, liters: 0.5},
+];
+
+/**
+ * Reads a bottle size out of a lot's code or name, if it announces one.
+ *
+ * @param {string} code - Lot code.
+ * @param {string} name - Lot name.
+ * @return {number|null} Litres, or null when nothing is announced.
+ */
+const hintedBottleSize = (code, name) => {
+  const text = `${code || ''} ${name || ''}`;
+  // Longest names first so DOUBLE MAGNUM is not read as MAGNUM.
+  const hit = [SIZE_HINTS[1], SIZE_HINTS[0], SIZE_HINTS[2], SIZE_HINTS[3]].find((h) => h.pattern.test(text));
+  return hit ? hit.liters : null;
+};
+
+/**
  * Converts an InnoVint volume to US gallons.
  *
  * @param {{value: number, unit: string}|undefined} volume - Lot volume.
@@ -47,17 +73,19 @@ const toGallons = (volume) => {
  * not say how many bottles make a case. The case size is inferred from the
  * lot's volume: the size that makes volume ÷ bottles land nearest a standard
  * bottle size wins, with 12 as the tie-break and the fallback when there is
- * no volume to check against. A lot of nothing but full cases is ambiguous
- * (ten cases of six magnums hold exactly what ten cases of twelve 750s do),
- * and resolves to 12; a single loose bottle is enough to settle it.
+ * no volume to check against. A lot of nothing but full cases can be
+ * ambiguous (ten cases of six magnums hold exactly what ten cases of twelve
+ * 750s do); a size announced in the lot code or name ("MAGNUM", "1.5L",
+ * "375") settles that, and failing that a single loose bottle does.
  *
  * @param {Object} z - The Zapier z object.
- * @param {string} code - Lot code, for error messages.
+ * @param {string} code - Lot code, for error messages and size hints.
+ * @param {string} name - Lot name, for size hints.
  * @param {Object|undefined} onHand - InnoVint bottlesOnHand ({cases, bottles}).
  * @param {number|null} gallons - Lot volume in gallons.
  * @return {Object} bottles (total), cases, loose, bottlesPerCase, bottleSizeMl.
  */
-const countBottles = (z, code, onHand, gallons) => {
+const countBottles = (z, code, name, onHand, gallons) => {
   const cases = Number((onHand && onHand.cases) || 0);
   const loose = Number((onHand && onHand.bottles) || 0);
   if (!Number.isFinite(cases) || !Number.isFinite(loose) || cases < 0 || loose < 0) {
@@ -70,26 +98,27 @@ const countBottles = (z, code, onHand, gallons) => {
   let bottlesPerCase = DEFAULT_CASE_SIZE;
   let bottleSizeMl = null;
   if (liters !== null && (cases > 0 || loose > 0)) {
-    let bestError = Infinity;
-    CASE_SIZES.forEach((size) => {
-      const total = cases * size + loose;
-      if (total <= 0) {
-        return;
-      }
-      const perBottle = liters / total;
-      const nearest = BOTTLE_SIZES_L.reduce((a, b) => (Math.abs(b - perBottle) < Math.abs(a - perBottle) ? b : a));
-      const error = Math.abs(perBottle - nearest) / nearest;
-      if (error < bestError - 1e-9) {
-        bestError = error;
-        bottlesPerCase = size;
-        bottleSizeMl = Math.round(nearest * 1000);
-      }
-    });
-    if (bestError > MAX_INFERENCE_ERROR) {
-      // The volume fits no standard bottle; say so rather than pretend.
-      bottlesPerCase = DEFAULT_CASE_SIZE;
-      bottleSizeMl = null;
+    const hinted = hintedBottleSize(code, name);
+    const candidates = CASE_SIZES
+        .map((size) => {
+          const total = cases * size + loose;
+          if (total <= 0) {
+            return null;
+          }
+          const perBottle = liters / total;
+          const nearest = BOTTLE_SIZES_L.reduce((a, b) => (Math.abs(b - perBottle) < Math.abs(a - perBottle) ? b : a));
+          return {size, nearest, error: Math.abs(perBottle - nearest) / nearest};
+        })
+        .filter((c) => c && c.error <= MAX_INFERENCE_ERROR);
+    // Prefer the case size that agrees with what the lot calls itself; otherwise the
+    // closest fit, and CASE_SIZES order (12 first) breaks exact ties.
+    const best = candidates.find((c) => hinted !== null && Math.abs(c.nearest - hinted) < 1e-9) ||
+        candidates.reduce((a, c) => (a === null || c.error < a.error - 1e-9 ? c : a), null);
+    if (best) {
+      bottlesPerCase = best.size;
+      bottleSizeMl = Math.round(best.nearest * 1000);
     }
+    // No candidate: the volume fits no standard bottle; keep 12 and say nothing.
   }
 
   return {bottles: cases * bottlesPerCase + loose, cases, loose, bottlesPerCase, bottleSizeMl};
@@ -173,7 +202,7 @@ const getCaseGoodsInventory = async (z, bundle) => {
       .filter((lot) => matches(lot.code))
       .map((lot) => {
         const gallons = toGallons(lot.volume);
-        const count = countBottles(z, lot.code, lot.bottlesOnHand, gallons);
+        const count = countBottles(z, lot.code, lot.name, lot.bottlesOnHand, gallons);
         return {
           code: lot.code,
           name: lot.name || '',

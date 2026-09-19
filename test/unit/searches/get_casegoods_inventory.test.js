@@ -67,13 +67,19 @@ describe('getCaseGoodsInventory', () => {
             // 3 magnums, no cases: 3 × 1.5 L = 1.1888 gal
             {data: {id: 'c', code: 'CG-B1700RCVMER-MAGNUM', lotType: 'CASE_GOODS',
               bottlesOnHand: {cases: 0, bottles: 3}, volume: {value: 1.1888, unit: 'gal'}}},
-            // 10 cases of 6 magnums + 2 loose = 62 × 1.5 L = 24.57 gal
-            {data: {id: 'd', code: 'CG-B1702RCVMER-CR-MAGNUM', lotType: 'CASE_GOODS',
+            // 10 cases of 6 + 2 loose = 62 × 1.5 L = 24.57 gal; the loose bottles settle it
+            {data: {id: 'd', code: 'CG-B1700RCVMER-LARGE', lotType: 'CASE_GOODS',
               bottlesOnHand: {cases: 10, bottles: 2}, volume: {value: 24.567, unit: 'gal'}}},
             // 10 full cases and 90 L is the same volume as 120 × 750 ml or 60 × 1.5 L;
             // with nothing to break the tie the count assumes 12 to a case.
-            {data: {id: 'f', code: 'CG-AMBIGUOUS-MAGNUM', lotType: 'CASE_GOODS',
+            {data: {id: 'f', code: 'CG-AMBIGUOUS', lotType: 'CASE_GOODS',
               bottlesOnHand: {cases: 10, bottles: 0}, volume: {value: 23.775, unit: 'gal'}}},
+            // Same volume, but the code says MAGNUM: 6 to a case, 1.5 L.
+            {data: {id: 'g', code: 'CG-B1702RCVMER-CR-MAGNUM', lotType: 'CASE_GOODS',
+              bottlesOnHand: {cases: 1, bottles: 0}, volume: {value: 2.3775, unit: 'gal'}}},
+            // Name announces it instead of the code.
+            {data: {id: 'h', code: 'CG-B1700RCVTOU-BIG', name: '2017 Touriga - 1.5L', lotType: 'CASE_GOODS',
+              bottlesOnHand: {cases: 2, bottles: 0}, volume: {value: 4.755, unit: 'gal'}}},
             // no volume at all: assume 12 to a case
             {data: {id: 'e', code: 'CG-B2400RCVCHA', lotType: 'CASE_GOODS',
               bottlesOnHand: {cases: 68, bottles: 0}}},
@@ -86,13 +92,17 @@ describe('getCaseGoodsInventory', () => {
       'CG-B1401ESVMAD-CR': 25,
       'CG-B1700RCVMER': 899,
       'CG-B1700RCVMER-MAGNUM': 3,
-      'CG-B1702RCVMER-CR-MAGNUM': 62,
-      'CG-AMBIGUOUS-MAGNUM': 120,
+      'CG-B1700RCVMER-LARGE': 62,
+      'CG-B1702RCVMER-CR-MAGNUM': 6,
+      'CG-B1700RCVTOU-BIG': 12,
+      'CG-AMBIGUOUS': 120,
       'CG-B2400RCVCHA': 816,
     });
     const byCode = Object.fromEntries(result.lots.map((l) => [l.code, l]));
-    should(byCode['CG-B1401ESVMAD-CR']).containEql({bottlesPerCase: 12, bottleSizeMl: 375});
     should(byCode['CG-B1702RCVMER-CR-MAGNUM']).containEql({bottlesPerCase: 6, bottleSizeMl: 1500});
+    should(byCode['CG-AMBIGUOUS']).containEql({bottlesPerCase: 12, bottleSizeMl: 750});
+    should(byCode['CG-B1401ESVMAD-CR']).containEql({bottlesPerCase: 12, bottleSizeMl: 375});
+    should(byCode['CG-B1700RCVMER-LARGE']).containEql({bottlesPerCase: 6, bottleSizeMl: 1500});
     should(byCode['CG-B2400RCVCHA']).containEql({bottlesPerCase: 12, bottleSizeMl: null, gallons: null});
   });
 
