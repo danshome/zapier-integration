@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.3.0
+
+- New search **Get Case Goods Inventory**: returns every unarchived case goods lot matching a wildcard pattern on
+  the lot code (the SKU) — `CG-*` by default, `*` for any run of characters, `?` for one, case-insensitive — with
+  bottles on hand, cases and gallons. Everything comes back in a single result: line items for field mapping plus
+  `bottlesJson` / `gallonsJson`, one JSON object of lot code → count, so a Code step or a webhook receiver can take
+  the whole inventory in one go. Built for the inventory-count sheet that compares Shopify, QuickBooks and
+  InnoVint side by side.
+- InnoVint reports bottles on hand as full cases plus loose bottles without saying how many bottles make a case,
+  so the search infers the case size from the lot's volume (12 when there is nothing to go on, or when the volume
+  fits no standard bottle) and reports the total, the split, and the inferred bottle size for every lot.
+- The wildcard match is a linear glob, not a regular expression, so a pattern cannot stall the step; patterns are
+  capped at 100 characters. Lots sharing a code are added together, an unknown volume unit is treated as no
+  volume, and an unreadable count from InnoVint fails the step instead of turning into a zero.
+
 ## 1.2.0
 
 - **Replay Shopify Order** no longer calls the Shopify Admin API. It takes one order's line items from a

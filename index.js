@@ -3,6 +3,8 @@
 // Searches
 const getCaseGoodsLotId =
     require('./searches/get_casegoods_lotid');
+const getCaseGoodsInventory =
+    require('./searches/get_casegoods_inventory');
 
 // Fields
 const listWineriesDropdown =
@@ -61,6 +63,7 @@ const App = {
   // If you want your searches to show up, you better include it here!
   searches: {
     [getCaseGoodsLotId.key]: getCaseGoodsLotId,
+    [getCaseGoodsInventory.key]: getCaseGoodsInventory,
   },
 
   // If you want your creates to show up, you better include it here!

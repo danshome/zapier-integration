@@ -140,6 +140,22 @@ a missed removal cannot pass unnoticed; running it again skips whatever was alre
 **Safety switches.** _Dry Run_ and _Skip Lines Already in InnoVint_ are on unless the value is explicitly
 `false`/`no`/`off`/`0`, so a mistyped or unmapped field can never turn a preview into a recording.
 
+### Reading case goods inventory
+
+The **Get Case Goods Inventory** search returns bottles on hand for every case goods lot whose code matches a
+wildcard pattern, in **one** search result:
+
+- **Lot Code Pattern** — `CG-*` (default) for every case goods lot, `CG-B17*` for the 2017 barrel lots, `*ROSE*`
+  for every rosé, or an exact code. `*` matches any run of characters, `?` matches one; case does not matter.
+- **Bottles By Lot Code (JSON)** — `{"CG-B1700RCVMER":899,"CG-B2400RCVCHA":819,...}`: lot code (the SKU) →
+  bottles on hand. **Gallons By Lot Code (JSON)** is the same shape for volume.
+- **Lots** line items — code, name, stage, bottles, cases, gallons — for mapping into steps that take line items.
+- **Lot Count** — how many lots matched.
+
+Zapier only passes a search's first result to later steps, which is why the whole inventory is packed into one.
+Pair it with QuickBooks' and Shopify's own API Request steps and a Code step to compare all three systems in a
+single Zap.
+
 ### Getting Started with Zapier
 
 Sign up for a free [Zapier](https://zapier.com/) account, from there you
